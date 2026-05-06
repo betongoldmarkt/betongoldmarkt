@@ -1,0 +1,44 @@
+# Language
+/de/*  /:splat  301
+
+# Thin pages → canonical
+/immobilien-bulgarien-2026/  /immobilien-bulgarien/  301!
+/immobilien-bulgarien-eu-vorteile/  /immobilien-bulgarien/  301!
+/immobilien-deutschland/  /angebote/  301!
+/marktlogik/  /immobilien-bulgarien/  301!
+/rendite-immobilien-bulgarien/  /immobilien-bulgarien-investment/  301!
+/wohnung-bulgarien-meerblick-kaufen/  /wohnung-bulgarien-meer/  301!
+/steuervorteil-bulgarien-10-prozent/  /steuervorteil-bulgarien/  301!
+/zugang/  /kontakt/  301!
+/ratenzahlung/  /ratenzahlung-bulgarien/  301!
+
+# Legacy slug normalization
+/apartment-sonnenstrand-kaufen/  /immobilien-sonnenstrand/  301!
+/apartment-nessebar-kaufen/  /immobilien-nessebar/  301!
+/meerblick-apartment-bulgarien/  /apartments-am-meer-bulgarien/  301!
+/wohnung-bulgarien-meer/  /wohnung-bulgarien-meer/  200
+
+# Objekt duplicate
+/angebote/haus-89000-einbeck/  /angebote/haus-75000-einbeck/  301!
+
+# RU cleanup
+/ru/angebote/haus-89000-einbeck/  /angebote/haus-75000-einbeck/  301!
+/ru/angebote/haus-75000-einbeck/  /angebote/haus-75000-einbeck/  301!
+/ru/angebote/  /angebote/  301!
+/ru/immobilien-sonnenstrand/  /immobilien-sonnenstrand/  301!
+/ru/immobilien-burgas/  /immobilien-burgas/  301!
+/ru/immobilien-varna/  /immobilien-varna/  301!
+/ru/wohnung-bulgarien-meer/  /wohnung-bulgarien-meer/  301!
+/ru/kontakt/  /kontakt/  301!
+/ru/impressum/  /impressum/  301!
+/ru/datenschutz/  /datenschutz/  301!
+/ru/*  /  301!
+/gardenia-hills-b401  /angebote/studio-gardenia-hills-b-401-45m2/  301
+/angebote/gardenia-hills-b401  /angebote/studio-gardenia-hills-b-401-45m2/  301
+/angebote/gardenia-hills-b401.html  /angebote/studio-gardenia-hills-b-401-45m2/  301
+
+# Duplikat-Bereinigung: angebote/gardenia-hills-* → projekte/gardenia-hills/*
+/angebote/gardenia-hills-sonnenstrand/  /projekte/gardenia-hills/  301!
+/angebote/gardenia-hills-studios/  /projekte/gardenia-hills/studios/  301!
+/angebote/gardenia-hills-2-zimmer/  /projekte/gardenia-hills/2-zimmer/  301!
+/angebote/gardenia-hills-3-zimmer/  /projekte/gardenia-hills/3-zimmer/  301!

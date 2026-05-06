@@ -1,0 +1,70 @@
+(function(){
+  var WEBHOOK = 'https://hook.eu1.make.com/sn077n6xwde65kymi2d4g9xymjtx19n7';
+
+  function toPayload(form){
+    var fd = new FormData(form);
+    var payload = {};
+    fd.forEach(function(v,k){ payload[k] = String(v).trim(); });
+
+    // Normalize phone field — Make expects "telefon" or "whatsapp"
+    // Send both so Airtable mapping works regardless
+    var phone = payload['telefon'] || payload['whatsapp'] || payload['phone'] || '';
+    payload['telefon'] = phone;
+    payload['whatsapp'] = phone;
+    payload['phone'] = phone;
+
+    // Normalize budget → kapital_raw
+    if (payload['budget'] && !payload['kapital_raw']) {
+      payload['kapital_raw'] = payload['budget'];
+    }
+
+    // Ensure source is always set
+    if (!payload['source']) {
+      payload['source'] = 'Markt';
+    }
+
+    // Add layer
+    payload['layer'] = 'Markt';
+
+    // Add timestamp
+    payload['created_at'] = new Date().toISOString();
+
+    return payload;
+  }
+
+  async function sendWebhook(payload){
+    try {
+      var res = await fetch(WEBHOOK, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload),
+        keepalive: true
+      });
+      return res.ok;
+    } catch (e) {
+      console.error('[BGM webhook error]', e);
+      return false;
+    }
+  }
+
+  document.addEventListener('submit', function(e){
+    var form = e.target.closest('form.lead-capture-form');
+    if (!form) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    var payload = toPayload(form);
+
+    // Fire webhook FIRST (max 2s), then submit to Netlify
+    var webhookDone = sendWebhook(payload);
+    var timeout = new Promise(function(resolve){ setTimeout(resolve, 2000); });
+
+    Promise.race([webhookDone, timeout]).then(function(){
+      form.submit();
+    }).catch(function(){
+      form.submit();
+    });
+
+  }, true);
+})();

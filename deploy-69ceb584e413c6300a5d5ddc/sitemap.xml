@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core -->
+  <url><loc>https://betongoldmarkt.de/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://betongoldmarkt.de/angebote/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+
+  <!-- Hub -->
+  <url><loc>https://betongoldmarkt.de/immobilien-bulgarien/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+
+  <!-- Angebote - Einzelobjekte -->
+  <url><loc>https://betongoldmarkt.de/angebote/apartment-sonnenstrand-42000/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://betongoldmarkt.de/angebote/studio-burgas-35000/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://betongoldmarkt.de/angebote/haus-burgas-120000/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://betongoldmarkt.de/angebote/haus-75000-einbeck/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://betongoldmarkt.de/angebote/wohnung-nessebar-55000/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://betongoldmarkt.de/angebote/studio-varna-29000/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://betongoldmarkt.de/angebote/apartment-varna-meerblick-68000/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://betongoldmarkt.de/angebote/bankimmobilie-burgas-studio-27000/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://betongoldmarkt.de/angebote/haus-rhodopen-45000/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://betongoldmarkt.de/angebote/grundstueck-sonnenstrand-28000/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- Projekte (canonical — Gardenia Hills) -->
+  <url><loc>https://betongoldmarkt.de/projekte/gardenia-hills/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://betongoldmarkt.de/projekte/gardenia-hills/studios/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/projekte/gardenia-hills/2-zimmer/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/projekte/gardenia-hills/3-zimmer/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/angebote/studio-gardenia-hills-b-401-45m2/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/angebote/studio-gardenia-hills-a-202-53m2/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/angebote/studio-gardenia-hills-a-203-54m2/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/angebote/studio-gardenia-hills-c-202-52m2/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/angebote/studio-gardenia-hills-h-202-55m2/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/angebote/wohnung-gardenia-hills-a-201-66m2/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/angebote/wohnung-gardenia-hills-a-204-105m2/</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Info / Trigger pages -->
+  <url><loc>https://betongoldmarkt.de/apartments-am-meer-bulgarien/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/auktionen/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/bankimmobilien/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/besichtigung-bulgarien/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://betongoldmarkt.de/faq/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://betongoldmarkt.de/grundstuecke-bulgarien/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/haeuser-bulgarien/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/immobilien-bulgarien-fuer-deutsche-kaeufer/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/immobilien-bulgarien-guide-2026/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/immobilien-bulgarien-investment/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/immobilien-bulgarien-kaufen/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/immobilien-bulgarien-preise/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/immobilien-burgas/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/immobilien-nessebar/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/immobilien-sonnenstrand/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/immobilien-varna/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/kontakt/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://betongoldmarkt.de/offmarket/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/ratenzahlung-bulgarien/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://betongoldmarkt.de/ratenzahlung-bankimmobilien/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/steuervorteil-bulgarien/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/warum-bulgarien/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/wohnung-bulgarien-meer/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Investor -->
+  <url><loc>https://betongoldmarkt.de/investor-check/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/investoren-lots/gardenia-hills-3-studios/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/investoren-lots/gardenia-hills-5-units/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://betongoldmarkt.de/investoren-lots/gardenia-hills-10-units/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://betongoldmarkt.de/investoren-lots/gardenia-hills-20-units/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- NEW: Hotel Investments -->
+  <url><loc>https://betongoldmarkt.de/hotel-investments/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://betongoldmarkt.de/hotel-investments/hotel-sunny-beach/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/hotel-investments/hotel-burgas/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/hotel-investments/nessebar/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/hotel-investments/pomorie/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- NEW: Neubau Bulgarien -->
+  <url><loc>https://betongoldmarkt.de/neubau-bulgarien/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://betongoldmarkt.de/neubau-bulgarien/sunny-beach/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/neubau-bulgarien/nessebar/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/neubau-bulgarien/pomorie/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/neubau-bulgarien/burgas/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/neubau-bulgarien/varna/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- NEW: Grundstücke Investment -->
+  <url><loc>https://betongoldmarkt.de/grundstuecke-investment/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- NEW: Preis pro m² -->
+  <url><loc>https://betongoldmarkt.de/preis-pro-m2-europa/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Legal -->
+  <url><loc>https://betongoldmarkt.de/impressum/</loc><lastmod>2026-03-19</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://betongoldmarkt.de/datenschutz/</loc><lastmod>2026-03-19</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>
