@@ -25,7 +25,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
   --bg:#09090b;--surface:#111114;--surface2:#18181c;
-  --gold:#d4af37;--gold2:#f0d060;--gold-dim:rgba(212,175,55,.18);
+  --gold:#b8956a;--gold2:#d0b896;--gold-dim:rgba(184,149,106,.18);
   --line:rgba(255,255,255,.08);--muted:rgba(255,255,255,.45);
   --text:#f0ede6;--radius:14px;--font:'Georgia',serif;
 }
@@ -125,8 +125,8 @@ body::before{
 .hero-grad{
   position:absolute;inset:0;
   background:
-    linear-gradient(to top, rgba(9,9,11,1) 0%, rgba(9,9,11,.6) 25%, transparent 65%),
-    linear-gradient(to right, rgba(9,9,11,.45) 0%, transparent 55%);
+    linear-gradient(to top, rgba(9,9,11,.65) 0%, rgba(9,9,11,.2) 35%, transparent 70%),
+    linear-gradient(to right, rgba(9,9,11,.15) 0%, transparent 50%);
 }
 
 /* Floating gold dots */
@@ -165,7 +165,7 @@ body::before{
 }
 .hero-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--gold);}
 .hero-h1{
-  font-size:clamp(32px,6.5vw,82px);font-weight:700;
+  font-size:clamp(24px,4.8vw,62px);font-weight:700;
   line-height:1.05;letter-spacing:-.03em;color:#fff;
   margin-bottom:20px;
 }
@@ -217,8 +217,8 @@ body::before{
   text-align:center;
 }
 .hero-stat:last-child{border-right:none;}
-.hero-stat .val{font-size:20px;font-weight:700;color:var(--gold);line-height:1;}
-.hero-stat .lbl{font-family:sans-serif;font-size:10px;color:var(--muted);margin-top:3px;letter-spacing:.04em;}
+.hero-stat .val{font-size:22px;font-weight:600;color:var(--gold);line-height:1;}
+.hero-stat .lbl{font-family:sans-serif;font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.03em;}
 @media(max-width:600px){
   .hero-stat .val{font-size:14px;}
   .hero-stat .lbl{font-size:9px;}
@@ -309,8 +309,8 @@ body::before{
   min-height:16px;
 }
 /* ── SECTION COMMONS ──────────────────── */
-.section{padding:72px 0;}
-.section-sm{padding:56px 0;}
+.section{padding:52px 0;}
+.section-sm{padding:44px 0;}
 .container{max-width:1140px;margin:0 auto;padding:0 24px;}
 .section-label{
   font-family:sans-serif;font-size:10px;font-weight:700;
@@ -320,7 +320,7 @@ body::before{
 }
 .section-label::after{content:'';flex:1;height:1px;background:var(--line);}
 .section-title{font-size:clamp(24px,3.2vw,38px);font-weight:800;line-height:1.12;margin-bottom:10px;}
-.section-sub{font-family:sans-serif;font-size:14px;color:var(--muted);margin-bottom:32px;}
+.section-sub{font-family:sans-serif;font-size:14px;color:var(--muted);margin-bottom:28px;}
 
 /* ── PROPERTY GRID ────────────────────── */
 .prop-grid-new{
@@ -347,14 +347,14 @@ body::before{
   position:absolute;bottom:0;left:0;right:0;
   padding:28px 14px 12px;
   background:linear-gradient(transparent,rgba(0,0,0,.82));
-  font-size:18px;font-weight:700;color:#fff;
+  font-size:20px;font-weight:600;color:#fff;
 }
 .pc-badge{
   position:absolute;top:10px;left:10px;
-  font-family:sans-serif;font-size:9px;font-weight:800;
-  letter-spacing:.06em;text-transform:uppercase;
+  font-family:sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.05em;text-transform:uppercase;
   background:var(--gold);color:#000;
-  padding:3px 8px;border-radius:6px;
+  padding:4px 9px;border-radius:7px;
 }
 .pc-badge.new{background:#10b981;color:#fff;}
 .pc-badge.de{background:#3b82f6;color:#fff;}
@@ -434,9 +434,9 @@ body::before{
 /* ── LINK CLOUD ───────────────────────── */
 .link-cloud{display:flex;flex-wrap:wrap;gap:8px;}
 .link-cloud a{
-  font-family:sans-serif;font-size:12px;
+  font-family:sans-serif;font-size:12px;font-weight:500;
   background:rgba(255,255,255,.04);border:1px solid var(--line);
-  border-radius:8px;padding:6px 12px;color:var(--muted);
+  border-radius:8px;padding:7px 14px;color:var(--muted);
   transition:color .15s,border-color .15s;
 }
 .link-cloud a:hover{color:var(--text);border-color:rgba(255,255,255,.2);}
@@ -444,13 +444,13 @@ body::before{
 /* ── FOOTER ───────────────────────────── */
 .footer{
   border-top:1px solid var(--line);
-  padding:28px 0 20px;margin-top:0;
+  padding:32px 0 24px;margin-top:0;
 }
-.footer-inner{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:flex-start;}
-.footer-brand .name{font-weight:700;font-size:14px;color:var(--gold);margin-bottom:3px;}
-.footer-brand .legal{font-family:sans-serif;font-size:11px;color:var(--muted);}
-.footer-links{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;}
-.footer-links a{font-family:sans-serif;font-size:11px;color:var(--muted);transition:color .15s;}
+.footer-inner{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-start;}
+.footer-brand .name{font-weight:600;font-size:15px;color:var(--gold);margin-bottom:4px;}
+.footer-brand .legal{font-family:sans-serif;font-size:12px;color:var(--muted);line-height:1.5;}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;}
+.footer-links a{font-family:sans-serif;font-size:12px;font-weight:500;color:var(--muted);transition:color .15s;}
 .footer-links a:hover{color:var(--gold);}
 
 
@@ -519,14 +519,14 @@ body::before{
 
 /* ── LISTINGS INTRO BLOCK ─────────────── */
 .listings-intro{
-  padding:52px 0 28px;
+  padding:36px 0 20px;
 }
 .listings-intro-inner{
   display:flex;align-items:flex-end;justify-content:space-between;
   gap:24px;flex-wrap:wrap;
-  padding-bottom:24px;
+  padding-bottom:20px;
   border-bottom:1px solid rgba(212,175,55,.15);
-  margin-bottom:32px;
+  margin-bottom:24px;
 }
 .listings-intro-text .section-label{margin-bottom:8px;}
 .listings-intro-text h2{
@@ -543,17 +543,17 @@ body::before{
 /* ── PRESSURE LINE ────────────────────── */
 .pressure-line{
   text-align:center;
-  padding:28px 0 0;
-  margin-top:8px;
+  padding:20px 0 0;
+  margin-top:6px;
 }
 .pressure-line p{
-  font-family:sans-serif;font-size:13px;
-  color:rgba(255,255,255,.35);
-  line-height:1.8;
+  font-family:sans-serif;font-size:14px;
+  color:rgba(255,255,255,.4);
+  line-height:1.7;
   letter-spacing:.02em;
 }
 .pressure-line strong{
-  color:rgba(212,175,55,.55);
+  color:rgba(212,175,55,.6);
   font-weight:600;
 }
 
@@ -583,7 +583,7 @@ body::before{
 <main>
 
 <!-- ══ HERO ══════════════════════════════════════════════ -->
-<section class="hero" style="padding-top:58px;overflow:hidden;">
+<section class="hero" style="padding-top:58px;overflow:hidden;background-image: url('/assets/img/robinson-beach/project/01.jpg'); background-size: cover; background-position: center; filter: brightness(1.15) contrast(1.18) saturate(1.25) hue-rotate(-4deg) drop-shadow(inset 0 0 120px rgba(0,0,0,.15));">
   <div class="hero-bg"></div>
   <div class="hero-grad"></div>
   <div class="hero-dots">
@@ -601,21 +601,21 @@ body::before{
   </div>
 
   <div class="hero-content" style="align-items:flex-start;justify-content:center;
-       padding-bottom:clamp(140px,16vh,165px);max-width:860px;">
+       padding-top:clamp(80px,12vh,120px);padding-bottom:clamp(140px,16vh,165px);max-width:860px;">
 
     <!-- Top: brand geo accent -->
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;animation:heroFade .7s ease-out both;
-                padding-top:clamp(28px,5vh,48px);">
+                padding-top:0;">
       <div style="width:32px;height:1px;background:var(--gold);"></div>
       <span style="font-family:sans-serif;font-size:10px;font-weight:700;letter-spacing:.22em;
-                   text-transform:uppercase;color:var(--gold);">Strukturierte Immobilienangebote · Bulgarien</span>
+                   text-transform:uppercase;color:var(--gold);">Premium Meerzugang · Bulgarien</span>
       <div style="width:8px;height:8px;border:1px solid var(--gold);transform:rotate(45deg);"></div>
     </div>
 
     <h1 class="hero-h1" style="animation:heroFade .8s .1s ease-out both;">
-      Immobilien am Meer in <em>Bulgarien</em><br>mit Ratenzahlung ab 40 %
+      Robinson Beach — Meerzugang mit Ratenzahlung ab 40 %
     </h1>
-    <p class="hero-sub" style="animation:heroFade .8s .18s ease-out both;">Direkt vom Bauträger oder Bankbestand.<br>Ein Teil der Angebote ist nur nach Prüfung verfügbar.</p>
+    <p class="hero-sub" style="animation:heroFade .8s .18s ease-out both;">Limitierte Einheiten · Strukturierte Verfügbarkeitsprüfung · DACH-Investor Zugang</p>
     <p style="font-family:sans-serif;font-size:12px;color:rgba(255,255,255,.42);margin-top:10px;margin-bottom:0;line-height:1.6;animation:heroFade .8s .24s ease-out both;">Nicht für jeden Investor geeignet. Zugang nur für vorbereitete Käufer.</p>
 
     <!-- Факты строкой -->
@@ -658,29 +658,71 @@ body::before{
 </section>
 
 
-<!-- ══ CONTROL BAR ══════════════════════════════════════ -->
-<div class="ctrl-bar">
-<div class="container">
-  <div class="ctrl-bar-inner">
-    <div class="ctrl-item">
-      <div class="ctrl-val">ab 25.000 €</div>
-      <div class="ctrl-lbl">Zugang ab</div>
-    </div>
-    <div class="ctrl-item">
-      <div class="ctrl-val">40% Anzahlung</div>
-      <div class="ctrl-lbl">Ratenzahlung</div>
-    </div>
-    <div class="ctrl-item">
-      <div class="ctrl-val">Bankbestand / Bauträger</div>
-      <div class="ctrl-lbl">Objektquellen</div>
-    </div>
-    <div class="ctrl-item">
-      <div class="ctrl-val">Teilweise nicht öffentlich</div>
-      <div class="ctrl-lbl">Zugang nach Prüfung</div>
-    </div>
+<!-- ══ TOP INVESTMENT PROJEKTE ═══════════════════════════ -->
+<section class="section">
+<div class="container reveal">
+  <div class="section-label">Top Investment Projekte</div>
+  <h2 class="section-title">Unsere Premium Angebote</h2>
+  <p class="section-sub">Robinson Beach als Flaggschiff, Gardenia Hills für skalierbare Investitionen, Bankimmobilien für strukturierte Zugänge.</p>
+  <div class="prop-grid-new">
+    <!-- Robinson Beach card -- dominant -->
+    <a href="/projekte/robinson-beach/" class="hp-card" style="grid-column: span 2;">
+    <div class="pc" style="border-color: var(--gold);">
+      <div class="pc-img-wrap">
+        <img src="/assets/img/robinson-beach/project/01.jpg" alt="Robinson Beach Projekt" class="pc-img" loading="lazy">
+        <div class="pc-price">ab 109.000 €</div>
+        <span class="pc-badge" style="background: var(--gold); color: #000;">PREMIUM</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-meta">Sonnenstrand · Meerzugang · limitierte Einheiten</div>
+        <div class="pc-title">Robinson Beach — Meerzugang mit Ratenzahlung</div>
+        <span class="pc-link" style="color:var(--gold);font-size:11px;">Projekt ansehen →</span>
+      </div>
+    </div></a>
+    <!-- Gardenia Hills -->
+    <a href="/projekte/gardenia-hills/" class="hp-card">
+    <div class="pc">
+      <div class="pc-img-wrap">
+        <img src="/assets/img/gardenia-b401/01.jpg" alt="Gardenia Hills Projekt" class="pc-img" loading="lazy">
+        <div class="pc-price">ab 35.000 €</div>
+        <span class="pc-badge">● Rate</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-meta">Sonnenstrand · mehrere Unit-Typen</div>
+        <div class="pc-title">Gardenia Hills — Ratenzahlung 40%</div>
+        <span class="pc-link" style="color:var(--gold);font-size:11px;">Projekt ansehen →</span>
+      </div>
+    </div></a>
+    <!-- Bankimmobilien -->
+    <a href="/bankimmobilien/" class="hp-card">
+    <div class="pc">
+      <div class="pc-img-wrap">
+        <img src="/assets/img/haus-einbeck/01.jpg" alt="Bankimmobilien" class="pc-img" loading="lazy">
+        <div class="pc-price">unter Marktwert</div>
+        <span class="pc-badge de">DE · BG</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-meta">Strukturierter Zugang</div>
+        <div class="pc-title">Bankimmobilien — unter Marktwert</div>
+        <span class="pc-link" style="color:var(--gold);font-size:11px;">Angebote ansehen →</span>
+      </div>
+    </div></a>
+    <!-- Ausgewählte Angebote -->
+    <a href="/angebote/" class="hp-card">
+    <div class="pc">
+      <div class="pc-img-wrap">
+        <img src="/assets/img/robinson-beach/b4-8/01.jpg" alt="Ausgewählte Angebote" class="pc-img" loading="lazy">
+        <div class="pc-price">verfügbare Objekte</div>
+        <span class="pc-badge new">NEU</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-meta">Direkt verfügbare Einzelobjekte</div>
+        <div class="pc-title">Ausgewählte Angebote</div>
+        <span class="pc-link" style="color:var(--gold);font-size:11px;">Alle ansehen →</span>
+      </div>
+    </div></a>
   </div>
-</div>
-</div>
+</section>
 
 
 <!-- ══ CONTROL BAR ══════════════════════════════════════════ -->
@@ -765,21 +807,6 @@ body::before{
 <div class="container"><div id="hp-count" style="padding-top:12px;"></div><div id="hp-empty" style="display:none;padding:24px 0;color:var(--muted);font-size:14px;">Keine passenden Objekte gefunden.</div></div>
 
 
-<!-- ══ WIE DER ZUGANG FUNKTIONIERT ══════════════════════ -->
-<section class="access-section">
-<div class="container">
-  <div class="access-inner reveal">
-    <div class="access-label">Wie der Zugang funktioniert</div>
-    <h2 class="access-title">Strukturierter Zugang — kein offener Markt</h2>
-    <p class="access-text">
-      Sie sehen eine Auswahl aktueller Angebote.<br>
-      Weitere Optionen werden nach Prüfung freigeschaltet.<br>
-      Kein Makler. Kein Bieterverfahren. Direkter Zugang.
-    </p>
-  </div>
-</div>
-</section>
-
 <!-- ══ WIE DER ZUGANG FUNKTIONIERT ════════════════════════ -->
 <section style="padding:56px 0 0;">
 <div class="container reveal">
@@ -831,7 +858,7 @@ body::before{
     <a href="/angebote/apartment-sonnenstrand-42000/" class="hp-card" data-tags="apartment ratenzahlung meerblick bulgarien">
     <div class="pc">
       <div class="pc-img-wrap">
-        <img src="/assets/img/gardenia-b401/01.jpg" alt="Apartment Sonnenstrand" class="pc-img" loading="lazy">
+        <img src="/assets/img/robinson-beach/b4-8/01.jpg" alt="Apartment Sonnenstrand Meerblick" class="pc-img" loading="lazy">
         <div class="pc-price">42.000 €</div>
         <span class="pc-badge">● Rate</span>
       </div>
@@ -846,7 +873,7 @@ body::before{
     <a href="/angebote/studio-gardenia-hills-b-401-45m2/" class="hp-card" data-tags="studio ratenzahlung bulgarien">
     <div class="pc">
       <div class="pc-img-wrap">
-        <img src="/assets/img/gardenia-b401/05.jpg" alt="Studio B.401 Waldblick" class="pc-img" loading="lazy">
+        <img src="/assets/img/gardenia-b401/01.jpg" alt="Studio B.401 Waldblick" class="pc-img" loading="lazy">
         <div class="pc-price">52.500 €</div>
         <span class="pc-badge new">NEU</span>
       </div>
@@ -861,7 +888,7 @@ body::before{
     <a href="/angebote/studio-burgas-35000/" class="hp-card" data-tags="studio ratenzahlung bulgarien">
     <div class="pc">
       <div class="pc-img-wrap">
-        <img src="/assets/img/gardenia-b401/06.jpg" alt="Studio Burgas Stadtlage" class="pc-img" loading="lazy">
+        <img src="/assets/img/gardenia-b401/01.jpg" alt="Studio Burgas Stadtlage" class="pc-img" loading="lazy">
         <div class="pc-price">35.000 €</div>
         <span class="pc-badge">● Rate</span>
       </div>
@@ -874,7 +901,7 @@ body::before{
 
   </div>
 
-  <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+  <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
     <a class="btn-ghost" href="/projekte/gardenia-hills/">Gardenia Hills – Projekt ansehen</a>
     <a class="btn-ghost" href="/angebote/">Alle Objekte →</a>
   </div>
@@ -884,17 +911,22 @@ body::before{
       Weitere Angebote nach Qualifikation — direkt über den Investor Check.
     </p>
   </div>
+  <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
+    <a class="btn-ghost" href="/angebote/robinson-beach-c2-3/">Robinson Beach C2.3 ansehen</a>
+    <a class="btn-ghost" href="/angebote/robinson-beach-b4-8/">Robinson Beach B4.8 ansehen</a>
+    <a class="btn-ghost" href="/ratenzahlung-bulgarien/">Ratenzahlung 40% erklärt</a>
+  </div>
 </div>
 </section>
 
 
 <!-- ══ CONTROL GATE ══════════════════════════════════════════ -->
-<section style="padding:80px 0 88px;">
+<section style="padding:56px 0 64px;">
 <div class="container reveal">
   <div style="
     max-width:620px;
     margin:0 auto;
-    padding:52px 48px;
+    padding:44px 40px;
     background:rgba(255,255,255,.03);
     border:1px solid rgba(212,175,55,.28);
     border-radius:20px;
