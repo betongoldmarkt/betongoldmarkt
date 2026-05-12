@@ -1,5 +1,7 @@
 (function(){
-  var WEBHOOK = 'https://hook.eu1.make.com/sn077n6xwde65kymi2d4g9xymjtx19n7';
+  // Routed via Netlify Function for AI classification (Level/Priority/Segment/Next Step)
+  // Function enriches payload → forwards to Make.com webhook
+  var WEBHOOK = '/.netlify/functions/markt-classify';
 
   function toPayload(form){
     var fd = new FormData(form);
