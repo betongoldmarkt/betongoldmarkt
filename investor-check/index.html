@@ -39,7 +39,7 @@
 .ic-sys{font-size:.62rem;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-top:26px;}
 </style>
 </head>
-<body data-make-webhook="https://hook.eu1.make.com/sn077n6xwde65kymi2d4g9xymjtx19n7">
+<body>
 <header class="header"><div class="container nav">
 <a class="brand" href="/"><span class="name">Beton Gold Markt</span><span class="tag">Immobilien · Bulgarien &amp; Deutschland</span></a>
 <nav class="menu"><a href="/">Start</a><a href="/projekte/gardenia-hills/">Gardenia Hills</a><a href="/angebote/" class="nav-bold">Angebote</a><a href="/ratenzahlung-bulgarien/" class="rate-nav">Ratenzahlung 40%</a><a href="/bankimmobilien/">Bankimmobilien</a><a href="/offmarket/">Off-Market</a><a href="/investor-check/" class="nav-cta">Investor Check</a></nav>
@@ -108,11 +108,13 @@
 
 <!-- ORIGINAL FORM — hidden, backend unchanged -->
 <main style="display:none;">
-<form name="investor-check" method="POST" action="/danke/" data-netlify="true" class="lead-capture-form" id="ic-form">
+<form name="investor-check" method="POST" action="/danke/" data-netlify="true" data-netlify-honeypot="website" class="lead-capture-form" id="ic-form">
   <input type="hidden" name="form-name" value="investor-check">
   <input type="hidden" name="source" value="Markt">
   <input type="hidden" name="layer" value="Markt">
   <input type="hidden" name="form_name" value="investor-check">
+  <!-- Honeypot: hidden from humans, filled by bots → submission blocked -->
+  <input type="text" name="website" id="ic-hp" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" tabindex="-1" autocomplete="off" aria-hidden="true">
   <input type="hidden" name="page" id="lead-page-field" value="">
   <script>
     (function(){
@@ -172,9 +174,24 @@ function icSet(field,value){
   if(el) el.value=value;
 }
 function icSubmit(){
+  // Rate limit: block resubmission within 30 s (bot deterrent)
+  var now=Date.now();
+  if(window._icLastSubmit&&(now-window._icLastSubmit)<30000){return;}
+
+  // Honeypot: must be empty — bots fill it, humans never see it
+  var hp=document.getElementById('ic-hp');
+  if(hp&&hp.value.length>0){return;}
+
   var n=document.getElementById('ic-name-ui').value.trim();
   var e=document.getElementById('ic-email-ui').value.trim();
   if(!n||!e){alert('Bitte Name und E-Mail angeben.');return;}
+
+  // Email format validation (RFC-lite: local@domain.tld)
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e)){
+    alert('Bitte eine gültige E-Mail-Adresse angeben.');return;
+  }
+
+  window._icLastSubmit=now;
   document.getElementById('ic-name').value=n;
   document.getElementById('ic-email').value=e;
   var t=document.getElementById('ic-telefon-ui').value.trim();
