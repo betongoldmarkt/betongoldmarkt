@@ -25,7 +25,7 @@
  * ─────────────────────────────────────────────────────
  */
 
-const MAKE_WEBHOOK = 'https://hook.eu1.make.com/sn077n6xwde65kymi2d4g9xymjtx19n7';
+const MAKE_WEBHOOK = 'https://hook.eu1.make.com/yrlkosxvvxr6x1aea0curpychul1pr5e';
 
 exports.handler = async function (event) {
   // CORS preflight
