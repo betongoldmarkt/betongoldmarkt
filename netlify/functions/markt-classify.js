@@ -23,9 +23,15 @@
  * 🏆 Level: {{level}}   ⚡ Priority: {{priority}}   📂 Segment: {{segment}}   ⚙️ Next Step: {{next_step}}
  * 📞 Telefon: {{telefon}}   ✉️ Email: {{email}}
  * ─────────────────────────────────────────────────────
+ *
+ * Env vars:
+ *   MAKE_WEBHOOK_URL  — active Make.com scenario webhook (set in Netlify UI)
+ *   OPENAI_API_KEY    — GPT-4o-mini classification (falls back to rule-based if absent)
  */
 
-const MAKE_WEBHOOK = 'https://hook.eu1.make.com/yrlkosxvvxr6x1aea0curpychul1pr5e';
+// Webhook URL pulled from env so it never lives in source.
+// Set MAKE_WEBHOOK_URL in Netlify → Site settings → Environment variables.
+const MAKE_WEBHOOK = process.env.MAKE_WEBHOOK_URL || '';
 
 exports.handler = async function (event) {
   // CORS preflight
@@ -57,16 +63,20 @@ exports.handler = async function (event) {
   };
 
   // ── Forward to Make.com ───────────────────────────────────────────
-  try {
-    await fetch(MAKE_WEBHOOK, {
-      method:    'POST',
-      headers:   { 'Content-Type': 'application/json' },
-      body:      JSON.stringify(enriched),
-      keepalive: true,
-    });
-  } catch (e) {
-    console.error('[markt-classify] Make.com forward error:', e.message);
-    // Non-fatal: classification still succeeded
+  if (!MAKE_WEBHOOK) {
+    console.error('[markt-classify] MAKE_WEBHOOK_URL env var not set — lead NOT forwarded');
+  } else {
+    try {
+      await fetch(MAKE_WEBHOOK, {
+        method:    'POST',
+        headers:   { 'Content-Type': 'application/json' },
+        body:      JSON.stringify(enriched),
+        keepalive: true,
+      });
+    } catch (e) {
+      console.error('[markt-classify] Make.com forward error:', e.message);
+      // Non-fatal: classification still succeeded
+    }
   }
 
   return cors(200, JSON.stringify({ ok: true, level: classification.level }));
