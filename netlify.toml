@@ -3,3 +3,29 @@
 
 [functions]
   node_bundler = "esbuild"
+
+# ── Security Headers ──────────────────────────────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Prevent clickjacking — page may not be embedded in iframes on other origins
+    X-Frame-Options = "SAMEORIGIN"
+    # Prevent MIME-type sniffing
+    X-Content-Type-Options = "nosniff"
+    # Limit referrer data sent to third parties
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Disable unused browser features
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), payment=()"
+
+# ── Asset Cache ───────────────────────────────────────────────────────────────
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    # Immutable assets — hash-named; safe to cache for 1 year
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ── Netlify Function endpoints — no cache ────────────────────────────────────
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Cache-Control = "no-store"
