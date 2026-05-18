@@ -30,9 +30,9 @@
   --text:#f0ede6;--radius:14px;--font:'Georgia',serif;
 }
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.6;overflow-x:hidden;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.6;overflow-x:hidden;overflow-y:auto;max-width:100%;box-sizing:border-box;}
 a{color:inherit;text-decoration:none;}
-img{display:block;max-width:100%;}
+img{display:block;max-width:100%;height:auto;}
 
 /* ── NOISE TEXTURE OVERLAY ────────────── */
 body::before{
@@ -50,6 +50,7 @@ body::before{
   backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
   border-bottom:1px solid var(--line);
   transition:background .3s;
+  box-sizing:border-box;
 }
 .hdr-brand{display:flex;flex-direction:column;line-height:1;}
 .hdr-brand .name{font-size:15px;font-weight:700;letter-spacing:.02em;color:var(--gold);}
@@ -82,7 +83,7 @@ body::before{
 .hero{
   position:relative;height:100svh;min-height:620px;max-height:920px;
   display:flex;align-items:flex-end;overflow:hidden;
-  background:var(--bg);
+  background:var(--bg);max-width:100%;box-sizing:border-box;
 }
 
 /* Animated gold grid lines */
@@ -229,16 +230,11 @@ body::before{
   .hero-stat:nth-child(4){border-top:1px solid var(--line);border-right:none;}
 }
 
-/* side marker — на мобиле: декоративный, не мешает контенту */
+/* side marker — on mobile hidden to prevent overflow */
 @media(max-width:640px){
   .hero-side-marker{
-    right:-2px!important;
-    top:50%!important;
-    transform:translateY(-50%)!important;
-    gap:10px!important;
-    opacity:.55;
+    display:none !important;
   }
-  /* hero overflow hidden чтобы маркер не создавал скролл */
 }
 @media(max-width:640px){.hero-scroll{display:none;}}
 
@@ -264,10 +260,13 @@ body::before{
 .hp-filter-bar{
   display:flex;flex-wrap:nowrap;gap:8px;
   overflow-x:auto;
+  overflow-y:hidden;
   scrollbar-width:none;        /* Firefox */
   -ms-overflow-style:none;     /* IE/Edge */
   padding-bottom:2px;          /* чтобы не обрезало тени кнопок */
   margin-bottom:0;
+  max-width:100%;
+  -webkit-overflow-scrolling:touch;
 }
 .hp-filter-bar::-webkit-scrollbar{display:none;}  /* Chrome/Safari */
 /* на мобиле кнопки не переносятся — горизонтальный скролл */
@@ -309,9 +308,9 @@ body::before{
   min-height:16px;
 }
 /* ── SECTION COMMONS ──────────────────── */
-.section{padding:52px 0;}
-.section-sm{padding:44px 0;}
-.container{max-width:1140px;margin:0 auto;padding:0 24px;}
+.section{padding:52px 0;box-sizing:border-box;overflow:hidden;}
+.section-sm{padding:44px 0;box-sizing:border-box;overflow:hidden;}
+.container{max-width:1140px;margin:0 auto;padding:0 24px;box-sizing:border-box;width:100%;}
 .section-label{
   font-family:sans-serif;font-size:10px;font-weight:700;
   letter-spacing:.2em;text-transform:uppercase;
@@ -562,7 +561,7 @@ body::before{
 .reveal.visible{opacity:1;transform:none;}
 </style>
 </head>
-<body data-make-webhook="https://hook.eu1.make.com/sn077n6xwde65kymi2d4g9xymjtx19n7" data-make-webhook="https://hook.eu1.make.com/sn077n6xwde65kymi2d4g9xymjtx19n7">
+<body>
 
 <!-- HEADER -->
 <header class="hdr">
