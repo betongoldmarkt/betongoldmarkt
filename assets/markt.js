@@ -8,3 +8,51 @@ document.addEventListener('click', (e)=>{
     if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
   }
 });
+
+// ── Objekt-Anfrage → DIETRICH_OS Webhook (direct) ─────────────────
+(function(){
+  var DIETRICH_WEBHOOK = 'https://hook.eu1.make.com/yrlkosxvvxr6x1aea0curpychul1pr5e';
+
+  function buildPayload(form) {
+    var fd = new FormData(form);
+    var payload = {};
+    fd.forEach(function(v, k){ payload[k] = String(v).trim(); });
+    // Enforce required Markt metadata
+    payload['source']    = payload['source']    || 'Markt';
+    payload['layer']     = 'Markt';
+    payload['form_name'] = payload['form_name'] || 'objekt-anfrage';
+    payload['page_url']  = payload['page_url']  || window.location.href;
+    // Normalize phone
+    var phone = payload['telefon'] || payload['phone'] || '';
+    payload['telefon'] = phone;
+    payload['phone']   = phone;
+    // Timestamp
+    payload['created_at'] = new Date().toISOString();
+    return payload;
+  }
+
+  document.addEventListener('submit', function(e){
+    var form = e.target.closest('form.objekt-anfrage-form');
+    if (!form) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    var payload = buildPayload(form);
+
+    // Fire directly to DIETRICH_OS Make webhook, then Netlify submit
+    var sent = fetch(DIETRICH_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      keepalive: true
+    }).catch(function(err){ console.error('[DIETRICH_OS] webhook error', err); });
+
+    var timeout = new Promise(function(resolve){ setTimeout(resolve, 2000); });
+
+    Promise.race([sent, timeout])
+      .then(function(){ form.submit(); })
+      .catch(function(){ form.submit(); });
+
+  }, true);
+})();
