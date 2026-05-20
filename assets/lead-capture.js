@@ -28,6 +28,9 @@
     // Add layer
     payload['layer'] = 'Markt';
 
+    // Lead type — always general for lead-capture-form
+    payload['lead_type'] = 'general_investor_check';
+
     // Add timestamp
     payload['created_at'] = new Date().toISOString();
 

@@ -21,6 +21,7 @@ document.addEventListener('click', (e)=>{
     payload['source']    = payload['source']    || 'Markt';
     payload['layer']     = 'Markt';
     payload['form_name'] = payload['form_name'] || 'objekt-anfrage';
+    payload['lead_type'] = 'object_request';
     payload['page_url']  = payload['page_url']  || window.location.href;
     // Normalize phone
     var phone = payload['telefon'] || payload['phone'] || '';
