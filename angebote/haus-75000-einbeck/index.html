@@ -13,7 +13,41 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <link rel="stylesheet" href="/assets/markt.css"/>
 <script type="application/ld+json"></script>
-</head><body><header class="header"><div class="container nav">
+<style>
+:root{--p1-gold:#C9A84C;--p1-bg:#09090b;--p1-surface:#0f0f12;--p1-surface2:#141418;--p1-text:#f0ede6;--p1-radius:14px;}
+@keyframes kenBurns{0%{transform:scale(1.00);}100%{transform:scale(1.08);}}
+.p1-hero{position:relative;height:540px;overflow:hidden;background:#09090b;}
+.p1-hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kenBurns 14s ease-in-out infinite alternate;}
+.p1-hero__overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(9,9,11,.18) 0%,rgba(9,9,11,.55) 60%,rgba(9,9,11,.92) 100%);}
+.p1-hero__content{position:absolute;bottom:0;left:0;right:0;padding:32px 24px 28px;}
+.p1-stats{display:flex;gap:0;background:var(--p1-surface,#0f0f12);border-bottom:1px solid rgba(201,168,76,.18);overflow-x:auto;position:sticky;top:0;z-index:40;}
+.p1-stats__item{flex:1;min-width:80px;text-align:center;padding:11px 8px;border-right:1px solid rgba(255,255,255,.06);}
+.p1-stats__item:last-child{border-right:none;}
+.p1-stats__val{font-size:15px;font-weight:700;color:var(--p1-gold,#C9A84C);line-height:1;}
+.p1-stats__lbl{font-size:10px;color:rgba(240,237,230,.45);margin-top:3px;}
+.p1-gallery{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;}
+.p1-gallery__item{position:relative;cursor:pointer;overflow:hidden;border-radius:6px;aspect-ratio:4/3;}
+.p1-gallery__item img{width:100%;height:100%;object-fit:cover;transition:transform .3s;}
+.p1-gallery__item:hover img{transform:scale(1.04);}
+.p1-gallery__more{position:absolute;inset:0;background:rgba(9,9,11,.62);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;}
+.p1-lightbox{display:none;position:fixed;inset:0;background:rgba(9,9,11,.95);z-index:9999;align-items:center;justify-content:center;}
+.p1-lightbox.open{display:flex;}
+.p1-lightbox__img{max-width:92vw;max-height:88vh;object-fit:contain;border-radius:8px;}
+.p1-lightbox__close{position:absolute;top:18px;right:22px;font-size:28px;color:#fff;cursor:pointer;background:none;border:none;line-height:1;}
+.p1-lightbox__prev,.p1-lightbox__next{position:absolute;top:50%;transform:translateY(-50%);font-size:32px;color:#fff;cursor:pointer;background:rgba(255,255,255,.1);border:none;border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;}
+.p1-lightbox__prev{left:16px;}
+.p1-lightbox__next{right:16px;}
+.p1-highlight-card{background:var(--p1-surface,#0f0f12);border:1px solid rgba(201,168,76,.15);border-radius:var(--p1-radius,14px);padding:20px 18px;opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s;}
+.p1-highlight-card.visible{opacity:1;transform:none;}
+.p1-structure-card{background:var(--p1-surface2,#141418);border:1px solid rgba(201,168,76,.2);border-radius:var(--p1-radius,14px);padding:22px 20px;}
+.p1-scarcity{display:flex;align-items:center;gap:10px;background:rgba(201,168,76,.07);border-top:1px solid rgba(201,168,76,.18);border-bottom:1px solid rgba(201,168,76,.18);padding:10px 20px;}
+.p1-scarcity__dot{width:8px;height:8px;border-radius:50%;background:var(--p1-gold,#C9A84C);animation:pulse 2s infinite;flex-shrink:0;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+.p1-sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(9,9,11,.97);border-top:1px solid rgba(201,168,76,.25);padding:12px 20px;align-items:center;justify-content:space-between;gap:12px;}
+@media(max-width:700px){.p1-sticky-cta{display:flex;}.p1-hero{height:400px;}}
+</style>
+</head><body>
+<header class="header"><div class="container nav">
 <a class="brand" href="/"><span class="name">Beton Gold Markt</span>
 <span class="tag">Immobilien · Bulgarien &amp; Deutschland</span></a>
 <nav class="menu"><a href="/">Start</a>
@@ -22,105 +56,250 @@
 <a href="/bankimmobilien/">Bankimmobilien</a>
 <a href="/offmarket/">Off-Market</a>
 <a href="/investor-check/?objekt=Haus%20Einbeck%2075000" class="nav-cta">Investor Check</a></nav>
-</div></header><main>
+</div></header>
+<main>
 
+<!-- BREADCRUMB -->
 <section style="padding:14px 0 0;"><div class="container">
 <div class="muted small" style="margin-bottom:10px;"><a href="/" class="muted">Start</a> <span class="muted">›</span> <a href="/angebote/" class="muted">Angebote</a> <span class="muted">›</span> <span>Deutschland</span> <span class="muted">›</span> <span>Haus Einbeck</span></div>
 </div></section>
 
-<section style="padding:8px 0 0;"><div class="container">
-<div style="margin-bottom:20px;" id="galerie">
-<div style="position:relative;background:#111;border-radius:10px;overflow:hidden;margin-bottom:6px;">
-<div id="hsl0" style="display:block;"><img src="/assets/img/haus-einbeck/01.jpg" alt="Zweifamilienhaus Einbeck – Foto 1" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl1" style="display:none;"><img src="/assets/img/haus-einbeck/02.jpg" alt="Zweifamilienhaus Einbeck – Foto 2" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl2" style="display:none;"><img src="/assets/img/haus-einbeck/03.jpg" alt="Zweifamilienhaus Einbeck – Foto 3" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl3" style="display:none;"><img src="/assets/img/haus-einbeck/04.jpg" alt="Zweifamilienhaus Einbeck – Foto 4" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl4" style="display:none;"><img src="/assets/img/haus-einbeck/05.jpg" alt="Zweifamilienhaus Einbeck – Foto 5" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl5" style="display:none;"><img src="/assets/img/haus-einbeck/06.jpg" alt="Zweifamilienhaus Einbeck – Foto 6" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl6" style="display:none;"><img src="/assets/img/haus-einbeck/07.jpg" alt="Zweifamilienhaus Einbeck – Foto 7" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl7" style="display:none;"><img src="/assets/img/haus-einbeck/08.jpg" alt="Zweifamilienhaus Einbeck – Foto 8" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl8" style="display:none;"><img src="/assets/img/haus-einbeck/09.jpg" alt="Zweifamilienhaus Einbeck – Foto 9" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl9" style="display:none;"><img src="/assets/img/haus-einbeck/10.jpg" alt="Zweifamilienhaus Einbeck – Foto 10" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl10" style="display:none;"><img src="/assets/img/haus-einbeck/11.jpg" alt="Zweifamilienhaus Einbeck – Foto 11" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl11" style="display:none;"><img src="/assets/img/haus-einbeck/12.jpg" alt="Zweifamilienhaus Einbeck – Foto 12" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl12" style="display:none;"><img src="/assets/img/haus-einbeck/13.jpg" alt="Zweifamilienhaus Einbeck – Foto 13" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl13" style="display:none;"><img src="/assets/img/haus-einbeck/14.jpg" alt="Zweifamilienhaus Einbeck – Foto 14" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl14" style="display:none;"><img src="/assets/img/haus-einbeck/15.jpg" alt="Zweifamilienhaus Einbeck – Foto 15" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl15" style="display:none;"><img src="/assets/img/haus-einbeck/16.jpg" alt="Zweifamilienhaus Einbeck – Foto 16" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl16" style="display:none;"><img src="/assets/img/haus-einbeck/17.jpg" alt="Zweifamilienhaus Einbeck – Foto 17" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl17" style="display:none;"><img src="/assets/img/haus-einbeck/18.jpg" alt="Zweifamilienhaus Einbeck – Foto 18" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div><div id="hsl18" style="display:none;"><img src="/assets/img/haus-einbeck/19.jpg" alt="Zweifamilienhaus Einbeck – Foto 19" style="width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;"></div>
-<button onclick="hPrev()" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;">&#8249;</button>
-<button onclick="hNext()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;">&#8250;</button>
-<div id="hcnt" style="position:absolute;bottom:10px;right:14px;background:rgba(0,0,0,.5);color:#fff;font-size:11px;padding:3px 8px;border-radius:20px;">1 / 19</div>
+<!-- HERO -->
+<section class="p1-hero">
+<img class="p1-hero__img" src="/assets/img/haus-einbeck/01.jpg" alt="Zweifamilienhaus Einbeck Erzhausen" loading="eager"/>
+<div class="p1-hero__overlay"></div>
+<div class="p1-hero__content container">
+<div style="font-size:11px;font-weight:700;color:var(--p1-gold);letter-spacing:.1em;margin-bottom:8px;">DEUTSCHLAND · NIEDERSACHSEN · EINBECK</div>
+<h1 style="font-size:28px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.15;">Zweifamilienhaus Einbeck / Erzhausen</h1>
+<div style="font-size:22px;font-weight:700;color:var(--p1-gold);margin-bottom:10px;">75.000 €</div>
+<div style="font-size:13px;color:rgba(240,237,230,.7);">200 m² &nbsp;·&nbsp; 8 Zimmer &nbsp;·&nbsp; 1.542 m² Grundstück &nbsp;·&nbsp; 2 Wohneinheiten &nbsp;·&nbsp; keine Maklergebühr</div>
 </div>
-<div style="display:grid;grid-template-columns:repeat(19,1fr);gap:3px;"><div onclick="hShow(0)" id="hth0" style="cursor:pointer;opacity:1;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/01.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(1)" id="hth1" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/02.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(2)" id="hth2" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/03.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(3)" id="hth3" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/04.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(4)" id="hth4" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/05.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(5)" id="hth5" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/06.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(6)" id="hth6" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/07.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(7)" id="hth7" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/08.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(8)" id="hth8" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/09.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(9)" id="hth9" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/10.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(10)" id="hth10" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/11.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(11)" id="hth11" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/12.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(12)" id="hth12" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/13.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(13)" id="hth13" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/14.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(14)" id="hth14" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/15.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(15)" id="hth15" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/16.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(16)" id="hth16" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/17.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(17)" id="hth17" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/18.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div><div onclick="hShow(18)" id="hth18" style="cursor:pointer;opacity:0.5;transition:opacity .2s;"><img src="/assets/img/haus-einbeck/19.jpg" loading="lazy" style="width:100%;height:48px;object-fit:cover;border-radius:4px;display:block;"></div></div>
-</div>
-<script>
-(function(){var c=0,t=19;
-window.hShow=function(n){document.getElementById('hsl'+c).style.display='none';document.getElementById('hth'+c).style.opacity='0.5';c=n;document.getElementById('hsl'+n).style.display='block';document.getElementById('hth'+n).style.opacity='1';document.getElementById('hcnt').textContent=(n+1)+' / '+t;};
-window.hNext=function(){hShow((c+1)%t);};
-window.hPrev=function(){hShow((c-1+t)%t);};
-})();
-</script>
-</div></section>
+</section>
 
-<section style="padding:0;"><div class="container">
-<div style="display:flex;align-items:baseline;gap:14px;margin:4px 0 6px;flex-wrap:wrap;">
-<h1 style="font-size:22px;margin:0;line-height:1.2;">Zweifamilienhaus Einbeck / Erzhausen</h1>
-<span style="font-size:26px;font-weight:700;color:var(--gold);">75.000 €</span>
+<!-- STATS BAR -->
+<div class="p1-stats">
+<div class="p1-stats__item"><div class="p1-stats__val">75.000 €</div><div class="p1-stats__lbl">Kaufpreis</div></div>
+<div class="p1-stats__item"><div class="p1-stats__val">200 m²</div><div class="p1-stats__lbl">Wohnfläche</div></div>
+<div class="p1-stats__item"><div class="p1-stats__val">8 Zi.</div><div class="p1-stats__lbl">Zimmer</div></div>
+<div class="p1-stats__item"><div class="p1-stats__val">1.542 m²</div><div class="p1-stats__lbl">Grundstück</div></div>
+<div class="p1-stats__item"><div class="p1-stats__val">12–19%</div><div class="p1-stats__lbl">Rendite p.a.</div></div>
 </div>
-<p style="font-size:13px;color:var(--muted);margin:0 0 14px;">200 m² &nbsp;·&nbsp; 8 Zimmer &nbsp;·&nbsp; 1.542 m² Grundstück &nbsp;·&nbsp; 2 Wohneinheiten &nbsp;·&nbsp; Niedersachsen &nbsp;·&nbsp; keine Maklergebühr</p>
 
-<div style="background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.3);border-radius:12px;padding:16px 20px;margin-bottom:16px;">
-<div style="font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.08em;margin-bottom:10px;">RENDITEOBJEKT · 2 WOHNEINHEITEN · SOFORT VERFÜGBAR</div>
-<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:center;">
-<div><div style="font-size:22px;font-weight:700;color:var(--gold);">75.000 €</div><div style="font-size:11px;color:var(--muted);">Kaufpreis</div></div>
-<div><div style="font-size:22px;font-weight:700;">12–19%</div><div style="font-size:11px;color:var(--muted);">Rendite p.a.</div></div>
-<div><div style="font-size:22px;font-weight:700;">1.542 m²</div><div style="font-size:11px;color:var(--muted);">Grundstück</div></div>
+<!-- SCARCITY BAR -->
+<div class="p1-scarcity">
+<span class="p1-scarcity__dot"></span>
+<span style="font-size:12px;color:var(--p1-gold);font-weight:600;">Zweifamilienhaus Einbeck 75.000 €</span>
+<span style="font-size:12px;color:rgba(240,237,230,.5);margin-left:auto;">Besichtigung nach Terminvereinbarung</span>
 </div>
-</div>
-</div></section>
 
-<section style="padding:0;"><div class="container">
-<div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:20px;" id="anfrage">
-<div style="font-size:14px;font-weight:700;margin-bottom:4px;">Besichtigung oder Exposé anfragen</div>
-<div style="font-size:12px;color:var(--muted);margin-bottom:14px;">Zweifamilienhaus Einbeck · 75.000 € · Antwort innerhalb 24h</div>
-<div style="border:1px solid rgba(212,175,55,.35);border-radius:14px;background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(0,0,0,.2));padding:22px 20px;margin-top:4px;">
-<div style="font-size:11px;font-weight:800;color:var(--gold);letter-spacing:.1em;margin-bottom:10px;">ZUGANG</div>
-<p style="font-size:13px;color:var(--muted);margin:0 0 16px;line-height:1.65;">Dieses Objekt ist aktuell verfügbar.<br>Zugang zu Unterlagen, Besichtigung und weiteren Details erfolgt ausschließlich nach Qualifikation.</p>
-<a class="btn primary" href="#objekt-anfrage-section" data-scroll style="font-size:13px;">Verfügbarkeit prüfen →</a>
-</div>
-</div>
-</div></section>
-
-<section style="padding:16px 0 0;"><div class="container">
-<h2 style="font-size:16px;font-weight:700;margin:0 0 12px;">Objektdaten</h2>
-<div style="border:1px solid var(--line);border-radius:10px;overflow:hidden;">
-<table style="width:100%;border-collapse:collapse;font-size:13px;"><tbody><tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:var(--muted);width:45%;">Objekt</td><td style="padding:9px 14px;font-weight:600;">Zweifamilienhaus Einbeck / Erzhausen</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:var(--muted);width:45%;">Bundesland</td><td style="padding:9px 14px;font-weight:600;">Niedersachsen</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:var(--muted);width:45%;">Wohnfläche</td><td style="padding:9px 14px;font-weight:600;">ca. 200 m²</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:var(--muted);width:45%;">Zimmer</td><td style="padding:9px 14px;font-weight:600;">8 Zimmer</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:var(--muted);width:45%;">Grundstück</td><td style="padding:9px 14px;font-weight:600;">1.542 m²</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:var(--muted);width:45%;">Wohneinheiten</td><td style="padding:9px 14px;font-weight:600;">2 (Eigennutzung + Vermietung)</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:var(--muted);width:45%;">Ausstattung</td><td style="padding:9px 14px;font-weight:600;">Kaminofen, Garage, gepflasterter Hof</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:var(--muted);width:45%;">Küche</td><td style="padding:9px 14px;font-weight:600;">einbauküche vorhanden</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:var(--muted);width:45%;">Bad</td><td style="padding:9px 14px;font-weight:600;">2 Bäder (Wanne + Dusche)</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:var(--muted);width:45%;">Heizung</td><td style="padding:9px 14px;font-weight:600;">Zentralheizung + Kaminofen</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:var(--muted);width:45%;">Garten</td><td style="padding:9px 14px;font-weight:600;">großer Garten, Terrasse, Sichtschutz</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:var(--muted);width:45%;">Kaufpreis</td><td style="padding:9px 14px;font-weight:600;">75.000 €</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:var(--muted);width:45%;">Rendite (beide EH)</td><td style="padding:9px 14px;font-weight:600;">12–19% p.a.</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:var(--muted);width:45%;">Maklergebühr</td><td style="padding:9px 14px;font-weight:600;">keine</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:var(--muted);width:45%;">Besichtigung</td><td style="padding:9px 14px;font-weight:600;">vor Ort möglich – Termin auf Anfrage</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:var(--muted);width:45%;">Exposé</td><td style="padding:9px 14px;font-weight:600;">PDF verfügbar</td></tr></tbody></table>
-</div>
-</div></section>
-
+<!-- GALLERY -->
 <section style="padding:20px 0 0;"><div class="container">
-<h2 style="font-size:16px;font-weight:700;margin:0 0 10px;">Beschreibung</h2>
-<p style="font-size:13px;color:var(--muted);line-height:1.8;">Zweifamilienhaus in Erzhausen bei Einbeck, Niedersachsen. Das Objekt verfügt über zwei vollständig separate Wohneinheiten auf insgesamt ca. 200 m² Wohnfläche und 8 Zimmern – ideal für die Kombination aus Eigennutzung und Vermietung oder für reine Kapitalanlage.</p>
-<p style="font-size:13px;color:var(--muted);line-height:1.8;margin-top:10px;">Das Grundstück umfasst 1.542 m² mit großem Garten, gepflastertem Hof, Terrasse mit Sichtschutz und einem separaten Garagengebäude. Der Kaminofen in der Hauptwohnung ist voll funktionstüchtig. Beide Wohneinheiten haben separate Eingänge, Bäder und Küchen.</p>
-<p style="font-size:13px;color:var(--muted);line-height:1.8;margin-top:10px;">Kaufpreis 75.000 € – keine Maklergebühr, kein Aufschlag. Besichtigung vor Ort jederzeit nach Terminvereinbarung möglich. Vollständiges Exposé mit Grundriss und weiteren Dokumenten auf Anfrage verfügbar.</p>
-</div></section>
-
-<section style="padding:16px 0 0;"><div class="container"><div style="border:1px solid rgba(214,178,94,.35);border-radius:14px;background:linear-gradient(135deg,rgba(214,178,94,.07),rgba(0,0,0,.25));padding:20px 18px;"><div style="font-size:11px;font-weight:800;color:var(--gold);letter-spacing:.08em;margin-bottom:8px;">INVESTOR CHECK</div><h2 style="font-size:17px;font-weight:700;margin:0 0 8px;line-height:1.3;">Passt dieses Objekt zu Ihrer Strategie?</h2><p style="font-size:13px;color:var(--muted);margin:0 0 14px;line-height:1.6;">Prüfen Sie in 60 Sekunden, ob dieses Angebot zu Ihrem Budget, Ihrer Rendite-Erwartung und Ihrer Einstiegssituation passt.</p><div style="display:flex;flex-wrap:wrap;gap:10px;"><a class="btn primary" href="#objekt-anfrage-section" data-scroll style="font-size:13px;">Verfügbarkeit prüfen →</a></div><p style="font-size:11px;color:var(--muted);margin-top:8px;">Für eine schnelle Bearbeitung empfehlen wir den <a href="/investor-check/?objekt=Haus%20Einbeck%2075000" style="color:var(--gold);">Investor Check</a>.</p></div></div></section>
-<section style="padding:20px 0 48px;"><div class="container">
-<div style="display:flex;gap:8px;flex-wrap:wrap;">
-<a class="btn primary" href="#objekt-anfrage-section" data-scroll style="font-size:13px;">Verfügbarkeit prüfen →</a>
-<p style="font-size:12px;color:var(--muted);margin-top:8px;">Anfragen werden bevorzugt nach kurzer Qualifizierung bearbeitet.</p>
-<p style="font-size:11px;color:var(--muted);margin-top:4px;">Zugang zu exklusiven Angeboten erfolgt nach kurzer Prüfung.</p>
-<a class="btn" href="#anfrage" style="color:var(--gold);">Formular ↑</a>
-<a class="btn" href="/assets/docs/HAUS-75000_Expose_PRO.pdf" rel="noopener" target="_blank">Exposé PDF</a>
-<a class="btn" href="/angebote/">Alle Angebote</a>
+<div class="p1-gallery" id="p1-gallery">
+<div class="p1-gallery__item" onclick="p1LbOpen(0)"><img src="/assets/img/haus-einbeck/01.jpg" alt="Zweifamilienhaus Einbeck Foto 1" loading="lazy"/></div>
+<div class="p1-gallery__item" onclick="p1LbOpen(1)"><img src="/assets/img/haus-einbeck/02.jpg" alt="Zweifamilienhaus Einbeck Foto 2" loading="lazy"/></div>
+<div class="p1-gallery__item" onclick="p1LbOpen(2)"><img src="/assets/img/haus-einbeck/03.jpg" alt="Zweifamilienhaus Einbeck Foto 3" loading="lazy"/></div>
+<div class="p1-gallery__item" onclick="p1LbOpen(3)"><img src="/assets/img/haus-einbeck/04.jpg" alt="Zweifamilienhaus Einbeck Foto 4" loading="lazy"/><div class="p1-gallery__more">+14 weitere</div></div>
+<div class="p1-gallery__item" onclick="p1LbOpen(4)"><img src="/assets/img/haus-einbeck/05.jpg" alt="Zweifamilienhaus Einbeck Foto 5" loading="lazy"/></div>
 </div>
 </div></section>
-<section class="investor-check-cta" style="padding:16px 0 0;"><div class="container"><div style="border:1px solid rgba(214,178,94,.35);border-radius:14px;background:linear-gradient(135deg,rgba(214,178,94,.07),rgba(0,0,0,.25));padding:20px 18px;"><div style="font-size:11px;font-weight:800;color:var(--gold);letter-spacing:.08em;margin-bottom:8px;">INVESTOR CHECK</div><h2 style="font-size:17px;font-weight:700;margin:0 0 8px;line-height:1.3;">Passt dieses Objekt zu Ihrer Strategie?</h2><p style="font-size:13px;color:var(--muted);margin:0 0 14px;line-height:1.6;">Prüfen Sie in 60 Sekunden, ob dieses Angebot zu Ihrem Budget, Ihrer Rendite-Erwartung und Ihrer Einstiegssituation passt.</p><div style="display:flex;flex-wrap:wrap;gap:10px;"><a class="btn primary" href="#objekt-anfrage-section" data-scroll style="font-size:13px;">Verfügbarkeit prüfen →</a></div><p style="font-size:11px;color:var(--muted);margin-top:8px;">Für eine schnelle Bearbeitung empfehlen wir den <a href="/investor-check/?objekt=Haus%20Einbeck%2075000" style="color:var(--gold);">Investor Check</a>.</p></div></div></section>
 
-<section style="padding:20px 0 48px;" id="objekt-anfrage-section"><div class="container"><div style="background:rgba(255,255,255,.03);border:1px solid rgba(214,178,94,.3);border-radius:14px;padding:22px 20px;"><div style="font-size:11px;font-weight:800;color:var(--gold);letter-spacing:.1em;margin-bottom:10px;">DIREKTANFRAGE</div><h2 style="font-size:16px;font-weight:700;margin:0 0 6px;">Haus Einbeck 75000</h2><p style="font-size:12px;color:var(--muted);margin:0 0 16px;">Anfrage direkt zum Objekt. Wir melden uns innerhalb von 24h.</p><form name="objekt-anfrage" method="POST" action="/danke/" data-netlify="true" class="objekt-anfrage-form" style="display:flex;flex-direction:column;gap:9px;"><input type="hidden" name="form-name" value="objekt-anfrage"><input type="hidden" name="source" value="Markt"><input type="hidden" name="layer" value="Markt"><input type="hidden" name="form_name" value="objekt-anfrage"><input type="hidden" name="object_id" value="haus-einbeck-75000"><input type="hidden" name="object_name" value="Haus Einbeck 75000"><input type="hidden" name="project_name" value=""><input type="hidden" name="price" value="75000 EUR"><input type="hidden" name="region" value="Einbeck, Deutschland"><input type="hidden" name="asset_type" value="Haus"><input type="hidden" name="page_url" value="https://betongoldmarkt.de/angebote/haus-75000-einbeck/"><input type="text" name="name" placeholder="Ihr Name" required style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;"><input type="email" name="email" placeholder="E-Mail" required style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;"><input type="tel" name="telefon" placeholder="Telefon (optional)" style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;"><select name="kapital_raw" required style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;"><option value="">Budget wählen</option><option value="bis 50.000 &#x20AC;">bis 50.000 €</option><option value="50.000–90.000 &#x20AC;">50.000–100.000 €</option><option value="100.000–200.000 &#x20AC;">100.000–200.000 €</option><option value="200.000 &#x20AC;+">200.000 €+</option></select><select name="ziel" style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;"><option value="">Ziel (optional)</option><option value="Eigennutzung">Eigennutzung</option><option value="Investment">Investment</option><option value="Noch unsicher">Noch unsicher</option></select><textarea name="nachricht" placeholder="Nachricht (optional)" rows="2" style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;resize:vertical;"></textarea><button type="submit" class="btn primary" style="align-self:flex-start;font-size:13px;">Anfrage absenden →</button></form></div></div></section></main><footer class="footer"><div class="container">
+<!-- LIGHTBOX -->
+<div class="p1-lightbox" id="p1-lightbox" role="dialog" aria-modal="true">
+<button class="p1-lightbox__close" id="p1-lb-close" aria-label="Schließen">×</button>
+<button class="p1-lightbox__prev" id="p1-lb-prev" aria-label="Zurück">&#8249;</button>
+<img class="p1-lightbox__img" id="p1-lb-img" src="" alt="Galerie"/>
+<button class="p1-lightbox__next" id="p1-lb-next" aria-label="Weiter">&#8250;</button>
+</div>
+
+<!-- HIGHLIGHTS -->
+<section style="padding:24px 0 0;"><div class="container">
+<div style="font-size:11px;font-weight:700;color:var(--p1-gold);letter-spacing:.1em;margin-bottom:14px;">HIGHLIGHTS</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;" id="p1-highlights">
+<div class="p1-highlight-card"><div style="font-size:22px;margin-bottom:8px;">🏠</div><div style="font-weight:700;font-size:14px;margin-bottom:4px;">2 Wohneinheiten</div><div style="font-size:12px;color:rgba(240,237,230,.55);">Eigennutzung + Vermietung oder reine Kapitalanlage</div></div>
+<div class="p1-highlight-card"><div style="font-size:22px;margin-bottom:8px;">📈</div><div style="font-weight:700;font-size:14px;margin-bottom:4px;">12–19% Rendite</div><div style="font-size:12px;color:rgba(240,237,230,.55);">Bei Vollvermietung beider Einheiten, keine Maklergebühr</div></div>
+<div class="p1-highlight-card"><div style="font-size:22px;margin-bottom:8px;">🌿</div><div style="font-weight:700;font-size:14px;margin-bottom:4px;">1.542 m² Grundstück</div><div style="font-size:12px;color:rgba(240,237,230,.55);">Großer Garten, Terrasse, Sichtschutz, gepflasterter Hof</div></div>
+<div class="p1-highlight-card"><div style="font-size:22px;margin-bottom:8px;">🔨</div><div style="font-weight:700;font-size:14px;margin-bottom:4px;">Kaminofen &amp; Garage</div><div style="font-size:12px;color:rgba(240,237,230,.55);">Voll funktionstüchtig, separates Garagengebäude</div></div>
+</div>
+</div></section>
+
+<!-- OBJEKTDATEN -->
+<section style="padding:24px 0 0;"><div class="container">
+<h2 style="font-size:16px;font-weight:700;margin:0 0 12px;">Objektdaten</h2>
+<div style="border:1px solid rgba(255,255,255,.07);border-radius:var(--p1-radius);overflow:hidden;">
+<table style="width:100%;border-collapse:collapse;font-size:13px;"><tbody>
+<tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:rgba(240,237,230,.5);width:45%;">Objekt</td><td style="padding:9px 14px;font-weight:600;">Zweifamilienhaus Einbeck / Erzhausen</td></tr>
+<tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:rgba(240,237,230,.5);">Bundesland</td><td style="padding:9px 14px;font-weight:600;">Niedersachsen</td></tr>
+<tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:rgba(240,237,230,.5);">Wohnfläche</td><td style="padding:9px 14px;font-weight:600;">ca. 200 m²</td></tr>
+<tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:rgba(240,237,230,.5);">Zimmer</td><td style="padding:9px 14px;font-weight:600;">8 Zimmer</td></tr>
+<tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:rgba(240,237,230,.5);">Grundstück</td><td style="padding:9px 14px;font-weight:600;">1.542 m²</td></tr>
+<tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:rgba(240,237,230,.5);">Wohneinheiten</td><td style="padding:9px 14px;font-weight:600;">2 (Eigennutzung + Vermietung)</td></tr>
+<tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:rgba(240,237,230,.5);">Ausstattung</td><td style="padding:9px 14px;font-weight:600;">Kaminofen, Garage, gepflasterter Hof</td></tr>
+<tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:rgba(240,237,230,.5);">Küche</td><td style="padding:9px 14px;font-weight:600;">Einbauküche vorhanden</td></tr>
+<tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:rgba(240,237,230,.5);">Bad</td><td style="padding:9px 14px;font-weight:600;">2 Bäder (Wanne + Dusche)</td></tr>
+<tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:rgba(240,237,230,.5);">Heizung</td><td style="padding:9px 14px;font-weight:600;">Zentralheizung + Kaminofen</td></tr>
+<tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:rgba(240,237,230,.5);">Garten</td><td style="padding:9px 14px;font-weight:600;">Großer Garten, Terrasse, Sichtschutz</td></tr>
+<tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:rgba(240,237,230,.5);">Kaufpreis</td><td style="padding:9px 14px;font-weight:600;">75.000 €</td></tr>
+<tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:rgba(240,237,230,.5);">Rendite (beide EH)</td><td style="padding:9px 14px;font-weight:600;">12–19% p.a.</td></tr>
+<tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:rgba(240,237,230,.5);">Maklergebühr</td><td style="padding:9px 14px;font-weight:600;">keine</td></tr>
+<tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:9px 14px;color:rgba(240,237,230,.5);">Besichtigung</td><td style="padding:9px 14px;font-weight:600;">Vor Ort möglich – Termin auf Anfrage</td></tr>
+<tr><td style="padding:9px 14px;color:rgba(240,237,230,.5);">Exposé</td><td style="padding:9px 14px;font-weight:600;"><a href="/assets/docs/HAUS-75000_Expose_PRO.pdf" target="_blank" rel="noopener" style="color:var(--p1-gold);">PDF herunterladen</a></td></tr>
+</tbody></table>
+</div>
+</div></section>
+
+<!-- BESCHREIBUNG -->
+<section style="padding:24px 0 0;"><div class="container">
+<h2 style="font-size:16px;font-weight:700;margin:0 0 12px;">Beschreibung</h2>
+<p style="font-size:13px;color:rgba(240,237,230,.6);line-height:1.8;">Zweifamilienhaus in Erzhausen bei Einbeck, Niedersachsen. Das Objekt verfügt über zwei vollständig separate Wohneinheiten auf insgesamt ca. 200 m² Wohnfläche und 8 Zimmern – ideal für die Kombination aus Eigennutzung und Vermietung oder für reine Kapitalanlage.</p>
+<p style="font-size:13px;color:rgba(240,237,230,.6);line-height:1.8;margin-top:10px;">Das Grundstück umfasst 1.542 m² mit großem Garten, gepflastertem Hof, Terrasse mit Sichtschutz und einem separaten Garagengebäude. Der Kaminofen in der Hauptwohnung ist voll funktionstüchtig. Beide Wohneinheiten haben separate Eingänge, Bäder und Küchen.</p>
+<p style="font-size:13px;color:rgba(240,237,230,.6);line-height:1.8;margin-top:10px;">Kaufpreis 75.000 € – keine Maklergebühr, kein Aufschlag. Besichtigung vor Ort jederzeit nach Terminvereinbarung möglich. Vollständiges Exposé mit Grundriss und weiteren Dokumenten auf Anfrage verfügbar.</p>
+</div></section>
+
+<!-- KAUFSTRUKTUR -->
+<section style="padding:24px 0 0;"><div class="container">
+<div style="font-size:11px;font-weight:700;color:var(--p1-gold);letter-spacing:.1em;margin-bottom:14px;">KAUFSTRUKTUR</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
+<div class="p1-structure-card">
+<div style="font-size:11px;color:rgba(240,237,230,.45);margin-bottom:6px;">KAUFPREIS</div>
+<div style="font-size:26px;font-weight:800;color:var(--p1-gold);">75.000 €</div>
+<div style="font-size:12px;color:rgba(240,237,230,.5);margin-top:4px;">Keine Maklergebühr · Direktkauf</div>
+</div>
+<div class="p1-structure-card">
+<div style="font-size:11px;color:rgba(240,237,230,.45);margin-bottom:6px;">RENDITE VOLLVERMIETET</div>
+<div style="font-size:26px;font-weight:800;color:#f0ede6;">12–19%</div>
+<div style="font-size:12px;color:rgba(240,237,230,.5);margin-top:4px;">p.a. bei Vollvermietung beider Einheiten</div>
+</div>
+<div class="p1-structure-card">
+<div style="font-size:11px;color:rgba(240,237,230,.45);margin-bottom:6px;">FINANZIERUNGSOPTIONEN</div>
+<div style="font-size:14px;font-weight:700;color:#f0ede6;">Auf Anfrage prüfbar</div>
+<div style="font-size:12px;color:rgba(240,237,230,.5);margin-top:4px;">Deutsche Bankfinanzierung möglich · Exposé anfordern</div>
+</div>
+</div>
+</div></section>
+
+<!-- INVESTOR CHECK -->
+<section style="padding:24px 0 0;" id="anfrage"><div class="container">
+<div style="border:1px solid rgba(201,168,76,.35);border-radius:var(--p1-radius);background:linear-gradient(135deg,rgba(201,168,76,.07),rgba(9,9,11,.25));padding:22px 20px;">
+<div style="font-size:11px;font-weight:800;color:var(--p1-gold);letter-spacing:.1em;margin-bottom:8px;">INVESTOR CHECK</div>
+<h2 style="font-size:17px;font-weight:700;margin:0 0 8px;line-height:1.3;">Passt dieses Objekt zu Ihrer Strategie?</h2>
+<p style="font-size:13px;color:rgba(240,237,230,.6);margin:0 0 14px;line-height:1.6;">Prüfen Sie in 60 Sekunden, ob dieses Angebot zu Ihrem Budget, Ihrer Rendite-Erwartung und Ihrer Einstiegssituation passt.</p>
+<div style="display:flex;flex-wrap:wrap;gap:10px;">
+<a class="btn primary" href="#objekt-anfrage-section" data-scroll style="font-size:13px;">Verfügbarkeit prüfen →</a>
+<a class="btn" href="/investor-check/?objekt=Haus%20Einbeck%2075000" style="font-size:13px;color:var(--p1-gold);">Investor Check →</a>
+</div>
+</div>
+</div></section>
+
+<!-- RELATED -->
+<section style="padding:24px 0 0;"><div class="container">
+<div style="font-size:11px;font-weight:700;color:var(--p1-gold);letter-spacing:.1em;margin-bottom:14px;">WEITERE OBJEKTE</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;">
+<a href="/angebote/apartment-sonnenstrand-42000/" style="text-decoration:none;display:block;background:var(--p1-surface);border:1px solid rgba(255,255,255,.07);border-radius:var(--p1-radius);padding:14px;"><div style="font-size:12px;font-weight:700;color:var(--p1-gold);margin-bottom:3px;">Apartment Sonnenstrand</div><div style="font-size:11px;color:rgba(240,237,230,.45);">42.000 € · 52 m² Meerblick</div></a>
+<a href="/angebote/haus-burgas-120000/" style="text-decoration:none;display:block;background:var(--p1-surface);border:1px solid rgba(255,255,255,.07);border-radius:var(--p1-radius);padding:14px;"><div style="font-size:12px;font-weight:700;color:var(--p1-gold);margin-bottom:3px;">Haus Burgas</div><div style="font-size:11px;color:rgba(240,237,230,.45);">120.000 € · 150 m² Küstenlage</div></a>
+<a href="/angebote/studio-burgas-35000/" style="text-decoration:none;display:block;background:var(--p1-surface);border:1px solid rgba(255,255,255,.07);border-radius:var(--p1-radius);padding:14px;"><div style="font-size:12px;font-weight:700;color:var(--p1-gold);margin-bottom:3px;">Studio Burgas</div><div style="font-size:11px;color:rgba(240,237,230,.45);">35.000 € · 32 m² Stadtlage</div></a>
+</div>
+</div></section>
+
+<!-- FORM -->
+<section style="padding:24px 0 48px;" id="objekt-anfrage-section"><div class="container">
+<div style="background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.3);border-radius:var(--p1-radius);padding:22px 20px;">
+<div style="font-size:11px;font-weight:800;color:var(--p1-gold);letter-spacing:.1em;margin-bottom:10px;">DIREKTANFRAGE</div>
+<h2 style="font-size:16px;font-weight:700;margin:0 0 6px;">Haus Einbeck 75000</h2>
+<p style="font-size:12px;color:rgba(240,237,230,.5);margin:0 0 16px;">Anfrage direkt zum Objekt. Wir melden uns innerhalb von 24h.</p>
+<form name="objekt-anfrage" method="POST" action="/danke/" data-netlify="true" class="objekt-anfrage-form" style="display:flex;flex-direction:column;gap:9px;">
+<input type="hidden" name="form-name" value="objekt-anfrage">
+<input type="hidden" name="source" value="Markt">
+<input type="hidden" name="layer" value="Markt">
+<input type="hidden" name="form_name" value="objekt-anfrage">
+<input type="hidden" name="object_id" value="haus-einbeck-75000">
+<input type="hidden" name="object_name" value="Haus Einbeck 75000">
+<input type="hidden" name="project_name" value="">
+<input type="hidden" name="price" value="75000 EUR">
+<input type="hidden" name="region" value="Einbeck, Deutschland">
+<input type="hidden" name="asset_type" value="Haus">
+<input type="hidden" name="page_url" value="https://betongoldmarkt.de/angebote/haus-75000-einbeck/">
+<input type="text" name="name" placeholder="Ihr Name" required style="background:var(--p1-surface2,#141418);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;color:var(--p1-text,#f0ede6);font-size:13px;outline:none;">
+<input type="email" name="email" placeholder="E-Mail" required style="background:var(--p1-surface2,#141418);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;color:var(--p1-text,#f0ede6);font-size:13px;outline:none;">
+<input type="tel" name="telefon" placeholder="Telefon (optional)" style="background:var(--p1-surface2,#141418);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;color:var(--p1-text,#f0ede6);font-size:13px;outline:none;">
+<select name="kapital_raw" required style="background:var(--p1-surface2,#141418);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;color:var(--p1-text,#f0ede6);font-size:13px;outline:none;"><option value="">Budget wählen</option><option value="bis 50.000 &#x20AC;">bis 50.000 €</option><option value="50.000–90.000 &#x20AC;">50.000–100.000 €</option><option value="100.000–200.000 &#x20AC;">100.000–200.000 €</option><option value="200.000 &#x20AC;+">200.000 €+</option></select>
+<select name="ziel" style="background:var(--p1-surface2,#141418);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;color:var(--p1-text,#f0ede6);font-size:13px;outline:none;"><option value="">Ziel (optional)</option><option value="Eigennutzung">Eigennutzung</option><option value="Investment">Investment</option><option value="Noch unsicher">Noch unsicher</option></select>
+<textarea name="nachricht" placeholder="Nachricht (optional)" rows="2" style="background:var(--p1-surface2,#141418);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;color:var(--p1-text,#f0ede6);font-size:13px;outline:none;resize:vertical;"></textarea>
+<button type="submit" class="btn primary" style="align-self:flex-start;font-size:13px;">Anfrage absenden →</button>
+</form>
+<div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+<a class="btn" href="/assets/docs/HAUS-75000_Expose_PRO.pdf" target="_blank" rel="noopener" style="font-size:12px;">Exposé PDF</a>
+<a class="btn" href="/angebote/" style="font-size:12px;">Alle Angebote</a>
+</div>
+</div>
+</div></section>
+
+</main>
+
+<!-- STICKY MOBILE CTA -->
+<div class="p1-sticky-cta" id="p1-sticky-cta">
+<div><div style="font-size:15px;font-weight:700;color:var(--p1-gold);">75.000 €</div><div style="font-size:11px;color:rgba(240,237,230,.5);">Zweifamilienhaus · 200 m² · Einbeck</div></div>
+<a class="btn primary" href="#objekt-anfrage-section" style="font-size:13px;white-space:nowrap;">Anfragen →</a>
+</div>
+
+<footer class="footer"><div class="container">
 <div style="display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;padding:20px 0 10px;">
 <div>
-  <div style="font-weight:700;margin-bottom:5px;">Beton Gold Markt</div>
-  <div class="muted small">ELITE DIVAS VIDA GROUP S.L. · CIF B42625657</div>
-  <div style="margin-top:5px;display:flex;gap:12px;flex-wrap:wrap;">
-    <a href="/impressum/" class="muted small">Impressum</a>
-    <a href="/datenschutz/" class="muted small">Datenschutz</a>
-    <a href="/kontakt/" class="muted small">Kontakt</a>
-    <a href="/faq/" class="muted small">FAQ</a>
-    <a href="/ratenzahlung-bulgarien/" class="muted small" style="color:var(--gold);">Ratenzahlung 40%</a>
-  </div>
+<div style="font-weight:700;margin-bottom:5px;">Beton Gold Markt</div>
+<div class="muted small">ELITE DIVAS VIDA GROUP S.L. · CIF B42625657</div>
+<div style="margin-top:5px;display:flex;gap:12px;flex-wrap:wrap;">
+<a href="/impressum/" class="muted small">Impressum</a>
+<a href="/datenschutz/" class="muted small">Datenschutz</a>
+<a href="/kontakt/" class="muted small">Kontakt</a>
+<a href="/faq/" class="muted small">FAQ</a>
+<a href="/ratenzahlung-bulgarien/" class="muted small" style="color:var(--p1-gold);">Ratenzahlung 40%</a>
+</div>
 </div>
 <div>
-  <a class="btn primary" href="#objekt-anfrage-section" data-scroll style="font-size:13px;">Verfügbarkeit prüfen →</a>
-  <div class="muted small" style="margin-top:6px;">Zugang nach Qualifikation</div>
+<a class="btn primary" href="#objekt-anfrage-section" data-scroll style="font-size:13px;">Verfügbarkeit prüfen →</a>
+<div class="muted small" style="margin-top:6px;">Zugang nach Qualifikation</div>
 </div>
-</div></div></footer>
+</div>
+</div></footer>
 
 <script src="/assets/markt.js?v=t4"></script>
+<script>
+(function(){
+var images=[
+'/assets/img/haus-einbeck/01.jpg',
+'/assets/img/haus-einbeck/02.jpg',
+'/assets/img/haus-einbeck/03.jpg',
+'/assets/img/haus-einbeck/04.jpg',
+'/assets/img/haus-einbeck/05.jpg',
+'/assets/img/haus-einbeck/06.jpg',
+'/assets/img/haus-einbeck/07.jpg',
+'/assets/img/haus-einbeck/08.jpg',
+'/assets/img/haus-einbeck/09.jpg',
+'/assets/img/haus-einbeck/10.jpg',
+'/assets/img/haus-einbeck/11.jpg',
+'/assets/img/haus-einbeck/12.jpg',
+'/assets/img/haus-einbeck/13.jpg',
+'/assets/img/haus-einbeck/14.jpg',
+'/assets/img/haus-einbeck/15.jpg',
+'/assets/img/haus-einbeck/16.jpg',
+'/assets/img/haus-einbeck/17.jpg',
+'/assets/img/haus-einbeck/18.jpg',
+'/assets/img/haus-einbeck/19.jpg'
+];
+var cur=0;
+var lb=document.getElementById('p1-lightbox');
+var lbImg=document.getElementById('p1-lb-img');
+window.p1LbOpen=function(i){cur=i;lbImg.src=images[i];lb.classList.add('open');document.body.style.overflow='hidden';};
+document.getElementById('p1-lb-close').onclick=function(){lb.classList.remove('open');document.body.style.overflow='';};
+document.getElementById('p1-lb-prev').onclick=function(){cur=(cur-1+images.length)%images.length;lbImg.src=images[cur];};
+document.getElementById('p1-lb-next').onclick=function(){cur=(cur+1)%images.length;lbImg.src=images[cur];};
+lb.addEventListener('click',function(e){if(e.target===lb){lb.classList.remove('open');document.body.style.overflow='';}});
+document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='ArrowLeft'){cur=(cur-1+images.length)%images.length;lbImg.src=images[cur];}else if(e.key==='ArrowRight'){cur=(cur+1)%images.length;lbImg.src=images[cur];}else if(e.key==='Escape'){lb.classList.remove('open');document.body.style.overflow='';}});
+var cards=document.querySelectorAll('.p1-highlight-card');
+var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.15});
+cards.forEach(function(c){io.observe(c);});
+var stickyCta=document.getElementById('p1-sticky-cta');
+var formSection=document.getElementById('objekt-anfrage-section');
+window.addEventListener('scroll',function(){var scrolled=window.scrollY>400;var formVisible=formSection&&formSection.getBoundingClientRect().top<window.innerHeight;stickyCta.style.display=(scrolled&&!formVisible)?'flex':'none';},{passive:true});
+})();
+</script>
 </body></html>
