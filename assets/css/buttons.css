@@ -1,0 +1,390 @@
+/*
+ * MARKT_UI_SYSTEM_V1 — buttons.css
+ * Batch 5.4 · DIETRICH OS · betongoldmarkt.de
+ *
+ * Unified institutional button system for the MARKT platform.
+ * Two layers:
+ *
+ *   Layer 1 — Canonical new classes (.mc-btn-*)
+ *     Clean slate. Use in future templates.
+ *
+ *   Layer 2 — Cascade upgrades of existing button classes
+ *     Improves transitions, hover shadow, tap targets.
+ *     Does NOT change: colors, sizes, padding, routing, JS hooks.
+ *
+ * Load order: tokens → base → layout → markt → nav → cards → buttons
+ * Uses only --mc-* tokens from tokens.css.
+ * Preserves: all IDs, JS hooks, routing, forms, schema.
+ */
+
+
+/* ════════════════════════════════════════════════════════════════
+   LAYER 1 — CANONICAL BUTTON SYSTEM (.mc-btn-*)
+════════════════════════════════════════════════════════════════ */
+
+/* ── Base reset for all mc-btn ──────────────────────────────── */
+.mc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--mc-space-2);
+  font-family: var(--mc-font-body);
+  font-size: var(--mc-type-sm);                      /* 13px */
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  text-decoration: none;
+  border: none;
+  border-radius: var(--mc-radius-sm);                /* 6px */
+  padding: 11px var(--mc-space-5);                   /* 11px 24px */
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background    var(--mc-duration-sm) var(--mc-ease-out),
+    color         var(--mc-duration-sm) var(--mc-ease-out),
+    border-color  var(--mc-duration-sm) var(--mc-ease-out),
+    transform     var(--mc-duration-sm) var(--mc-ease-out),
+    box-shadow    var(--mc-duration-sm) var(--mc-ease-out);
+}
+
+.mc-btn:focus-visible {
+  outline: 2px solid var(--mc-gold);
+  outline-offset: 3px;
+}
+
+/* ── Primary CTA — gold fill ────────────────────────────────── */
+.mc-btn-primary {
+  background: var(--mc-gold);
+  color: #000;
+  border: 1px solid var(--mc-gold);
+  padding: 13px var(--mc-space-6);                   /* 13px 32px */
+  font-size: var(--mc-type-sm);
+}
+
+.mc-btn-primary:hover {
+  background: var(--mc-gold-bright);
+  border-color: var(--mc-gold-bright);
+  color: #000;
+  transform: translateY(-1px);
+  box-shadow: var(--mc-shadow-gold);
+}
+
+.mc-btn-primary:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* ── Primary large — hero CTA ───────────────────────────────── */
+.mc-btn-primary--lg {
+  font-size: 14px;
+  padding: 16px var(--mc-space-8);                   /* 16px 64px */
+  border-radius: var(--mc-radius-md);
+}
+
+/* ── Secondary — outline gold ───────────────────────────────── */
+.mc-btn-secondary {
+  background: transparent;
+  color: var(--mc-gold);
+  border: 1px solid var(--mc-gold-border-hv);
+}
+
+.mc-btn-secondary:hover {
+  background: var(--mc-gold-dim);
+  border-color: var(--mc-gold);
+  color: var(--mc-gold);
+  transform: translateY(-1px);
+}
+
+/* ── Ghost — subtle outline ─────────────────────────────────── */
+.mc-btn-ghost {
+  background: transparent;
+  color: var(--mc-text-muted);
+  border: 1px solid var(--mc-line-strong);
+}
+
+.mc-btn-ghost:hover {
+  color: var(--mc-text);
+  border-color: var(--mc-gold-border);
+  background: rgba(255,255,255,0.04);
+  transform: translateY(-1px);
+}
+
+/* ── Filter button — pill, toggle state ─────────────────────── */
+.mc-btn-filter {
+  background: transparent;
+  color: var(--mc-text-muted);
+  border: 1px solid var(--mc-line-strong);
+  border-radius: var(--mc-radius-pill);
+  padding: 6px var(--mc-space-4);
+  font-size: var(--mc-type-xs);                      /* 11px */
+  font-weight: 700;
+  letter-spacing: var(--mc-tracking-wide);
+  text-transform: uppercase;
+}
+
+.mc-btn-filter:hover {
+  border-color: var(--mc-gold-border-hv);
+  color: var(--mc-text);
+  background: var(--mc-gold-dim);
+}
+
+.mc-btn-filter.is-active,
+.mc-btn-filter[aria-pressed="true"] {
+  background: var(--mc-gold-dim);
+  border-color: var(--mc-gold);
+  color: var(--mc-gold);
+}
+
+/* ── Sticky button — mobile fixed bar ───────────────────────── */
+.mc-btn-sticky {
+  flex-shrink: 0;
+  background: var(--mc-gold);
+  color: #000;
+  font-size: var(--mc-type-sm);
+  font-weight: 800;
+  padding: 11px var(--mc-space-5);
+  border-radius: var(--mc-radius-sm);
+  white-space: nowrap;
+  /* Minimum tap target: 44px height */
+  min-height: 44px;
+}
+
+.mc-btn-sticky:hover {
+  background: var(--mc-gold-bright);
+  color: #000;
+  box-shadow: var(--mc-shadow-gold);
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   LAYER 2 — CASCADE UPGRADES OF EXISTING BUTTON CLASSES
+   Improves: shadow, tap targets, transition timing, active states.
+   Does NOT change: color, size, font-weight, padding, z-index.
+════════════════════════════════════════════════════════════════ */
+
+/* ── Homepage hero buttons ──────────────────────────────────── */
+.btn-gold {
+  transition:
+    background  var(--mc-duration-sm) var(--mc-ease-out),
+    transform   var(--mc-duration-sm) var(--mc-ease-out),
+    box-shadow  var(--mc-duration-sm) var(--mc-ease-out);
+  min-height: 44px;                                  /* tap safety */
+}
+
+.btn-gold:hover {
+  box-shadow: var(--mc-shadow-gold);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  transition:
+    border-color var(--mc-duration-sm) var(--mc-ease-out),
+    color        var(--mc-duration-sm) var(--mc-ease-out),
+    transform    var(--mc-duration-sm) var(--mc-ease-out);
+  min-height: 44px;
+}
+
+/* ── p1 primary button (.btn-p1-gold) ───────────────────────── */
+.btn-p1-gold {
+  transition:
+    background  var(--mc-duration-sm) var(--mc-ease-out),
+    box-shadow  var(--mc-duration-sm) var(--mc-ease-out),
+    transform   var(--mc-duration-sm) var(--mc-ease-out);
+  min-height: 44px;
+}
+
+.btn-p1-gold:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 28px rgba(201,168,76,0.28);
+}
+
+/* ── p1 outline button (.btn-p1-outline) ────────────────────── */
+.btn-p1-outline {
+  transition:
+    border-color var(--mc-duration-sm) var(--mc-ease-out),
+    color        var(--mc-duration-sm) var(--mc-ease-out),
+    transform    var(--mc-duration-sm) var(--mc-ease-out);
+  min-height: 44px;
+}
+
+.btn-p1-outline:hover {
+  transform: translateY(-1px);
+}
+
+/* ── markt.css generic .btn ─────────────────────────────────── */
+.btn {
+  transition:
+    background    var(--mc-duration-sm) var(--mc-ease-out),
+    border-color  var(--mc-duration-sm) var(--mc-ease-out),
+    color         var(--mc-duration-sm) var(--mc-ease-out),
+    transform     var(--mc-duration-sm) var(--mc-ease-out),
+    box-shadow    var(--mc-duration-sm) var(--mc-ease-out);
+  min-height: 40px;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn.primary:hover {
+  box-shadow: 0 4px 20px rgba(212,175,55,0.20);
+}
+
+/* ── Sticky CTA button (.sticky-cta__btn) ───────────────────── */
+.sticky-cta__btn {
+  min-height: 44px;
+  min-width: 100px;
+  border-radius: var(--mc-radius-sm);
+  transition:
+    background  var(--mc-duration-sm) var(--mc-ease-out),
+    box-shadow  var(--mc-duration-sm) var(--mc-ease-out),
+    transform   var(--mc-duration-sm) var(--mc-ease-out);
+}
+
+.sticky-cta__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--mc-shadow-gold);
+}
+
+/* ── p1 sticky btn (.p1-sticky-btn) ────────────────────────── */
+.p1-sticky-btn {
+  min-height: 44px;
+  transition:
+    background  var(--mc-duration-sm) var(--mc-ease-out),
+    box-shadow  var(--mc-duration-sm) var(--mc-ease-out);
+}
+
+.p1-sticky-btn:hover {
+  box-shadow: var(--mc-shadow-gold);
+}
+
+/* ── p3 sticky CTA button (.p3-sc-btn) ─────────────────────── */
+.p3-sc-btn {
+  min-height: 44px;
+  min-width: 100px;
+  transition:
+    background  var(--mc-duration-sm) var(--mc-ease-out),
+    box-shadow  var(--mc-duration-sm) var(--mc-ease-out),
+    transform   var(--mc-duration-sm) var(--mc-ease-out);
+}
+
+.p3-sc-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--mc-shadow-gold);
+}
+
+/* ── p3 type filter buttons (.p3-type-btn) ──────────────────── */
+.p3-type-btn {
+  transition:
+    border-color  var(--mc-duration-sm) var(--mc-ease-out),
+    color         var(--mc-duration-sm) var(--mc-ease-out),
+    background    var(--mc-duration-sm) var(--mc-ease-out);
+  min-height: 36px;
+}
+
+/* ── Homepage filter tabs (.hp-ftab) ────────────────────────── */
+.hp-ftab {
+  transition:
+    border-color  var(--mc-duration-sm) var(--mc-ease-out),
+    color         var(--mc-duration-sm) var(--mc-ease-out),
+    background    var(--mc-duration-sm) var(--mc-ease-out);
+  min-height: 36px;
+}
+
+/* ── p2 type filter buttons (.p2-type-btn) ──────────────────── */
+.p2-type-btn {
+  transition:
+    border-color  var(--mc-duration-sm) var(--mc-ease-out),
+    color         var(--mc-duration-sm) var(--mc-ease-out),
+    background    var(--mc-duration-sm) var(--mc-ease-out);
+  min-height: 36px;
+}
+
+/* ── Lightbox nav buttons (.lightbox__btn) ──────────────────── */
+.lightbox__btn {
+  transition:
+    border-color  var(--mc-duration-sm) var(--mc-ease-out),
+    color         var(--mc-duration-sm) var(--mc-ease-out),
+    box-shadow    var(--mc-duration-sm) var(--mc-ease-out);
+  min-height: 40px;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   MOBILE BUTTON OPTIMISATIONS
+   All CTA buttons: minimum 44px tap target on mobile.
+════════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  /* Hero buttons full width */
+  .btn-gold,
+  .btn-ghost {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+  }
+
+  /* p1 action buttons */
+  .btn-p1-gold,
+  .btn-p1-outline {
+    min-height: 48px;
+  }
+
+  /* Filter buttons smaller on mobile */
+  .p3-type-btn,
+  .p2-type-btn,
+  .hp-ftab {
+    min-height: 34px;
+    font-size: var(--mc-type-xs);
+  }
+
+  /* mc-btn canonical */
+  .mc-btn-primary {
+    min-height: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mc-btn-primary--lg {
+    width: 100%;
+    padding: 14px var(--mc-space-5);
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   REDUCED MOTION — disable button animations
+════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .mc-btn,
+  .btn-gold,
+  .btn-ghost,
+  .btn-p1-gold,
+  .btn-p1-outline,
+  .btn,
+  .sticky-cta__btn,
+  .p1-sticky-btn,
+  .p3-sc-btn,
+  .p3-type-btn,
+  .hp-ftab,
+  .p2-type-btn,
+  .lightbox__btn {
+    transition: none;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   SAFARI SAFE — prevent tap highlight
+════════════════════════════════════════════════════════════════ */
+.mc-btn,
+.btn-gold,
+.btn-ghost,
+.btn-p1-gold,
+.btn-p1-outline,
+.p3-sc-btn,
+.sticky-cta__btn {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+}

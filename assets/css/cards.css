@@ -1,0 +1,437 @@
+/*
+ * MARKT_UI_SYSTEM_V1 — cards.css
+ * Batch 5.4 · DIETRICH OS · betongoldmarkt.de
+ *
+ * Unified institutional card system for the MARKT platform.
+ * Two layers:
+ *
+ *   Layer 1 — Canonical new classes (.mc-card-*)
+ *     Clean slate. Use in future templates.
+ *
+ *   Layer 2 — Cascade upgrades of existing classes
+ *     Improves shadow, transition, hover depth on existing cards
+ *     WITHOUT touching colors or layout.
+ *     All existing --p1-* / --p2-* / --p3-* / --gold tokens preserved.
+ *
+ * Load order: tokens → base → layout → markt → nav → cards → buttons
+ * Uses only --mc-* tokens from tokens.css.
+ * Preserves: all IDs, JS hooks, routing, forms, schema.
+ */
+
+
+/* ════════════════════════════════════════════════════════════════
+   LAYER 1 — CANONICAL CARD SYSTEM (.mc-card-*)
+   Use these in new templates and future upgrades.
+════════════════════════════════════════════════════════════════ */
+
+/* ── Base card ──────────────────────────────────────────────── */
+.mc-card {
+  position: relative;
+  background: var(--mc-surface-1);
+  border: 1px solid var(--mc-gold-border);         /* rgba(201,168,76,0.25) */
+  border-radius: var(--mc-radius-lg);               /* 14px */
+  padding: var(--mc-space-5);                        /* 24px */
+  transition:
+    border-color  var(--mc-duration-md) var(--mc-ease-out),
+    transform     var(--mc-duration-md) var(--mc-ease-out),
+    box-shadow    var(--mc-duration-md) var(--mc-ease-out);
+}
+
+.mc-card:hover {
+  border-color: var(--mc-gold-border-hv);           /* rgba(201,168,76,0.55) */
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.45),
+    0 0 0 1px var(--mc-gold-border);
+}
+
+/* ── Elevated card — deeper surface ────────────────────────── */
+.mc-card--elevated {
+  background: var(--mc-surface-2);
+  box-shadow: var(--mc-shadow-md);
+}
+
+.mc-card--elevated:hover {
+  box-shadow:
+    0 16px 48px rgba(0,0,0,0.55),
+    0 0 0 1px var(--mc-gold-border-hv);
+}
+
+/* ── Gold accent card — CTA / featured ─────────────────────── */
+.mc-card--gold {
+  background: var(--mc-grad-gold);
+  border-color: var(--mc-gold-border-hv);
+  box-shadow: var(--mc-shadow-gold);
+}
+
+.mc-card--gold:hover {
+  box-shadow:
+    var(--mc-shadow-gold),
+    0 12px 40px rgba(0,0,0,0.45);
+}
+
+/* ── Image card — full-bleed image with content overlay ─────── */
+.mc-card--image {
+  padding: 0;
+  overflow: hidden;
+}
+
+.mc-card--image .mc-card__img-wrap {
+  position: relative;
+  overflow: hidden;
+  height: 200px;
+}
+
+.mc-card--image .mc-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--mc-duration-xl) var(--mc-ease-out);
+  display: block;
+}
+
+.mc-card--image:hover .mc-card__img {
+  transform: scale(1.05);
+}
+
+.mc-card--image .mc-card__overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 28px 16px 14px;
+  background: var(--mc-overlay-card);
+}
+
+.mc-card--image .mc-card__body {
+  padding: var(--mc-space-4) var(--mc-space-5);
+}
+
+/* ── Card badge ─────────────────────────────────────────────── */
+.mc-card__badge {
+  position: absolute;
+  top: var(--mc-space-3);
+  left: var(--mc-space-3);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mc-space-1);
+  padding: 3px var(--mc-space-2);
+  background: var(--mc-gold);
+  color: #000;
+  font-size: var(--mc-type-xs);                     /* 11px */
+  font-weight: 700;
+  letter-spacing: var(--mc-tracking-wide);
+  text-transform: uppercase;
+  border-radius: var(--mc-radius-sm);
+  line-height: 1.4;
+}
+
+.mc-card__badge--new  { background: #10b981; color: #fff; }
+.mc-card__badge--de   { background: #3b82f6; color: #fff; }
+.mc-card__badge--hot  { background: #ef4444; color: #fff; }
+
+/* ── Price display ──────────────────────────────────────────── */
+.mc-card__price {
+  font-size: var(--mc-type-h3);                     /* clamp(16px,2vw,22px) */
+  font-weight: 700;
+  color: var(--mc-gold);
+  line-height: 1.1;
+}
+
+.mc-card__price-note {
+  font-size: var(--mc-type-xs);
+  color: var(--mc-text-muted);
+  margin-top: 3px;
+}
+
+/* ── Meta row ───────────────────────────────────────────────── */
+.mc-card__meta {
+  font-size: var(--mc-type-sm);
+  color: var(--mc-text-muted);
+  margin: var(--mc-space-2) 0 var(--mc-space-3);
+  line-height: var(--mc-leading-normal);
+}
+
+/* ── Card footer ────────────────────────────────────────────── */
+.mc-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--mc-type-sm);
+  border-top: 1px solid var(--mc-line);
+  padding-top: var(--mc-space-3);
+  margin-top: var(--mc-space-3);
+}
+
+/* ── Arrow link ─────────────────────────────────────────────── */
+.mc-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mc-space-1);
+  font-size: var(--mc-type-xs);
+  font-weight: 600;
+  color: var(--mc-gold);
+  letter-spacing: var(--mc-tracking-normal);
+}
+
+.mc-card__link::after {
+  content: '→';
+  transition: transform var(--mc-duration-sm) var(--mc-ease-out);
+}
+
+.mc-card:hover .mc-card__link::after {
+  transform: translateX(3px);
+}
+
+/* ── Financing / CTA band card ──────────────────────────────── */
+.mc-card--cta-band {
+  background: var(--mc-grad-gold);
+  border-color: var(--mc-gold-border-hv);
+  border-radius: var(--mc-radius-xl);
+  padding: var(--mc-space-8) var(--mc-space-7);
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .mc-card--cta-band {
+    padding: var(--mc-space-6) var(--mc-space-5);
+  }
+}
+
+/* ── Stat / KPI card ────────────────────────────────────────── */
+.mc-card--stat {
+  text-align: center;
+  padding: var(--mc-space-5);
+  background: var(--mc-surface-2);
+}
+
+.mc-card__stat-value {
+  font-size: var(--mc-type-h2);
+  font-weight: 700;
+  color: var(--mc-gold);
+  line-height: 1;
+  margin-bottom: var(--mc-space-2);
+}
+
+.mc-card__stat-label {
+  font-size: var(--mc-type-xs);
+  color: var(--mc-text-muted);
+  letter-spacing: var(--mc-tracking-wide);
+  text-transform: uppercase;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   LAYER 2 — CASCADE UPGRADES OF EXISTING CARD CLASSES
+   Improves: shadow depth, hover elevation, transition timing.
+   Does NOT change: colors, layout, padding, font sizes, IDs.
+════════════════════════════════════════════════════════════════ */
+
+/* ── Homepage property cards (.pc) ─────────────────────────── */
+.pc {
+  transition:
+    border-color  var(--mc-duration-md) var(--mc-ease-out),
+    transform     var(--mc-duration-md) var(--mc-ease-out),
+    box-shadow    var(--mc-duration-md) var(--mc-ease-out);
+}
+
+.pc:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 16px 48px rgba(0,0,0,0.55),
+    0 0   0 1px rgba(201,168,76,0.35);
+}
+
+.pc-img {
+  transition: transform var(--mc-duration-xl) var(--mc-ease-out);
+}
+
+/* ── p2 unit cards (.p2-unit-card) ─────────────────────────── */
+.p2-unit-card {
+  transition:
+    border-color  var(--mc-duration-md) var(--mc-ease-out),
+    transform     var(--mc-duration-md) var(--mc-ease-out),
+    box-shadow    var(--mc-duration-md) var(--mc-ease-out);
+}
+
+.p2-unit-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.40),
+    0 0  0 1px rgba(201,168,76,0.40);
+}
+
+/* ── p3 unit cards (.p3-unit-card) ─────────────────────────── */
+.p3-unit-card {
+  transition:
+    border-color  var(--mc-duration-md) var(--mc-ease-out),
+    transform     var(--mc-duration-md) var(--mc-ease-out),
+    box-shadow    var(--mc-duration-md) var(--mc-ease-out);
+}
+
+.p3-unit-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.40),
+    0 0  0 1px rgba(201,168,76,0.40);
+}
+
+/* ── markt.css generic card (.card) ────────────────────────── */
+.card {
+  transition:
+    border-color  var(--mc-duration-md) var(--mc-ease-out),
+    box-shadow    var(--mc-duration-md) var(--mc-ease-out);
+}
+
+/* ── markt.css .property-card ──────────────────────────────── */
+.property-card {
+  transition:
+    border-color  var(--mc-duration-md) var(--mc-ease-out),
+    transform     var(--mc-duration-md) var(--mc-ease-out),
+    box-shadow    var(--mc-duration-md) var(--mc-ease-out);
+}
+
+.property-card:hover {
+  border-color: rgba(212,175,55,0.4);
+  transform: translateY(-2px);
+  box-shadow: var(--mc-shadow-md);
+}
+
+/* ── markt.css .payment-card ───────────────────────────────── */
+.payment-card {
+  border-radius: var(--mc-radius-lg);
+  box-shadow: var(--mc-shadow-sm);
+  transition: box-shadow var(--mc-duration-md) var(--mc-ease-out);
+}
+
+/* ── markt.css .investor-banner ────────────────────────────── */
+.investor-banner {
+  transition:
+    border-color  var(--mc-duration-md) var(--mc-ease-out),
+    box-shadow    var(--mc-duration-md) var(--mc-ease-out);
+}
+
+.investor-banner:hover {
+  border-color: rgba(212,175,55,0.4);
+  box-shadow: var(--mc-shadow-gold);
+}
+
+/* ── markt.css .related-property ───────────────────────────── */
+.related-property {
+  transition:
+    border-color  var(--mc-duration-md) var(--mc-ease-out),
+    transform     var(--mc-duration-md) var(--mc-ease-out),
+    box-shadow    var(--mc-duration-md) var(--mc-ease-out);
+}
+
+.related-property:hover {
+  border-color: rgba(212,175,55,0.4);
+  transform: translateY(-2px);
+  box-shadow: var(--mc-shadow-md);
+}
+
+/* ── markt.css .value-prop ─────────────────────────────────── */
+.value-prop {
+  transition:
+    border-color  var(--mc-duration-md) var(--mc-ease-out),
+    transform     var(--mc-duration-md) var(--mc-ease-out);
+}
+
+.value-prop:hover {
+  border-color: rgba(212,175,55,0.3);
+  transform: translateY(-1px);
+}
+
+/* ── why-card (homepage) ───────────────────────────────────── */
+.why-card {
+  transition:
+    border-color  var(--mc-duration-md) var(--mc-ease-out),
+    transform     var(--mc-duration-md) var(--mc-ease-out),
+    box-shadow    var(--mc-duration-md) var(--mc-ease-out);
+}
+
+.why-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--mc-shadow-sm);
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   PRICE BADGE (p1 object pages)
+   Upgrade: stronger blur, crisper border
+════════════════════════════════════════════════════════════════ */
+.price-badge {
+  backdrop-filter: var(--mc-glass-blur);
+  -webkit-backdrop-filter: var(--mc-glass-blur);
+  border-radius: var(--mc-radius-md);
+  box-shadow: var(--mc-shadow-md);
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   STICKY CTA BAR — all variants
+   Unified glass treatment across .sticky-cta / .p1-sticky-cta /
+   #p3-sticky-cta. Preserves existing z-index and display logic.
+════════════════════════════════════════════════════════════════ */
+.sticky-cta,
+.p1-sticky-cta {
+  backdrop-filter: var(--mc-glass-blur);
+  -webkit-backdrop-filter: var(--mc-glass-blur);
+  box-shadow: 0 -1px 0 rgba(201,168,76,0.18),
+              0 -8px 32px rgba(0,0,0,0.50);
+}
+
+#p3-sticky-cta {
+  box-shadow: 0 -1px 0 rgba(201,168,76,0.18),
+              0 -8px 32px rgba(0,0,0,0.50);
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   REDUCED MOTION — disable card animations
+════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .mc-card,
+  .pc,
+  .p2-unit-card,
+  .p3-unit-card,
+  .card,
+  .property-card,
+  .related-property,
+  .value-prop,
+  .why-card {
+    transition: none;
+    transform: none !important;
+  }
+
+  .mc-card--image .mc-card__img,
+  .pc-img {
+    transition: none;
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   MOBILE CARD OPTIMISATIONS
+════════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .mc-card {
+    padding: var(--mc-space-4);                      /* 16px */
+  }
+
+  .mc-card--cta-band {
+    padding: var(--mc-space-6) var(--mc-space-5);
+  }
+
+  /* Disable hover elevation on touch devices */
+  @media (hover: none) {
+    .pc:hover,
+    .p2-unit-card:hover,
+    .p3-unit-card:hover,
+    .property-card:hover,
+    .related-property:hover,
+    .why-card:hover,
+    .mc-card:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
