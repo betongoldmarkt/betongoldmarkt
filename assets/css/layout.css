@@ -1,0 +1,186 @@
+/*
+ * MARKT_UI_SYSTEM_V1 — layout.css
+ * Batch 5.2 · DIETRICH OS · betongoldmarkt.de
+ *
+ * Layout primitives. Uses only --mc-* tokens from tokens.css.
+ * All classes use .mc-* namespace — zero collision with existing
+ * markt.css / style.css selectors.
+ * Load order: tokens.css → base.css → layout.css → markt.css
+ */
+
+
+/* ═══════════════════════════════════════════════════════
+   CONTAINER
+   Single centered wrapper with responsive horizontal
+   padding and max-width cap.
+═══════════════════════════════════════════════════════ */
+.mc-container {
+  width: 100%;
+  max-width: var(--mc-container-max);
+  margin-inline: auto;
+  padding-inline: var(--mc-container-pad);
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   SECTION
+   Vertical rhythm block. Use as a page section wrapper.
+═══════════════════════════════════════════════════════ */
+.mc-section {
+  padding-block: var(--mc-space-9);   /* 96px */
+}
+
+.mc-section--tight {
+  padding-block: var(--mc-space-7);   /* 48px */
+}
+
+.mc-section--flush {
+  padding-block: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   GRID SYSTEM
+   CSS Grid with responsive collapse.
+   All variants collapse to 1-column below md (640px).
+═══════════════════════════════════════════════════════ */
+
+/* Base grid — single column by default */
+.mc-grid {
+  display: grid;
+  gap: var(--mc-space-6);              /* 32px */
+  grid-template-columns: 1fr;
+}
+
+/* 2-column grid */
+.mc-grid--2 {
+  display: grid;
+  gap: var(--mc-space-6);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .mc-grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 3-column grid */
+.mc-grid--3 {
+  display: grid;
+  gap: var(--mc-space-6);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .mc-grid--3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .mc-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 4-column grid */
+.mc-grid--4 {
+  display: grid;
+  gap: var(--mc-space-5);              /* 24px */
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 480px) {
+  .mc-grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .mc-grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Auto-fit grid — fills available space with min 260px columns */
+.mc-grid--auto {
+  display: grid;
+  gap: var(--mc-space-6);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   STACK
+   Vertical flex stack with consistent gap.
+   Use for stacking elements with uniform spacing.
+═══════════════════════════════════════════════════════ */
+.mc-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mc-space-5);              /* 24px */
+}
+
+.mc-stack--sm {
+  gap: var(--mc-space-3);              /* 12px */
+}
+
+.mc-stack--lg {
+  gap: var(--mc-space-7);              /* 48px */
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   CLUSTER
+   Horizontal flex row that wraps. Use for tag groups,
+   button rows, icon + label combos.
+═══════════════════════════════════════════════════════ */
+.mc-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--mc-space-3);              /* 12px */
+  align-items: center;
+}
+
+.mc-cluster--sm {
+  gap: var(--mc-space-2);              /* 8px */
+}
+
+.mc-cluster--lg {
+  gap: var(--mc-space-5);              /* 24px */
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   SPLIT
+   Two-column layout that places items at opposing ends.
+   Collapses to stacked column below sm (480px).
+═══════════════════════════════════════════════════════ */
+.mc-split {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mc-space-4);              /* 16px */
+}
+
+@media (min-width: 480px) {
+  .mc-split {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--mc-space-5);            /* 24px */
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   SCROLL-MARGIN UTILITIES
+   Compensates for sticky nav height when anchor-linking.
+═══════════════════════════════════════════════════════ */
+.mc-scroll-target {
+  scroll-margin-top: calc(var(--mc-nav-height) + var(--mc-space-4));
+}
+
+.mc-scroll-target--flush {
+  scroll-margin-top: var(--mc-nav-height);
+}
