@@ -3,7 +3,7 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-C43M2LD17H');</script>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Beton Gold Markt – Immobilien Bulgarien & Deutschland kaufen</title>
-<meta name="description" content="Immobilien kaufen in Bulgarien & Deutschland. Apartments ab 25.000 €, Ratenzahlung 40% Anzahlung, Bankimmobilien unter Marktwert. DACH-Investoren, EU-Markt."/>
+<meta name="description" content="Immobilien Bulgarien & Deutschland für DACH-Investoren. Apartments ab 25.000 €, Ratenzahlung 40% Anzahlung, Bankportfolios unter Marktwert, Off-Market Deals. Direktzugang ohne Makler."/>
 <link rel="canonical" href="https://betongoldmarkt.de/"/>
 <meta property="og:title" content="Beton Gold Markt – Immobilien Bulgarien & Deutschland kaufen"/>
 <meta property="og:description" content="Immobilien kaufen in Bulgarien & Deutschland. Apartments ab 25.000 €, Ratenzahlung 40% Anzahlung, Bankimmobilien unter Marktwert. DACH-Investoren, EU-Markt."/>
@@ -29,86 +29,97 @@
     "https://maps.app.goo.gl/oN6V5uptrgzd8SSt6"]},{"@type":"WebPage","@id":"https://betongoldmarkt.de/","url":"https://betongoldmarkt.de/","name":"Beton Gold Markt – Immobilien","isPartOf":{"@id":"https://betongoldmarkt.de/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Start"}]}]}</script>
 
 <style>
-/* ── RESET + BASE ─────────────────────── */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --bg:#09090b;--surface:#111114;--surface2:#18181c;
-  --gold:#b8956a;--gold2:#d0b896;--gold-dim:rgba(184,149,106,.18);
-  --line:rgba(255,255,255,.08);--muted:rgba(255,255,255,.45);
-  --text:#f0ede6;--radius:14px;--font:'Georgia',serif;
+/* ── TOKEN BRIDGE — legacy vars → mc-* system ──────────────
+   Keeps all inline CSS using var(--gold/--bg/etc.) in sync
+   with the canonical MARKT_UI_SYSTEM_V1 tokens.
+   No component overrides here — only aliases.
+────────────────────────────────────────────────────────── */
+:root {
+  --gold:     var(--mc-gold);
+  --gold2:    var(--mc-gold-bright);
+  --gold-dim: var(--mc-gold-dim);
+  --bg:       var(--mc-bg);
+  --surface:  var(--mc-surface-1);
+  --surface2: var(--mc-surface-2);
+  --line:     var(--mc-line);
+  --muted:    var(--mc-text-muted);
+  --text:     var(--mc-text);
+  --radius:   var(--mc-radius-lg);
 }
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.6;overflow-x:hidden;overflow-y:auto;max-width:100%;box-sizing:border-box;}
-a{color:inherit;text-decoration:none;}
-img{display:block;max-width:100%;height:auto;}
 
-/* ── NOISE TEXTURE OVERLAY ────────────── */
-body::before{
-  content:'';position:fixed;inset:0;
+/* ── BODY OVERFLOW — prevent hero animation bleed ───────── */
+body { overflow-x: hidden; }
+
+/* ── NOISE TEXTURE — ambient depth layer ───────────────── */
+body::before {
+  content:''; position:fixed; inset:0;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  opacity:.025;pointer-events:none;z-index:0;
+  opacity:.025; pointer-events:none; z-index:0;
 }
 
-/* ── HEADER — styles moved to /assets/css/nav.css (Batch 5.3) ── */
+/* ══════════════════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════════════════ */
+.hero {
+  position:relative; height:100svh; min-height:620px; max-height:920px;
+  display:flex; align-items:flex-end; overflow:hidden;
+  background:var(--mc-bg);
+  padding-top: var(--mc-nav-height);
+}
 
-/* ── HERO ─────────────────────────────── */
-.hero{
-  position:relative;height:100svh;min-height:620px;max-height:920px;
-  display:flex;align-items:flex-end;overflow:hidden;
-  background:var(--bg);max-width:100%;box-sizing:border-box;
+/* Background image — filter applied here only, not to text children */
+.hero-bg-img {
+  position:absolute; inset:0;
+  background-image:url('/assets/img/robinson-beach/project/01.jpg');
+  background-size:cover; background-position:center;
+  filter:brightness(0.52) saturate(1.15);
 }
 
 /* Animated gold grid lines */
-.hero-bg{
-  position:absolute;inset:0;
+.hero-bg {
+  position:absolute; inset:0; z-index:1;
   background-image:
-    linear-gradient(rgba(212,175,55,.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(212,175,55,.07) 1px, transparent 1px);
+    linear-gradient(rgba(201,168,76,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,.07) 1px, transparent 1px);
   background-size:72px 72px;
   animation:gridDrift 32s linear infinite;
 }
-@keyframes gridDrift{
-  0%{background-position:0 0;}
-  100%{background-position:72px 72px;}
+@keyframes gridDrift {
+  0%   { background-position:0 0; }
+  100% { background-position:72px 72px; }
 }
 
-/* Radial glow — centre-left */
-.hero-bg::before{
-  content:'';position:absolute;inset:0;
+/* Radial gold glow */
+.hero-bg::before {
+  content:''; position:absolute; inset:0;
   background:
-    radial-gradient(ellipse 70% 60% at 20% 60%, rgba(212,175,55,.11) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 40% at 75% 30%, rgba(212,175,55,.06) 0%, transparent 60%);
+    radial-gradient(ellipse 70% 60% at 20% 60%, rgba(201,168,76,.10) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 75% 30%, rgba(201,168,76,.05) 0%, transparent 60%);
 }
 
 /* Diagonal gold accent line */
-.hero-bg::after{
-  content:'';position:absolute;
-  top:-10%;left:55%;width:1px;height:130%;
-  background:linear-gradient(transparent 0%, rgba(212,175,55,.25) 30%, rgba(212,175,55,.35) 55%, rgba(212,175,55,.1) 80%, transparent 100%);
-  transform:rotate(-12deg);
-  transform-origin:top center;
+.hero-bg::after {
+  content:''; position:absolute;
+  top:-10%; left:55%; width:1px; height:130%;
+  background:linear-gradient(transparent 0%, rgba(201,168,76,.25) 30%, rgba(201,168,76,.35) 55%, rgba(201,168,76,.10) 80%, transparent 100%);
+  transform:rotate(-12deg); transform-origin:top center;
   animation:linePulse 5s ease-in-out infinite;
 }
-@keyframes linePulse{
-  0%,100%{opacity:.5;}
-  50%{opacity:1;}
-}
+@keyframes linePulse { 0%,100%{opacity:.5;} 50%{opacity:1;} }
 
-/* Bottom fade into page */
-.hero-grad{
-  position:absolute;inset:0;
+/* Bottom gradient fade */
+.hero-grad {
+  position:absolute; inset:0; z-index:2;
   background:
-    linear-gradient(to top, rgba(9,9,11,.65) 0%, rgba(9,9,11,.2) 35%, transparent 70%),
-    linear-gradient(to right, rgba(9,9,11,.15) 0%, transparent 50%);
+    linear-gradient(to top, rgba(9,9,11,.72) 0%, rgba(9,9,11,.22) 40%, transparent 70%),
+    linear-gradient(to right, rgba(9,9,11,.18) 0%, transparent 55%);
 }
 
-/* Floating gold dots */
-.hero-dots{
-  position:absolute;inset:0;overflow:hidden;pointer-events:none;
-}
-.hero-dots span{
-  position:absolute;border-radius:50%;
-  background:var(--gold);opacity:0;
+/* Floating gold micro-dots */
+.hero-dots { position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:2; }
+.hero-dots span {
+  position:absolute; border-radius:50%;
+  background:var(--mc-gold); opacity:0;
   animation:dotFloat linear infinite;
 }
 .hero-dots span:nth-child(1){width:3px;height:3px;left:15%;animation-duration:18s;animation-delay:0s;}
@@ -116,426 +127,537 @@ body::before{
 .hero-dots span:nth-child(3){width:4px;height:4px;left:58%;animation-duration:20s;animation-delay:-10s;}
 .hero-dots span:nth-child(4){width:2px;height:2px;left:78%;animation-duration:28s;animation-delay:-3s;}
 .hero-dots span:nth-child(5){width:3px;height:3px;left:90%;animation-duration:22s;animation-delay:-14s;}
-@keyframes dotFloat{
-  0%{bottom:-10px;opacity:0;}
-  10%{opacity:.5;}
-  90%{opacity:.2;}
-  100%{bottom:105%;opacity:0;}
+@keyframes dotFloat {
+  0%  { bottom:-10px; opacity:0; }
+  10% { opacity:.5; }
+  90% { opacity:.2; }
+  100%{ bottom:105%; opacity:0; }
 }
-.hero-content{
-  position:relative;z-index:2;
-  padding:0 clamp(20px,5vw,80px) clamp(40px,6vh,72px);
-  max-width:780px;
+
+/* Hero content */
+.hero-content {
+  position:relative; z-index:3;
+  padding: 0 clamp(20px,5vw,80px) clamp(40px,6vh,72px);
+  max-width:840px;
+  padding-top:clamp(80px,12vh,120px);
+  padding-bottom:clamp(140px,16vh,165px);
   animation:heroFade .9s ease-out both;
 }
-@keyframes heroFade{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
+@keyframes heroFade { from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;} }
 
-.hero-eyebrow{
-  font-family:sans-serif;font-size:11px;font-weight:600;
-  letter-spacing:.2em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:16px;
-  display:flex;align-items:center;gap:10px;
+/* Hero vertical brand marker */
+.hero-side-marker {
+  position:absolute; right:clamp(12px,4vw,60px); top:50%;
+  transform:translateY(-50%); z-index:3;
+  display:flex; flex-direction:column; align-items:center; gap:14px;
+  animation:heroFade 1s .4s ease-out both;
 }
-.hero-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--gold);}
-.hero-h1{
-  font-size:clamp(24px,4.8vw,62px);font-weight:700;
-  line-height:1.05;letter-spacing:-.03em;color:#fff;
+@media(max-width:640px){ .hero-side-marker{ display:none !important; } }
+
+.hero-h1 {
+  font-family:var(--mc-font-display);
+  font-size:clamp(26px,4.8vw,62px); font-weight:700;
+  line-height:1.05; letter-spacing:-.03em; color:#fff;
   margin-bottom:20px;
 }
-.hero-h1 em{color:var(--gold);font-style:normal;}
-.hero-sub{
-  font-family:sans-serif;font-size:16px;color:rgba(255,255,255,.7);
-  max-width:540px;margin-bottom:36px;line-height:1.75;
+.hero-h1 em { color:var(--mc-gold); font-style:normal; }
+
+.hero-sub {
+  font-family:var(--mc-font-body); font-size:16px;
+  color:rgba(255,255,255,.72); max-width:520px;
+  margin-bottom:36px; line-height:1.75;
 }
-/* CTA кнопки — мобиль */
-.hero-cta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+
+.hero-fact-row {
+  display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px;
+  animation:heroFade .8s .22s ease-out both;
+}
+.hero-fact {
+  font-family:var(--mc-font-body); font-size:12px; color:rgba(255,255,255,.72);
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.13);
+  border-radius:var(--mc-radius-sm); padding:5px 11px;
+}
+
+.hero-gold-line {
+  width:56px; height:1px; background:rgba(201,168,76,.4);
+  margin-bottom:24px; animation:heroFade .8s .3s ease-out both;
+}
+
+/* Hero CTA row */
+.hero-cta { display:flex; gap:10px; flex-wrap:wrap; align-items:center; animation:heroFade .8s .38s ease-out both; }
 @media(max-width:520px){
-  .hero-cta{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-  .hero-cta a:first-child{grid-column:1/-1;}
-  .hero-cta a{font-size:12px;padding:11px 10px;text-align:center;justify-content:center;}
+  .hero-cta { display:grid; grid-template-columns:1fr; gap:8px; }
+  .hero-cta a { text-align:center; justify-content:center; }
 }
-.btn-gold{
-  background:var(--gold);color:#000;
-  font-family:sans-serif;font-weight:700;font-size:14px;
-  padding:16px 32px;border-radius:11px;letter-spacing:.04em;
-  transition:background .15s,transform .12s;display:inline-flex;align-items:center;gap:7px;
+
+.hero-cta-note {
+  font-family:var(--mc-font-body); font-size:11px;
+  color:rgba(255,255,255,.35); margin-top:8px; letter-spacing:.04em;
 }
-.btn-gold:hover{background:var(--gold2);transform:translateY(-1px);}
-.btn-ghost{
-  border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.8);
-  font-family:sans-serif;font-weight:500;font-size:13px;
-  padding:12px 22px;border-radius:10px;letter-spacing:.02em;
-  transition:border-color .15s,color .15s,transform .12s;
-}
-.btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px);}
 
 /* Hero scroll indicator */
-.hero-scroll{
-  position:absolute;bottom:28px;right:clamp(20px,5vw,80px);z-index:2;
-  display:flex;flex-direction:column;align-items:center;gap:6px;
+.hero-scroll {
+  position:absolute; bottom:28px; right:clamp(20px,5vw,80px); z-index:3;
+  display:flex; flex-direction:column; align-items:center; gap:6px;
   animation:heroFade 1.2s .6s ease-out both;
 }
-.hero-scroll span{font-family:sans-serif;font-size:10px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;}
-.scroll-line{width:1px;height:40px;background:linear-gradient(var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite;}
-@keyframes scrollPulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+.hero-scroll span { font-family:var(--mc-font-body); font-size:10px; letter-spacing:.15em; color:var(--mc-text-muted); text-transform:uppercase; }
+.scroll-line { width:1px; height:40px; background:linear-gradient(var(--mc-gold),transparent); animation:scrollPulse 2s ease-in-out infinite; }
+@keyframes scrollPulse { 0%,100%{opacity:.4;} 50%{opacity:1;} }
+@media(max-width:640px){ .hero-scroll{ display:none; } }
 
 /* Hero stats bar */
-.hero-stats{
-  position:absolute;bottom:0;left:0;right:0;z-index:3;
-  display:flex;border-top:1px solid var(--line);
-  background:rgba(9,9,11,.7);backdrop-filter:blur(12px);
+.hero-stats {
+  position:absolute; bottom:0; left:0; right:0; z-index:4;
+  display:flex; border-top:1px solid var(--mc-line);
+  background:rgba(9,9,11,.75); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
 }
-.hero-stat{
-  flex:1;padding:14px 20px;border-right:1px solid var(--line);
-  text-align:center;
-}
-.hero-stat:last-child{border-right:none;}
-.hero-stat .val{font-size:22px;font-weight:600;color:var(--gold);line-height:1;}
-.hero-stat .lbl{font-family:sans-serif;font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.03em;}
+.hero-stat { flex:1; padding:14px 20px; border-right:1px solid var(--mc-line); text-align:center; }
+.hero-stat:last-child { border-right:none; }
+.hero-stat .val { font-size:22px; font-weight:700; color:var(--mc-gold); line-height:1; font-variant-numeric:tabular-nums; }
+.hero-stat .lbl { font-family:var(--mc-font-body); font-size:11px; color:var(--mc-text-muted); margin-top:4px; letter-spacing:.03em; }
 @media(max-width:600px){
-  .hero-stat .val{font-size:14px;}
-  .hero-stat .lbl{font-size:9px;}
-  .hero-stat{padding:10px 8px;}
-  .hero-stats{display:grid;grid-template-columns:1fr 1fr;}
-  .hero-stat:nth-child(2){border-right:none;}
-  .hero-stat:nth-child(3){border-top:1px solid var(--line);}
-  .hero-stat:nth-child(4){border-top:1px solid var(--line);border-right:none;}
+  .hero-stat .val{ font-size:14px; }
+  .hero-stat .lbl{ font-size:9px; }
+  .hero-stat{ padding:10px 8px; }
+  .hero-stats{ display:grid; grid-template-columns:1fr 1fr; }
+  .hero-stat:nth-child(2){ border-right:none; }
+  .hero-stat:nth-child(3){ border-top:1px solid var(--mc-line); }
+  .hero-stat:nth-child(4){ border-top:1px solid var(--mc-line); border-right:none; }
 }
 
-/* side marker — on mobile hidden to prevent overflow */
+/* Button overrides for hero / homepage */
+.btn-gold {
+  background:var(--mc-gold); color:#000;
+  font-family:var(--mc-font-body); font-weight:700; font-size:14px;
+  padding:16px 32px; border-radius:var(--mc-radius-md); letter-spacing:.04em;
+  display:inline-flex; align-items:center; gap:7px;
+}
+.btn-gold:hover { background:var(--mc-gold-bright); color:#000; }
+
+.btn-ghost {
+  border:1px solid rgba(255,255,255,.22); color:rgba(255,255,255,.8);
+  font-family:var(--mc-font-body); font-weight:500; font-size:13px;
+  padding:12px 22px; border-radius:var(--mc-radius-md); letter-spacing:.02em;
+  display:inline-flex; align-items:center; gap:7px;
+}
+.btn-ghost:hover { border-color:var(--mc-gold); color:var(--mc-gold); }
+
+/* ══════════════════════════════════════════════════════════
+   AUTHORITY STRIP
+══════════════════════════════════════════════════════════ */
+.authority-strip {
+  background:rgba(255,255,255,.02);
+  border-bottom:1px solid var(--mc-gold-line);
+}
+.authority-inner {
+  display:flex; flex-wrap:wrap; align-items:stretch; justify-content:center;
+  border:1px solid var(--mc-gold-line); border-top:none; border-bottom:none;
+}
+.authority-item {
+  flex:1; min-width:130px; max-width:200px;
+  padding:16px 20px; text-align:center;
+  border-right:1px solid var(--mc-line);
+}
+.authority-item:last-child { border-right:none; }
+.authority-val {
+  font-size:15px; font-weight:700; color:var(--mc-gold);
+  letter-spacing:-.01em; line-height:1; margin-bottom:4px;
+  font-variant-numeric:tabular-nums;
+}
+.authority-lbl {
+  font-family:var(--mc-font-body); font-size:10px;
+  color:var(--mc-text-faint); letter-spacing:.07em; text-transform:uppercase;
+}
 @media(max-width:640px){
-  .hero-side-marker{
-    display:none !important;
-  }
+  .authority-item { min-width:calc(50% - 1px); border-bottom:1px solid var(--mc-line); }
+  .authority-item:nth-child(even){ border-right:none; }
+  .authority-item:nth-last-child(-n+2){ border-bottom:none; }
 }
-@media(max-width:640px){.hero-scroll{display:none;}}
 
+/* ══════════════════════════════════════════════════════════
+   SECTION UTILITIES
+══════════════════════════════════════════════════════════ */
+.section    { padding:52px 0; overflow:hidden; }
+.section-sm { padding:44px 0; overflow:hidden; }
+.container  { max-width:1140px; margin:0 auto; padding:0 24px; width:100%; }
 
-/* ── FILTER BAR (главная) ─────────────────────────────── */
-/* Sticky wrapper для filter-bar */
-.hp-filter-wrap{
-  position:sticky;
-  top:58px;            /* высота .hdr */
-  z-index:90;
-  background:rgba(9,9,11,.92);
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(212,175,55,.18);
-  padding:10px 0;
-  margin:0 0 0;
-  /* плавное появление тени при прилипании */
-  transition:box-shadow .2s;
+.section-label {
+  font-family:var(--mc-font-body); font-size:10px; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--mc-gold); margin-bottom:10px;
+  display:flex; align-items:center; gap:8px;
 }
-.hp-filter-wrap.is-stuck{
-  box-shadow:0 4px 24px rgba(0,0,0,.6);
-}
-.hp-filter-bar{
-  display:flex;flex-wrap:nowrap;gap:8px;
-  overflow-x:auto;
-  overflow-y:hidden;
-  scrollbar-width:none;        /* Firefox */
-  -ms-overflow-style:none;     /* IE/Edge */
-  padding-bottom:2px;          /* чтобы не обрезало тени кнопок */
-  margin-bottom:0;
-  max-width:100%;
-  -webkit-overflow-scrolling:touch;
-}
-.hp-filter-bar::-webkit-scrollbar{display:none;}  /* Chrome/Safari */
-/* на мобиле кнопки не переносятся — горизонтальный скролл */
-@media(max-width:640px){
-  .hp-filter-wrap{top:56px;}
-  .hp-ftab{white-space:nowrap;padding:6px 14px;font-size:11px;}
-}
-.hp-filter-label{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--muted);opacity:.6;align-self:center;white-space:nowrap;}
-.hp-filter-sep{width:1px;height:18px;background:rgba(255,255,255,.12);align-self:center;flex-shrink:0;}
-.hp-ftab{
-  font-family:sans-serif;font-size:12px;font-weight:600;
-  letter-spacing:.04em;
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:8px;
-  padding:7px 16px;
-  cursor:pointer;
-  color:rgba(255,255,255,.55);
-  background:rgba(255,255,255,.03);
-  transition:border-color .15s,color .15s,background .15s;
-  user-select:none;
-}
-.hp-ftab:hover{
-  border-color:rgba(212,175,55,.45);
-  color:rgba(255,255,255,.85);
-  background:rgba(212,175,55,.05);
-}
-.hp-ftab.active{
-  border-color:var(--gold);
-  color:var(--gold);
-  background:rgba(212,175,55,.1);
-}
-.hp-card{display:block;transition:opacity .25s ease,transform .25s ease;animation:cardIn .3s ease both;}
-@keyframes cardIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.hp-card.hp-hidden{display:none!important;}
-/* счётчик результатов */
-#hp-count{
-  font-family:sans-serif;font-size:11px;
-  color:var(--muted);margin-bottom:16px;
-  min-height:16px;
-}
-/* ── SECTION COMMONS ──────────────────── */
-.section{padding:52px 0;box-sizing:border-box;overflow:hidden;}
-.section-sm{padding:44px 0;box-sizing:border-box;overflow:hidden;}
-.container{max-width:1140px;margin:0 auto;padding:0 24px;box-sizing:border-box;width:100%;}
-.section-label{
-  font-family:sans-serif;font-size:10px;font-weight:700;
-  letter-spacing:.2em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:10px;
-  display:flex;align-items:center;gap:8px;
-}
-.section-label::after{content:'';flex:1;height:1px;background:var(--line);}
-.section-title{font-size:clamp(24px,3.2vw,38px);font-weight:800;line-height:1.12;margin-bottom:10px;}
-.section-sub{font-family:sans-serif;font-size:14px;color:var(--muted);margin-bottom:28px;}
+.section-label::after { content:''; flex:1; height:1px; background:var(--mc-line); }
+.section-title { font-family:var(--mc-font-display); font-size:clamp(22px,3.2vw,36px); font-weight:800; line-height:1.12; margin-bottom:10px; }
+.section-sub   { font-family:var(--mc-font-body); font-size:14px; color:var(--mc-text-muted); margin-bottom:28px; }
 
-/* ── PROPERTY GRID ────────────────────── */
-.prop-grid-new{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+/* ══════════════════════════════════════════════════════════
+   PROPERTY CARDS
+══════════════════════════════════════════════════════════ */
+.prop-grid-new {
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
   gap:18px;
 }
-.pc{
-  border-radius:var(--radius);overflow:hidden;
-  background:var(--surface);
-  border:1px solid var(--line);
-  transition:border-color .2s,transform .2s,box-shadow .2s;
+@media(max-width:600px){ .prop-grid-new { grid-template-columns:1fr; } }
+
+.pc {
+  border-radius:var(--mc-radius-lg); overflow:hidden;
+  background:var(--mc-surface-1); border:1px solid var(--mc-line);
   position:relative;
 }
-.pc:hover{
-  border-color:rgba(212,175,55,.5);
-  transform:translateY(-3px);
-  box-shadow:0 16px 48px rgba(0,0,0,.5);
-}
-.pc-img-wrap{position:relative;overflow:hidden;height:185px;}
-.pc-img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
-.pc:hover .pc-img{transform:scale(1.06);}
-.pc-price{
-  position:absolute;bottom:0;left:0;right:0;
+.pc-img-wrap { position:relative; overflow:hidden; height:185px; }
+.pc-img { width:100%; height:100%; object-fit:cover; transition:transform var(--mc-duration-xl) var(--mc-ease-out); display:block; }
+.pc:hover .pc-img { transform:scale(1.06); }
+.pc-price {
+  position:absolute; bottom:0; left:0; right:0;
   padding:28px 14px 12px;
-  background:linear-gradient(transparent,rgba(0,0,0,.82));
-  font-size:20px;font-weight:600;color:#fff;
+  background:linear-gradient(transparent, rgba(0,0,0,.82));
+  font-size:20px; font-weight:600; color:#fff;
+  font-variant-numeric:tabular-nums;
 }
-.pc-badge{
-  position:absolute;top:10px;left:10px;
-  font-family:sans-serif;font-size:10px;font-weight:600;
-  letter-spacing:.05em;text-transform:uppercase;
-  background:var(--gold);color:#000;
-  padding:4px 9px;border-radius:7px;
+.pc-badge {
+  position:absolute; top:10px; left:10px;
+  font-family:var(--mc-font-body); font-size:10px; font-weight:600;
+  letter-spacing:.05em; text-transform:uppercase;
+  background:var(--mc-gold); color:#000;
+  padding:4px 9px; border-radius:var(--mc-radius-sm);
 }
-.pc-badge.new{background:#10b981;color:#fff;}
-.pc-badge.de{background:#3b82f6;color:#fff;}
-.pc-body{padding:14px 16px 16px;}
-.pc-meta{font-family:sans-serif;font-size:11px;color:var(--muted);margin-bottom:5px;}
-.pc-title{font-size:14px;font-weight:600;line-height:1.3;margin-bottom:10px;}
-.pc-link{
-  font-family:sans-serif;font-size:11px;font-weight:600;
-  color:var(--gold);letter-spacing:.04em;
-  display:inline-flex;align-items:center;gap:4px;
+.pc-badge.new { background:var(--mc-success); color:#fff; }
+.pc-badge.de  { background:var(--mc-info); color:#fff; }
+.pc-body { padding:14px 16px 16px; }
+.pc-meta  { font-family:var(--mc-font-body); font-size:11px; color:var(--mc-text-muted); margin-bottom:5px; }
+.pc-title { font-size:14px; font-weight:600; line-height:1.3; margin-bottom:10px; }
+.pc-link  {
+  font-family:var(--mc-font-body); font-size:11px; font-weight:600;
+  color:var(--mc-gold); letter-spacing:.04em;
+  display:inline-flex; align-items:center; gap:4px;
 }
-.pc-link::after{content:'→';transition:transform .15s;}
-.pc:hover .pc-link::after{transform:translateX(3px);}
+.pc-link::after { content:'→'; transition:transform var(--mc-duration-sm) var(--mc-ease-out); }
+.pc:hover .pc-link::after { transform:translateX(3px); }
 
-/* ── RATENZAHLUNG USP ─────────────────── */
-.rate-bar{
-  background:linear-gradient(135deg, rgba(212,175,55,.1) 0%, rgba(212,175,55,.04) 100%);
-  border:1px solid rgba(212,175,55,.3);
-  border-radius:18px;padding:32px 36px;
-  display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;
-}
-@media(max-width:640px){.rate-bar{grid-template-columns:1fr;}}
-.rate-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
-.chip{
-  font-family:sans-serif;font-size:12px;
-  border:1px solid rgba(212,175,55,.4);border-radius:999px;
-  padding:5px 13px;color:rgba(255,255,255,.75);
-  display:flex;align-items:center;gap:5px;
-}
-.chip::before{content:'✓';color:var(--gold);font-weight:700;}
+@keyframes cardIn { from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);} }
+.hp-card { display:block; animation:cardIn .3s ease both; }
+.hp-card.hp-hidden { display:none !important; }
 
-/* ── WHY BULGARIA GRID ────────────────── */
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-@media(max-width:700px){.why-grid{grid-template-columns:1fr 1fr;}}
-@media(max-width:440px){.why-grid{grid-template-columns:1fr;}}
-.why-card{
-  background:var(--surface);border:1px solid var(--line);
-  border-radius:var(--radius);padding:20px;
-  transition:border-color .2s;
+/* ══════════════════════════════════════════════════════════
+   4-PILLAR STRIP — Ratenzahlung / Bank / Auktion / Off-Market
+══════════════════════════════════════════════════════════ */
+.pillar-section {
+  background:rgba(255,255,255,.02);
+  border-top:1px solid var(--mc-gold-line);
+  border-bottom:1px solid var(--mc-gold-line);
+  padding:0;
 }
-.why-card:hover{border-color:rgba(212,175,55,.4);}
-.why-val{font-size:26px;font-weight:700;color:var(--gold);margin-bottom:6px;line-height:1;}
-.why-title{font-size:13px;font-weight:600;margin-bottom:6px;}
-.why-text{font-family:sans-serif;font-size:12px;color:var(--muted);line-height:1.6;}
-
-/* ── HOW IT WORKS ─────────────────────── */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-@media(max-width:640px){.steps{grid-template-columns:1fr;}}
-.step{padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);position:relative;}
-.step-num{font-size:42px;font-weight:700;color:var(--gold-dim);position:absolute;top:16px;right:18px;line-height:1;font-family:sans-serif;}
-.step-title{font-size:14px;font-weight:700;margin-bottom:8px;}
-.step-text{font-family:sans-serif;font-size:13px;color:var(--muted);line-height:1.65;}
-
-/* ── REGIONS GRID ─────────────────────── */
-.reg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-@media(max-width:680px){.reg-grid{grid-template-columns:1fr 1fr;}}
-.reg-card{
-  background:var(--surface2);border:1px solid var(--line);
-  border-radius:12px;padding:16px 18px;
-  transition:border-color .2s,background .2s;
+.pillar-grid {
+  display:grid; grid-template-columns:repeat(4,1fr);
 }
-.reg-card:hover{border-color:rgba(212,175,55,.4);background:var(--surface);}
-.reg-name{font-size:13px;font-weight:700;margin-bottom:4px;}
-.reg-text{font-family:sans-serif;font-size:12px;color:var(--muted);line-height:1.5;}
-.reg-link{font-family:sans-serif;font-size:11px;color:var(--gold);margin-top:8px;display:inline-block;}
+@media(max-width:700px){ .pillar-grid{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:400px){ .pillar-grid{ grid-template-columns:1fr; } }
 
-/* ── FINAL CTA BAND ───────────────────── */
-.cta-band{
-  background:linear-gradient(135deg,rgba(212,175,55,.12),rgba(212,175,55,.04));
-  border:1px solid rgba(212,175,55,.25);border-radius:18px;
-  padding:40px;text-align:center;
+.pillar {
+  padding:24px 20px; border-right:1px solid var(--mc-line);
+  text-decoration:none; color:inherit;
+  transition:background var(--mc-duration-sm) var(--mc-ease-out);
+  display:flex; flex-direction:column; gap:6px;
 }
-.cta-band h2{font-size:clamp(20px,3vw,30px);margin-bottom:8px;}
-.cta-band p{font-family:sans-serif;font-size:14px;color:var(--muted);margin-bottom:24px;}
-.cta-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
-
-/* ── LINK CLOUD ───────────────────────── */
-.link-cloud{display:flex;flex-wrap:wrap;gap:8px;}
-.link-cloud a{
-  font-family:sans-serif;font-size:12px;font-weight:500;
-  background:rgba(255,255,255,.04);border:1px solid var(--line);
-  border-radius:8px;padding:7px 14px;color:var(--muted);
-  transition:color .15s,border-color .15s;
-}
-.link-cloud a:hover{color:var(--text);border-color:rgba(255,255,255,.2);}
-
-/* ── FOOTER ───────────────────────────── */
-.footer{
-  border-top:1px solid var(--line);
-  padding:32px 0 24px;margin-top:0;
-}
-.footer-inner{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-start;}
-.footer-brand .name{font-weight:600;font-size:15px;color:var(--gold);margin-bottom:4px;}
-.footer-brand .legal{font-family:sans-serif;font-size:12px;color:var(--muted);line-height:1.5;}
-.footer-links{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;}
-.footer-links a{font-family:sans-serif;font-size:12px;font-weight:500;color:var(--muted);transition:color .15s;}
-.footer-links a:hover{color:var(--gold);}
-
-
-
-
-
-
-/* ── CONTROL BAR ──────────────────────── */
-.ctrl-bar{
-  background:rgba(13,13,16,.95);
-  border-bottom:1px solid rgba(212,175,55,.2);
-  padding:14px 0;
-}
-.ctrl-bar-inner{
-  display:flex;flex-wrap:wrap;gap:0;
-  border:1px solid rgba(212,175,55,.2);
-  border-radius:12px;overflow:hidden;
-}
-.ctrl-item{
-  flex:1;min-width:140px;
-  padding:14px 20px;
-  border-right:1px solid rgba(212,175,55,.15);
-  display:flex;flex-direction:column;gap:3px;
-}
-.ctrl-item:last-child{border-right:none;}
-.ctrl-val{
-  font-size:15px;font-weight:700;color:var(--gold);
-  letter-spacing:-.01em;
-}
-.ctrl-lbl{
-  font-family:sans-serif;font-size:10px;
-  color:rgba(255,255,255,.38);letter-spacing:.06em;
-  text-transform:uppercase;
-}
-@media(max-width:600px){
-  .ctrl-item{min-width:50%;border-bottom:1px solid rgba(212,175,55,.12);}
-  .ctrl-item:nth-child(even){border-right:none;}
-  .ctrl-item:nth-last-child(-n+2){border-bottom:none;}
+.pillar:last-child { border-right:none; }
+.pillar:hover { background:var(--mc-gold-dim); }
+@media(max-width:700px){
+  .pillar:nth-child(even){ border-right:none; }
+  .pillar:nth-child(n+3){ border-top:1px solid var(--mc-line); }
 }
 
-/* ── ACCESS INFO SECTION ──────────────── */
-.access-section{
-  padding:64px 0 48px;
-  border-bottom:1px solid var(--line);
-  margin-bottom:0;
+.pillar-icon { font-size:18px; color:var(--mc-gold); line-height:1; margin-bottom:2px; }
+.pillar-title { font-size:13px; font-weight:700; color:var(--mc-text); line-height:1; }
+.pillar-text  { font-family:var(--mc-font-body); font-size:12px; color:var(--mc-text-muted); line-height:1.55; }
+.pillar-arrow { font-family:var(--mc-font-body); font-size:11px; color:var(--mc-gold); margin-top:4px; }
+
+/* ══════════════════════════════════════════════════════════
+   FILTER BAR — Live Deal Flow
+══════════════════════════════════════════════════════════ */
+.hp-filter-wrap {
+  position:sticky; top:var(--mc-nav-height); z-index:var(--mc-z-filter);
+  background:rgba(9,9,11,.93);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--mc-gold-line);
+  padding:10px 0;
+  transition:box-shadow var(--mc-duration-md);
 }
-.access-inner{
-  max-width:680px;
-  margin:0 auto;
-  text-align:center;
+.hp-filter-wrap.is-stuck { box-shadow:0 4px 24px rgba(0,0,0,.6); }
+
+.hp-filter-bar {
+  display:flex; flex-wrap:nowrap; gap:8px;
+  overflow-x:auto; overflow-y:hidden;
+  scrollbar-width:none; -ms-overflow-style:none;
+  padding-bottom:2px; -webkit-overflow-scrolling:touch;
 }
-.access-label{
-  font-family:sans-serif;font-size:10px;font-weight:700;
-  letter-spacing:.2em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:14px;
-}
-.access-title{
-  font-size:clamp(22px,3vw,30px);font-weight:700;
-  margin-bottom:16px;line-height:1.2;
-}
-.access-text{
-  font-family:sans-serif;font-size:15px;
-  color:rgba(255,255,255,.58);line-height:1.8;
-  margin-bottom:0;
+.hp-filter-bar::-webkit-scrollbar { display:none; }
+
+@media(max-width:640px){
+  .hp-filter-wrap{ top:56px; }
+  .hp-ftab{ white-space:nowrap; padding:6px 14px; font-size:11px; }
 }
 
-/* ── LISTINGS INTRO BLOCK ─────────────── */
-.listings-intro{
-  padding:36px 0 20px;
+.hp-filter-label {
+  font-size:10px; font-weight:700; letter-spacing:.06em;
+  color:var(--mc-text-muted); opacity:.6; align-self:center; white-space:nowrap;
 }
-.listings-intro-inner{
-  display:flex;align-items:flex-end;justify-content:space-between;
-  gap:24px;flex-wrap:wrap;
-  padding-bottom:20px;
-  border-bottom:1px solid rgba(212,175,55,.15);
-  margin-bottom:24px;
-}
-.listings-intro-text .section-label{margin-bottom:8px;}
-.listings-intro-text h2{
-  font-size:clamp(20px,3vw,28px);font-weight:700;
-  margin-bottom:8px;line-height:1.2;
-}
-.listings-intro-text p{
-  font-family:sans-serif;font-size:13px;
-  color:rgba(255,255,255,.5);line-height:1.7;
-  max-width:420px;
-}
-.listings-intro-cta{flex-shrink:0;}
+.hp-filter-sep { width:1px; height:18px; background:var(--mc-line-strong); align-self:center; flex-shrink:0; }
 
-/* ── PRESSURE LINE ────────────────────── */
-.pressure-line{
-  text-align:center;
-  padding:20px 0 0;
-  margin-top:6px;
+.hp-ftab {
+  font-family:var(--mc-font-body); font-size:12px; font-weight:600; letter-spacing:.04em;
+  border:1px solid var(--mc-line-strong); border-radius:var(--mc-radius-sm);
+  padding:7px 16px; cursor:pointer;
+  color:var(--mc-text-muted); background:rgba(255,255,255,.03);
+  transition:border-color var(--mc-duration-sm), color var(--mc-duration-sm), background var(--mc-duration-sm);
+  user-select:none; white-space:nowrap;
 }
-.pressure-line p{
-  font-family:sans-serif;font-size:14px;
-  color:rgba(255,255,255,.4);
-  line-height:1.7;
-  letter-spacing:.02em;
+.hp-ftab:hover {
+  border-color:var(--mc-gold-border-hv);
+  color:var(--mc-text); background:var(--mc-gold-dim);
 }
-.pressure-line strong{
-  color:rgba(212,175,55,.6);
-  font-weight:600;
+.hp-ftab.active {
+  border-color:var(--mc-gold);
+  color:var(--mc-gold); background:var(--mc-gold-dim);
 }
 
-/* ── ANIMATIONS ───────────────────────── */
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
-.reveal.visible{opacity:1;transform:none;}
+/* Filter count + empty */
+#hp-count {
+  font-family:var(--mc-font-body); font-size:11px;
+  color:var(--mc-text-muted); margin-bottom:16px; min-height:16px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   RATENZAHLUNG BAR
+══════════════════════════════════════════════════════════ */
+.rate-bar {
+  background:var(--mc-grad-gold);
+  border:1px solid var(--mc-gold-border);
+  border-radius:var(--mc-radius-xl); padding:32px 36px;
+  display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center;
+}
+@media(max-width:640px){ .rate-bar{ grid-template-columns:1fr; } }
+
+.rate-chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.chip {
+  font-family:var(--mc-font-body); font-size:12px;
+  border:1px solid var(--mc-gold-border); border-radius:var(--mc-radius-pill);
+  padding:5px 13px; color:rgba(255,255,255,.75);
+  display:flex; align-items:center; gap:5px;
+}
+.chip::before { content:'✓'; color:var(--mc-gold); font-weight:700; }
+
+/* ══════════════════════════════════════════════════════════
+   MARKT / KAPITAL ROUTING SPLIT
+══════════════════════════════════════════════════════════ */
+.investor-split {
+  display:grid; grid-template-columns:1fr 1fr; gap:16px;
+  max-width:820px; margin:0 auto;
+}
+@media(max-width:560px){ .investor-split{ grid-template-columns:1fr; } }
+
+.split-card {
+  border:1px solid var(--mc-line); border-radius:var(--mc-radius-lg);
+  padding:28px 24px; display:flex; flex-direction:column; gap:16px;
+}
+.split-card--gold {
+  border-color:var(--mc-gold-border-hv);
+  background:var(--mc-grad-gold); position:relative;
+}
+.split-card--gold .split-badge {
+  position:absolute; top:-1px; left:50%; transform:translateX(-50%);
+  background:var(--mc-gold); color:#000;
+  font-family:var(--mc-font-body); font-size:10px; font-weight:800;
+  letter-spacing:.1em; padding:3px 12px; border-radius:0 0 var(--mc-radius-sm) var(--mc-radius-sm);
+}
+
+.split-type {
+  font-family:var(--mc-font-body); font-size:10px; font-weight:800;
+  letter-spacing:.12em; color:var(--mc-text-muted); margin-bottom:6px;
+}
+.split-card--gold .split-type { color:var(--mc-gold); }
+.split-name { font-size:16px; font-weight:700; margin-bottom:2px; }
+.split-desc { font-family:var(--mc-font-body); font-size:12px; color:var(--mc-text-muted); margin-bottom:4px; }
+.split-note { font-family:var(--mc-font-body); font-size:11px; color:var(--mc-text-muted); opacity:.7; font-style:italic; margin-bottom:16px; }
+.split-card--gold .split-note { color:var(--mc-gold); opacity:.85; }
+
+.split-list {
+  list-style:none; padding:0; margin:0;
+  display:flex; flex-direction:column; gap:8px;
+}
+.split-list li {
+  font-family:var(--mc-font-body); font-size:13px; color:var(--mc-text-muted);
+  display:flex; align-items:flex-start; gap:8px;
+}
+.split-list li::before { content:'→'; color:var(--mc-gold); flex-shrink:0; }
+
+/* ══════════════════════════════════════════════════════════
+   WHY BULGARIA
+══════════════════════════════════════════════════════════ */
+.why-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+@media(max-width:700px){ .why-grid{ grid-template-columns:1fr 1fr; } }
+@media(max-width:440px){ .why-grid{ grid-template-columns:1fr; } }
+
+.why-card {
+  background:var(--mc-surface-1); border:1px solid var(--mc-line);
+  border-radius:var(--mc-radius-lg); padding:20px;
+}
+.why-val   { font-size:26px; font-weight:700; color:var(--mc-gold); margin-bottom:6px; line-height:1; }
+.why-title { font-size:13px; font-weight:600; margin-bottom:6px; }
+.why-text  { font-family:var(--mc-font-body); font-size:12px; color:var(--mc-text-muted); line-height:1.6; }
+
+/* ══════════════════════════════════════════════════════════
+   KAUFPROZESS — 3 STEPS
+══════════════════════════════════════════════════════════ */
+.steps { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+@media(max-width:640px){ .steps{ grid-template-columns:1fr; } }
+
+.step {
+  padding:24px; background:var(--mc-surface-1);
+  border:1px solid var(--mc-line); border-radius:var(--mc-radius-lg); position:relative;
+}
+.step-num   { font-size:42px; font-weight:700; color:var(--mc-gold-dim); position:absolute; top:16px; right:18px; line-height:1; font-family:var(--mc-font-body); }
+.step-title { font-size:14px; font-weight:700; margin-bottom:8px; }
+.step-text  { font-family:var(--mc-font-body); font-size:13px; color:var(--mc-text-muted); line-height:1.65; }
+
+/* ══════════════════════════════════════════════════════════
+   REGIONS GRID
+══════════════════════════════════════════════════════════ */
+.reg-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+@media(max-width:680px){ .reg-grid{ grid-template-columns:1fr 1fr; } }
+@media(max-width:400px){ .reg-grid{ grid-template-columns:1fr; } }
+
+.reg-card {
+  background:var(--mc-surface-2); border:1px solid var(--mc-line);
+  border-radius:var(--mc-radius-md); padding:16px 18px;
+  transition:border-color var(--mc-duration-md), background var(--mc-duration-md);
+}
+.reg-card:hover { border-color:var(--mc-gold-border); background:var(--mc-surface-1); }
+.reg-name { font-size:13px; font-weight:700; margin-bottom:4px; }
+.reg-text { font-family:var(--mc-font-body); font-size:12px; color:var(--mc-text-muted); line-height:1.5; }
+.reg-link { font-family:var(--mc-font-body); font-size:11px; color:var(--mc-gold); margin-top:8px; display:inline-block; }
+
+/* ══════════════════════════════════════════════════════════
+   FINAL CTA BAND
+══════════════════════════════════════════════════════════ */
+.cta-band {
+  background:var(--mc-grad-gold);
+  border:1px solid var(--mc-gold-border); border-radius:var(--mc-radius-xl);
+  padding:48px 40px; text-align:center; position:relative; overflow:hidden;
+}
+.cta-band::before {
+  content:''; position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:240px; height:1px; background:var(--mc-grad-gold-line);
+}
+.cta-band::after {
+  content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+  width:180px; height:1px; background:var(--mc-grad-gold-line);
+}
+.cta-band h2 { font-family:var(--mc-font-display); font-size:clamp(20px,3vw,30px); margin-bottom:10px; }
+.cta-band p  { font-family:var(--mc-font-body); font-size:14px; color:var(--mc-text-muted); margin-bottom:28px; max-width:480px; margin-left:auto; margin-right:auto; line-height:1.7; }
+.cta-row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+
+/* ══════════════════════════════════════════════════════════
+   ACCESS GATE (Investor Control box)
+══════════════════════════════════════════════════════════ */
+.access-gate {
+  max-width:600px; margin:0 auto;
+  padding:44px 40px;
+  background:rgba(255,255,255,.025);
+  border:1px solid var(--mc-gold-border);
+  border-radius:var(--mc-radius-xl);
+  text-align:center; position:relative; overflow:hidden;
+}
+.access-gate::before {
+  content:''; position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:200px; height:1px; background:var(--mc-grad-gold-line);
+}
+.access-gate::after {
+  content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+  width:150px; height:1px; background:var(--mc-grad-gold-line);
+}
+@media(max-width:520px){ .access-gate{ padding:32px 20px; } }
+
+.access-gate-label {
+  font-family:var(--mc-font-body); font-size:10px; font-weight:800;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:var(--mc-gold); opacity:.75; margin-bottom:18px;
+}
+.access-gate h2 {
+  font-family:var(--mc-font-display); font-size:clamp(18px,3vw,26px);
+  font-weight:800; line-height:1.2; color:#fff; margin-bottom:12px;
+}
+.access-gate p {
+  font-family:var(--mc-font-body); font-size:14px;
+  color:rgba(255,255,255,.55); line-height:1.7; margin-bottom:28px;
+  max-width:400px; margin-left:auto; margin-right:auto;
+}
+.access-gate-bullets {
+  display:flex; flex-direction:column; gap:10px;
+  margin-bottom:32px; text-align:left;
+  max-width:300px; margin-left:auto; margin-right:auto;
+}
+.access-gate-bullet {
+  display:flex; align-items:center; gap:10px;
+  font-family:var(--mc-font-body); font-size:14px; color:rgba(255,255,255,.75);
+}
+.access-gate-bullet::before {
+  content:''; width:5px; height:5px; border-radius:50%;
+  background:var(--mc-gold); flex-shrink:0;
+}
+.access-gate-note {
+  font-family:var(--mc-font-body); font-size:11px;
+  color:rgba(255,255,255,.3); margin-top:12px; letter-spacing:.04em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SEO LINK CLOUD
+══════════════════════════════════════════════════════════ */
+.link-cloud { display:flex; flex-wrap:wrap; gap:8px; }
+.link-cloud a {
+  font-family:var(--mc-font-body); font-size:12px; font-weight:500;
+  background:rgba(255,255,255,.04); border:1px solid var(--mc-line);
+  border-radius:var(--mc-radius-sm); padding:7px 14px; color:var(--mc-text-muted);
+  transition:color var(--mc-duration-sm), border-color var(--mc-duration-sm);
+}
+.link-cloud a:hover { color:var(--mc-text); border-color:var(--mc-line-strong); }
+
+/* ══════════════════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════════════════ */
+.footer {
+  border-top:1px solid var(--mc-line);
+  padding:32px 0 24px;
+}
+.footer-inner { display:flex; flex-wrap:wrap; gap:24px; justify-content:space-between; align-items:flex-start; }
+.footer-brand .name  { font-weight:600; font-size:15px; color:var(--mc-gold); margin-bottom:4px; }
+.footer-brand .legal { font-family:var(--mc-font-body); font-size:12px; color:var(--mc-text-muted); line-height:1.5; }
+.footer-links { display:flex; gap:18px; flex-wrap:wrap; margin-top:10px; }
+.footer-links a { font-family:var(--mc-font-body); font-size:12px; font-weight:500; color:var(--mc-text-muted); transition:color var(--mc-duration-sm); }
+.footer-links a:hover { color:var(--mc-gold); }
+
+/* ══════════════════════════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════════════════════════ */
+.reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease,transform .6s ease; }
+.reveal.visible { opacity:1; transform:none; }
+
+/* ══════════════════════════════════════════════════════════
+   REDUCED MOTION
+══════════════════════════════════════════════════════════ */
+@media(prefers-reduced-motion:reduce){
+  .hero-bg, .hero-bg::after, .hero-dots span,
+  .scroll-line, .hero-content, .hero-scroll { animation:none !important; }
+  .reveal { transition:none !important; opacity:1; transform:none; }
+  .pc-img { transition:none; }
+  .pillar { transition:none; }
+}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- ══ HEADER ════════════════════════════════════════════ -->
 <header class="hdr">
   <a class="hdr-brand" href="/">
     <span class="name">Beton Gold Markt</span>
@@ -543,7 +665,7 @@ body::before{
   </a>
   <nav class="hdr-nav">
     <a href="/projekte/gardenia-hills/" class="hide-m">Gardenia Hills</a>
-<a href="/angebote/" class="nav-bold hide-m">Angebote</a>
+    <a href="/angebote/" class="nav-bold hide-m">Angebote</a>
     <a href="/ratenzahlung-bulgarien/" class="rate hide-m">Ratenzahlung 40%</a>
     <a href="/bankimmobilien/" class="hide-m">Bankimmobilien</a>
     <a href="/offmarket/" class="hide-m">Off-Market</a>
@@ -554,65 +676,54 @@ body::before{
 <main>
 
 <!-- ══ HERO ══════════════════════════════════════════════ -->
-<section class="hero" style="padding-top:58px;overflow:hidden;background-image: url('/assets/img/robinson-beach/project/01.jpg'); background-size: cover; background-position: center; filter: brightness(1.15) contrast(1.18) saturate(1.25) hue-rotate(-4deg) drop-shadow(inset 0 0 120px rgba(0,0,0,.15));">
+<section class="hero">
+  <!-- Background image layer — filter here only, does not affect children -->
+  <div class="hero-bg-img"></div>
   <div class="hero-bg"></div>
   <div class="hero-grad"></div>
   <div class="hero-dots">
     <span></span><span></span><span></span><span></span><span></span>
   </div>
 
-  <!-- Vertical brand marker — mobile + desktop -->
-  <div style="position:absolute;right:clamp(12px,4vw,60px);top:50%;transform:translateY(-50%);z-index:1;
-              display:flex;flex-direction:column;align-items:center;gap:14px;animation:heroFade 1s .4s ease-out both;"
-       class="hero-side-marker">
-    <div style="writing-mode:vertical-rl;font-family:sans-serif;font-size:9px;letter-spacing:.25em;
-                color:rgba(255,255,255,.25);text-transform:uppercase;">EU · Markt · Kapital</div>
-    <div style="width:1px;height:60px;background:linear-gradient(var(--gold),transparent);"></div>
-    <div style="font-family:sans-serif;font-size:9px;color:var(--gold);letter-spacing:.1em;opacity:.7;">BG · DE</div>
+  <!-- Vertical brand marker — desktop only -->
+  <div class="hero-side-marker">
+    <div style="writing-mode:vertical-rl;font-family:var(--mc-font-body);font-size:9px;letter-spacing:.25em;color:rgba(255,255,255,.25);text-transform:uppercase;">EU · Markt · Kapital</div>
+    <div style="width:1px;height:60px;background:linear-gradient(var(--mc-gold),transparent);"></div>
+    <div style="font-family:var(--mc-font-body);font-size:9px;color:var(--mc-gold);letter-spacing:.1em;opacity:.7;">BG · DE</div>
   </div>
 
-  <div class="hero-content" style="align-items:flex-start;justify-content:center;
-       padding-top:clamp(80px,12vh,120px);padding-bottom:clamp(140px,16vh,165px);max-width:860px;">
+  <div class="hero-content">
 
-    <!-- Top: brand geo accent -->
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;animation:heroFade .7s ease-out both;
-                padding-top:0;">
-      <div style="width:32px;height:1px;background:var(--gold);"></div>
-      <span style="font-family:sans-serif;font-size:10px;font-weight:700;letter-spacing:.22em;
-                   text-transform:uppercase;color:var(--gold);">Premium Meerzugang · Bulgarien</span>
-      <div style="width:8px;height:8px;border:1px solid var(--gold);transform:rotate(45deg);"></div>
+    <!-- Eyebrow -->
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;animation:heroFade .7s ease-out both;">
+      <div style="width:32px;height:1px;background:var(--mc-gold);"></div>
+      <span style="font-family:var(--mc-font-body);font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--mc-gold);">EU Immobilienmarkt · DACH Investor Zugang</span>
+      <div style="width:8px;height:8px;border:1px solid var(--mc-gold);transform:rotate(45deg);"></div>
     </div>
 
     <h1 class="hero-h1" style="animation:heroFade .8s .1s ease-out both;">
-      Robinson Beach — Meerzugang mit Ratenzahlung ab 40 %
+      Bulgarien &amp; Deutschland —<br>Immobilien für <em>strukturierte Investoren</em>
     </h1>
-    <p class="hero-sub" style="animation:heroFade .8s .18s ease-out both;">Limitierte Einheiten · Strukturierte Verfügbarkeitsprüfung · DACH-Investor Zugang</p>
-    <p style="font-family:sans-serif;font-size:12px;color:rgba(255,255,255,.42);margin-top:10px;margin-bottom:0;line-height:1.6;animation:heroFade .8s .24s ease-out both;">Nicht für jeden Investor geeignet. Zugang nur für vorbereitete Käufer.</p>
 
-    <!-- Факты строкой -->
-    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;animation:heroFade .8s .22s ease-out both;">
-      <span style="font-family:sans-serif;font-size:12px;color:rgba(255,255,255,.7);
-                   background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
-                   border-radius:6px;padding:5px 11px;">Einstieg ab 25.000 €</span>
-      <span style="font-family:sans-serif;font-size:12px;color:rgba(255,255,255,.7);
-                   background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
-                   border-radius:6px;padding:5px 11px;">EU Eigentum möglich</span>
-      <span style="font-family:sans-serif;font-size:12px;color:rgba(255,255,255,.7);
-                   background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
-                   border-radius:6px;padding:5px 11px;">10 % Flat Tax Bulgarien</span>
-      <span style="font-family:sans-serif;font-size:12px;color:rgba(255,255,255,.7);
-                   background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
-                   border-radius:6px;padding:5px 11px;">Direktkauf ohne Bankkredit</span>
+    <p class="hero-sub" style="animation:heroFade .8s .18s ease-out both;">
+      Apartments ab 25.000 €, Ratenzahlung 40%, Bankportfolios unter Marktwert.<br>Direktzugang ohne Makler — für DACH-Investoren.
+    </p>
+
+    <div class="hero-fact-row">
+      <span class="hero-fact">Einstieg ab 25.000 €</span>
+      <span class="hero-fact">EU Eigentumsrecht</span>
+      <span class="hero-fact">10% Flat Tax Bulgarien</span>
+      <span class="hero-fact">Direktkauf ohne Bank</span>
     </div>
 
-    <!-- Thin gold separator -->
-    <div style="width:56px;height:1px;background:rgba(212,175,55,.4);margin-bottom:24px;
-                animation:heroFade .8s .3s ease-out both;"></div>
+    <div class="hero-gold-line"></div>
 
-    <div class="hero-cta" style="animation:heroFade .8s .38s ease-out both;">
-            <a class="btn-gold" href="/investor-check/">Verfügbarkeit prüfen →</a>
-            <p style="font-family:sans-serif;font-size:11px;color:rgba(255,255,255,.35);margin-top:10px;letter-spacing:.04em;">Ohne Plattformen · Strukturierter Zugang · Limitierte Auswahl</p>
+    <div class="hero-cta">
+      <a class="btn-gold" href="/investor-check/">Investor Check starten →</a>
+      <a class="btn-ghost" href="/angebote/">Aktuelle Angebote</a>
     </div>
+    <p class="hero-cta-note">Strukturierter Zugang · Limitierte Auswahl · Ohne Plattformen</p>
+
   </div>
 
   <div class="hero-scroll">
@@ -622,143 +733,149 @@ body::before{
 
   <div class="hero-stats">
     <div class="hero-stat"><div class="val">ab 25k €</div><div class="lbl">Einstiegspreis</div></div>
-    <div class="hero-stat"><div class="val">40%</div><div class="lbl">Anzahlung</div></div>
+    <div class="hero-stat"><div class="val">40%</div><div class="lbl">Anzahlung Rate</div></div>
     <div class="hero-stat"><div class="val">10%</div><div class="lbl">Flat Tax BG</div></div>
-    <div class="hero-stat"><div class="val">Ausgewählte</div><div class="lbl">Objekte direkt verfügbar</div></div>
+    <div class="hero-stat"><div class="val">Off-Market</div><div class="lbl">Exklusiv verfügbar</div></div>
   </div>
 </section>
 
 
-<!-- ══ TOP INVESTMENT PROJEKTE ═══════════════════════════ -->
+<!-- ══ AUTHORITY STRIP ════════════════════════════════════ -->
+<div class="authority-strip">
+<div class="container">
+  <div class="authority-inner">
+    <div class="authority-item"><div class="authority-val">ab 25.000 €</div><div class="authority-lbl">Direkteinstieg</div></div>
+    <div class="authority-item"><div class="authority-val">40% Anzahlung</div><div class="authority-lbl">Ratenzahlung aktiv</div></div>
+    <div class="authority-item"><div class="authority-val">EU-Recht</div><div class="authority-lbl">BG &amp; DE Eigentumsrecht</div></div>
+    <div class="authority-item"><div class="authority-val">10% Flat Tax</div><div class="authority-lbl">Bulgarien Steuervorteil</div></div>
+    <div class="authority-item"><div class="authority-val">Off-Market</div><div class="authority-lbl">Nicht öffentliche Deals</div></div>
+    <div class="authority-item"><div class="authority-val">Direktkauf</div><div class="authority-lbl">Ohne Bankkredit möglich</div></div>
+  </div>
+</div>
+</div>
+
+
+<!-- ══ PREMIUM PROJEKTE ═══════════════════════════════════ -->
 <section class="section">
 <div class="container reveal">
-  <div class="section-label">Top Investment Projekte</div>
-  <h2 class="section-title">Unsere Premium Angebote</h2>
-  <p class="section-sub">Robinson Beach als Flaggschiff, Gardenia Hills für skalierbare Investitionen, Bankimmobilien für strukturierte Zugänge.</p>
+  <div class="section-label">Premium Investment Projekte</div>
+  <h2 class="section-title">Direktzugang zum Portfolio</h2>
+  <p class="section-sub">Robinson Beach als Flaggschiff. Gardenia Hills für skalierbare Investments. Bankimmobilien für strukturierte Zugänge.</p>
+
   <div class="prop-grid-new">
-    <!-- Robinson Beach card -- dominant -->
-    <a href="/projekte/robinson-beach/" class="hp-card" style="grid-column: span 2;">
-    <div class="pc" style="border-color: var(--gold);">
+
+    <!-- Robinson Beach — dominant, spans 2 columns -->
+    <a href="/projekte/robinson-beach/" class="hp-card" style="grid-column:span 2;">
+    <div class="pc" style="border-color:var(--mc-gold);">
       <div class="pc-img-wrap">
-        <img src="/assets/img/robinson-beach/project/01.jpg" alt="Robinson Beach Projekt" class="pc-img" loading="lazy">
+        <img src="/assets/img/robinson-beach/project/01.jpg" alt="Robinson Beach — Meerzugang Sonnenstrand" class="pc-img" loading="lazy">
         <div class="pc-price">ab 109.000 €</div>
-        <span class="pc-badge" style="background: var(--gold); color: #000;">PREMIUM</span>
+        <span class="pc-badge" style="background:var(--mc-gold);color:#000;">PREMIUM</span>
       </div>
       <div class="pc-body">
-        <div class="pc-meta">Sonnenstrand · Meerzugang · limitierte Einheiten</div>
+        <div class="pc-meta">Sonnenstrand · Meerzugang · Limitierte Einheiten</div>
         <div class="pc-title">Robinson Beach — Meerzugang mit Ratenzahlung</div>
-        <span class="pc-link" style="color:var(--gold);font-size:11px;">Projekt ansehen →</span>
+        <span class="pc-link">Projekt ansehen</span>
       </div>
     </div></a>
+
     <!-- Gardenia Hills -->
     <a href="/projekte/gardenia-hills/" class="hp-card">
     <div class="pc">
       <div class="pc-img-wrap">
-        <img src="/assets/img/gardenia-b401/01.jpg" alt="Gardenia Hills Projekt" class="pc-img" loading="lazy">
+        <img src="/assets/img/gardenia-b401/01.jpg" alt="Gardenia Hills Projekt Sonnenstrand" class="pc-img" loading="lazy">
         <div class="pc-price">ab 35.000 €</div>
         <span class="pc-badge">● Rate</span>
       </div>
       <div class="pc-body">
         <div class="pc-meta">Sonnenstrand · mehrere Unit-Typen</div>
         <div class="pc-title">Gardenia Hills — Ratenzahlung 40%</div>
-        <span class="pc-link" style="color:var(--gold);font-size:11px;">Projekt ansehen →</span>
+        <span class="pc-link">Projekt ansehen</span>
       </div>
     </div></a>
+
     <!-- Bankimmobilien -->
     <a href="/bankimmobilien/" class="hp-card">
     <div class="pc">
       <div class="pc-img-wrap">
-        <img src="/assets/img/haus-einbeck/01.jpg" alt="Bankimmobilien" class="pc-img" loading="lazy">
+        <img src="/assets/img/haus-einbeck/01.jpg" alt="Bankimmobilien Deutschland Bulgarien" class="pc-img" loading="lazy">
         <div class="pc-price">unter Marktwert</div>
         <span class="pc-badge de">DE · BG</span>
       </div>
       <div class="pc-body">
-        <div class="pc-meta">Strukturierter Zugang</div>
-        <div class="pc-title">Bankimmobilien — unter Marktwert</div>
-        <span class="pc-link" style="color:var(--gold);font-size:11px;">Angebote ansehen →</span>
+        <div class="pc-meta">NPL-Portfolios · Strukturierter Zugang</div>
+        <div class="pc-title">Bankimmobilien — 15–30% unter Marktwert</div>
+        <span class="pc-link">Angebote ansehen</span>
       </div>
     </div></a>
-    <!-- Ausgewählte Angebote -->
+
+    <!-- Alle Angebote -->
     <a href="/angebote/" class="hp-card">
     <div class="pc">
       <div class="pc-img-wrap">
-        <img src="/assets/img/robinson-beach/b4-8/01.jpg" alt="Ausgewählte Angebote" class="pc-img" loading="lazy">
+        <img src="/assets/img/robinson-beach/c2-3/01.jpg" alt="Aktuelle Immobilien Angebote" class="pc-img" loading="lazy">
         <div class="pc-price">verfügbare Objekte</div>
         <span class="pc-badge new">NEU</span>
       </div>
       <div class="pc-body">
         <div class="pc-meta">Direkt verfügbare Einzelobjekte</div>
         <div class="pc-title">Ausgewählte Angebote</div>
-        <span class="pc-link" style="color:var(--gold);font-size:11px;">Alle ansehen →</span>
+        <span class="pc-link">Alle ansehen</span>
       </div>
     </div></a>
+
   </div>
+</div>
 </section>
 
 
-<!-- ══ CONTROL BAR ══════════════════════════════════════════ -->
-<div style="background:rgba(255,255,255,.03);border-top:1px solid rgba(212,175,55,.15);border-bottom:1px solid rgba(212,175,55,.15);">
+<!-- ══ 4-PILLAR STRIP ═════════════════════════════════════ -->
+<div class="pillar-section">
 <div class="container" style="padding-top:0;padding-bottom:0;">
-  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0;">
-    <div style="padding:16px 28px;border-right:1px solid rgba(255,255,255,.07);text-align:center;flex:1;min-width:140px;">
-      <div style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:2px;">ab 25.000 €</div>
-      <div style="font-family:sans-serif;font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.06em;text-transform:uppercase;">Zugang ab</div>
-    </div>
-    <div style="padding:16px 28px;border-right:1px solid rgba(255,255,255,.07);text-align:center;flex:1;min-width:140px;">
-      <div style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:2px;">40% Anzahlung</div>
-      <div style="font-family:sans-serif;font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.06em;text-transform:uppercase;">Ratenzahlung</div>
-    </div>
-    <div style="padding:16px 28px;border-right:1px solid rgba(255,255,255,.07);text-align:center;flex:1;min-width:140px;">
-      <div style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:2px;">Bankbestand / Bauträger</div>
-      <div style="font-family:sans-serif;font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.06em;text-transform:uppercase;">Quelle</div>
-    </div>
-    <div style="padding:16px 28px;text-align:center;flex:1;min-width:140px;">
-      <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.6);margin-bottom:2px;">Teilweise nicht öffentlich</div>
-      <div style="font-family:sans-serif;font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.06em;text-transform:uppercase;">Zugang</div>
-    </div>
+  <div class="pillar-grid">
+    <a href="/ratenzahlung-bulgarien/" class="pillar">
+      <div class="pillar-icon">◈</div>
+      <div class="pillar-title">Ratenzahlung</div>
+      <div class="pillar-text">40% Anzahlung beim Notar. Rest in Raten direkt vom Bauträger.</div>
+      <div class="pillar-arrow">Mehr →</div>
+    </a>
+    <a href="/bankimmobilien/" class="pillar">
+      <div class="pillar-icon">◉</div>
+      <div class="pillar-title">Bankimmobilien</div>
+      <div class="pillar-text">NPL-Portfolios 15–30% unter Marktwert. BG &amp; DE.</div>
+      <div class="pillar-arrow">Mehr →</div>
+    </a>
+    <a href="/auktionen/" class="pillar">
+      <div class="pillar-icon">◎</div>
+      <div class="pillar-title">Auktionen</div>
+      <div class="pillar-text">Versteigerungsimmobilien mit strukturierten Preisvorteilen.</div>
+      <div class="pillar-arrow">Mehr →</div>
+    </a>
+    <a href="/offmarket/" class="pillar">
+      <div class="pillar-icon">◐</div>
+      <div class="pillar-title">Off-Market</div>
+      <div class="pillar-text">Nicht öffentlich inseriert. Kein Bieterwettbewerb.</div>
+      <div class="pillar-arrow">Mehr →</div>
+    </a>
   </div>
 </div>
 </div>
 
-<!-- ══ REGIONEN ═══════════════════════════════════════════ -->
-<section class="section">
+
+<!-- ══ LIVE DEAL FLOW — section header ════════════════════ -->
+<section style="padding:52px 0 0;">
 <div class="container reveal">
-  <div class="section-label">Regionen &amp; Märkte</div>
-  <h2 class="section-title">Wo wir aktiv sind</h2>
-  <p class="section-sub">Schwarzmeerküste, Inland und Deutschland – direkte Marktzugänge ohne Zwischenhändler.</p>
-  <div class="reg-grid">
-    <div class="reg-card"><div class="reg-name">Sonnenstrand</div><div class="reg-text">8 km Sandstrand, 35 km Flughafen Burgas. Ab 25.000 €. Volle Vermietungsinfrastruktur.</div><a class="reg-link" href="/immobilien-sonnenstrand/">Mehr →</a></div>
-    <div class="reg-card"><div class="reg-name">Burgas</div><div class="reg-text">Wirtschaftsmetropole · 10 km Flughafen · ganzjährig. Starkes Bankportfolio.</div><a class="reg-link" href="/immobilien-burgas/">Mehr →</a></div>
-    <div class="reg-card"><div class="reg-name">Varna</div><div class="reg-text">Größte Küstenstadt BG. Internationaler Flughafen. Nordküste Stärkstes Portfolio.</div><a class="reg-link" href="/immobilien-varna/">Mehr →</a></div>
-    <div class="reg-card"><div class="reg-name">Nessebar</div><div class="reg-text">UNESCO-Weltkulturerbe. Premiumlage. 5 km von Sonnenstrand. Steigende Werte.</div><a class="reg-link" href="/immobilien-nessebar/">Mehr →</a></div>
-    <div class="reg-card"><div class="reg-name">Bankimmobilien</div><div class="reg-text">15–30% unter Marktwert. NPL-Portfolios. Ratenzahlung über Bank: 40% Anzahlung.</div><a class="reg-link" href="/bankimmobilien/">Mehr →</a></div>
-    <div class="reg-card"><div class="reg-name">Off-Market</div><div class="reg-text">Nicht öffentlich inseriert. Kein Bieterwettbewerb. Direkter Preisvorteil auf Anfrage.</div><a class="reg-link" href="/offmarket/">Mehr →</a></div>
+  <div style="max-width:640px;border-left:2px solid var(--mc-gold-border-hv);padding-left:24px;margin-bottom:0;">
+    <div class="section-label" style="margin-bottom:10px;">Live Deal Flow</div>
+    <h2 style="font-family:var(--mc-font-display);font-size:clamp(20px,2.8vw,28px);font-weight:800;margin-bottom:10px;line-height:1.2;">Direkt verfügbare Objekte</h2>
+    <p style="font-family:var(--mc-font-body);font-size:15px;color:rgba(255,255,255,.6);line-height:1.75;margin:0;">
+      Auswahl aktueller Angebote. Weitere Optionen nach Investor-Check freigeschaltet.
+    </p>
   </div>
 </div>
 </section>
 
-
-<!-- ══ RATENZAHLUNG USP ═══════════════════════════════════ -->
-<section class="section-sm">
-<div class="container reveal">
-  <div class="rate-bar">
-    <div>
-      <div class="section-label" style="margin-bottom:8px;">Ihr Marktvorteil</div>
-      <h2 style="font-size:20px;font-weight:700;margin-bottom:4px;">Ratenzahlung – direkt vom Bauträger oder Bank</h2>
-      <p style="font-family:sans-serif;font-size:13px;color:var(--muted);margin-bottom:14px;">40% Anzahlung beim Notar. Rest je nach Objekt in Raten. Eigentumsübertragung nach Zahlung.</p>
-      <div class="rate-chips">
-        <span class="chip">nur 40% Anzahlung</span>
-        <span class="chip">Rest 5–10 Jahre</span>
-        <span class="chip">40% Anzahlung</span>
-        <span class="chip">Eigentum nach Zahlung</span>
-      </div>
-    </div>
-    <a class="btn-gold" href="/ratenzahlung-bulgarien/" style="white-space:nowrap;">Wie es funktioniert →</a>
-  </div>
-</div>
-</section>
-
-<!-- ══ FILTER BAR ════════════════════════════════════════ -->
+<!-- Filter bar — sticky below nav -->
 <div class="hp-filter-wrap" id="hp-filter-wrap">
 <div class="container">
   <div class="hp-filter-bar" id="hp-filter-bar" role="group" aria-label="Objektfilter">
@@ -774,54 +891,31 @@ body::before{
   </div>
 </div>
 </div>
-<!-- счётчик — вне sticky, остаётся на месте -->
-<div class="container"><div id="hp-count" style="padding-top:12px;"></div><div id="hp-empty" style="display:none;padding:24px 0;color:var(--muted);font-size:14px;">Keine passenden Objekte gefunden.</div></div>
 
-
-<!-- ══ WIE DER ZUGANG FUNKTIONIERT ════════════════════════ -->
-<section style="padding:56px 0 0;">
-<div class="container reveal">
-  <div style="max-width:640px;border-left:2px solid rgba(212,175,55,.4);padding-left:24px;">
-    <div class="section-label" style="margin-bottom:10px;">Zugang</div>
-    <h2 style="font-size:clamp(20px,2.8vw,28px);font-weight:800;margin-bottom:12px;line-height:1.2;">Wie der Zugang funktioniert</h2>
-    <p style="font-family:sans-serif;font-size:15px;color:rgba(255,255,255,.65);line-height:1.75;margin:0;">
-      Sie sehen eine Auswahl aktueller Angebote.<br>
-      Weitere Optionen werden nach Prüfung freigeschaltet.
-    </p>
-  </div>
+<!-- Count + empty state -->
+<div class="container">
+  <div id="hp-count" style="padding-top:12px;"></div>
+  <div id="hp-empty" style="display:none;padding:24px 0;color:var(--mc-text-muted);font-family:var(--mc-font-body);font-size:14px;">Keine passenden Objekte gefunden.</div>
 </div>
-</section>
 
-<!-- ══ AKTUELLE ANGEBOTE ══════════════════════════════════ -->
+<!-- Object cards -->
 <section class="section" style="padding-top:0;">
 <div class="container">
-  <div class="listings-intro reveal">
-    <div class="listings-intro-inner">
-      <div class="listings-intro-text">
-        <div class="section-label">Aktuelle Angebote</div>
-        <h2>Direkt verfügbare Objekte</h2>
-        <p>Eine Auswahl öffentlich sichtbarer Immobilien.<br>Weitere Optionen nach Prüfung verfügbar.</p>
-      </div>
-      <div class="listings-intro-cta">
-        <a class="btn-ghost" href="/angebote/">Alle Angebote →</a>
-      </div>
-    </div>
-  </div>
 
   <div class="prop-grid-new">
 
-    <!-- Haus Einbeck -->
-    <a href="/angebote/haus-75000-einbeck/" class="hp-card" data-tags="haus deutschland">
+    <!-- Robinson Beach C2.3 -->
+    <a href="/angebote/robinson-beach-c2-3/" class="hp-card" data-tags="apartment meerblick ratenzahlung bulgarien">
     <div class="pc">
       <div class="pc-img-wrap">
-        <img src="/assets/img/haus-einbeck/01.jpg" alt="Zweifamilienhaus Einbeck" class="pc-img" loading="lazy">
-        <div class="pc-price">75.000 €</div>
-        <span class="pc-badge de">DE · Sofort</span>
+        <img src="/assets/img/robinson-beach/c2-3/01.jpg" alt="Robinson Beach C2.3 Meerblick" class="pc-img" loading="lazy">
+        <div class="pc-price">109.000 €</div>
+        <span class="pc-badge" style="background:var(--mc-gold);color:#000;">PREMIUM</span>
       </div>
       <div class="pc-body">
-        <div class="pc-meta">Einbeck · Niedersachsen · Haus · 200 m²</div>
-        <div class="pc-title">Zweifamilienhaus Einbeck</div>
-        <span class="pc-link" style="color:var(--gold);font-size:11px;">Verfügbarkeit prüfen →</span>
+        <div class="pc-meta">Sonnenstrand · Meerzugang · 2-Zi</div>
+        <div class="pc-title">Robinson Beach C2.3 — Meerblick</div>
+        <span class="pc-link">Verfügbarkeit prüfen</span>
       </div>
     </div></a>
 
@@ -829,29 +923,29 @@ body::before{
     <a href="/angebote/apartment-sonnenstrand-42000/" class="hp-card" data-tags="apartment ratenzahlung meerblick bulgarien">
     <div class="pc">
       <div class="pc-img-wrap">
-        <img src="/assets/img/robinson-beach/b4-8/01.jpg" alt="Apartment Sonnenstrand Meerblick" class="pc-img" loading="lazy">
+        <img src="/assets/img/apartment-sonnenstrand/01.jpg" alt="Apartment Sonnenstrand Meerblick 42.000 €" class="pc-img" loading="lazy">
         <div class="pc-price">42.000 €</div>
         <span class="pc-badge">● Rate</span>
       </div>
       <div class="pc-body">
         <div class="pc-meta">Sonnenstrand · 2-Zi · 52 m²</div>
         <div class="pc-title">Apartment Sonnenstrand</div>
-        <span class="pc-link" style="color:var(--gold);font-size:11px;">Verfügbarkeit prüfen →</span>
+        <span class="pc-link">Verfügbarkeit prüfen</span>
       </div>
     </div></a>
 
-    <!-- Studio B.401 -->
+    <!-- Studio Gardenia B.401 -->
     <a href="/angebote/studio-gardenia-hills-b-401-45m2/" class="hp-card" data-tags="studio ratenzahlung bulgarien">
     <div class="pc">
       <div class="pc-img-wrap">
-        <img src="/assets/img/gardenia-b401/01.jpg" alt="Studio B.401 Waldblick" class="pc-img" loading="lazy">
+        <img src="/assets/img/gardenia-b401/01.jpg" alt="Studio Gardenia Hills B.401 Waldblick" class="pc-img" loading="lazy">
         <div class="pc-price">52.500 €</div>
         <span class="pc-badge new">NEU</span>
       </div>
       <div class="pc-body">
         <div class="pc-meta">Sonnenstrand · Studio · 45 m²</div>
         <div class="pc-title">Studio B.401 – Waldblick</div>
-        <span class="pc-link" style="color:var(--gold);font-size:11px;">Verfügbarkeit prüfen →</span>
+        <span class="pc-link">Verfügbarkeit prüfen</span>
       </div>
     </div></a>
 
@@ -859,14 +953,44 @@ body::before{
     <a href="/angebote/studio-burgas-35000/" class="hp-card" data-tags="studio ratenzahlung bulgarien">
     <div class="pc">
       <div class="pc-img-wrap">
-        <img src="/assets/img/gardenia-b401/01.jpg" alt="Studio Burgas Stadtlage" class="pc-img" loading="lazy">
+        <img src="/assets/img/studio-burgas/01.jpg" alt="Studio Burgas Stadtlage 35.000 €" class="pc-img" loading="lazy">
         <div class="pc-price">35.000 €</div>
         <span class="pc-badge">● Rate</span>
       </div>
       <div class="pc-body">
         <div class="pc-meta">Burgas · Studio · 32 m²</div>
         <div class="pc-title">Studio Burgas – Stadtlage</div>
-        <span class="pc-link" style="color:var(--gold);font-size:11px;">Verfügbarkeit prüfen →</span>
+        <span class="pc-link">Verfügbarkeit prüfen</span>
+      </div>
+    </div></a>
+
+    <!-- Zweifamilienhaus Einbeck -->
+    <a href="/angebote/haus-75000-einbeck/" class="hp-card" data-tags="haus deutschland">
+    <div class="pc">
+      <div class="pc-img-wrap">
+        <img src="/assets/img/haus-einbeck/01.jpg" alt="Zweifamilienhaus Einbeck Niedersachsen" class="pc-img" loading="lazy">
+        <div class="pc-price">75.000 €</div>
+        <span class="pc-badge de">DE · Sofort</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-meta">Einbeck · Niedersachsen · Haus · 200 m²</div>
+        <div class="pc-title">Zweifamilienhaus Einbeck</div>
+        <span class="pc-link">Verfügbarkeit prüfen</span>
+      </div>
+    </div></a>
+
+    <!-- Robinson Beach B4.8 -->
+    <a href="/angebote/robinson-beach-b4-8/" class="hp-card" data-tags="apartment meerblick ratenzahlung bulgarien">
+    <div class="pc">
+      <div class="pc-img-wrap">
+        <img src="/assets/img/robinson-beach/b4-8/01.jpg" alt="Robinson Beach B4.8 Apartment" class="pc-img" loading="lazy">
+        <div class="pc-price">ab 99.000 €</div>
+        <span class="pc-badge" style="background:var(--mc-gold);color:#000;">PREMIUM</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-meta">Sonnenstrand · Meerzugang · Apartment</div>
+        <div class="pc-title">Robinson Beach B4.8</div>
+        <span class="pc-link">Verfügbarkeit prüfen</span>
       </div>
     </div></a>
 
@@ -876,91 +1000,95 @@ body::before{
     <a class="btn-ghost" href="/projekte/gardenia-hills/">Gardenia Hills – Projekt ansehen</a>
     <a class="btn-ghost" href="/angebote/">Alle Objekte →</a>
   </div>
-  <div class="pressure-line">
-    <p>
-      <strong>Ein Teil der Angebote ist nicht öffentlich sichtbar.</strong><br>
+  <div style="text-align:center;padding:20px 0 0;margin-top:6px;">
+    <p style="font-family:var(--mc-font-body);font-size:14px;color:rgba(255,255,255,.4);line-height:1.7;letter-spacing:.02em;">
+      <strong style="color:rgba(201,168,76,.65);font-weight:600;">Ein Teil der Angebote ist nicht öffentlich sichtbar.</strong><br>
       Weitere Angebote nach Qualifikation — direkt über den Investor Check.
     </p>
   </div>
-  <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
-    <a class="btn-ghost" href="/angebote/robinson-beach-c2-3/">Robinson Beach C2.3 ansehen</a>
-    <a class="btn-ghost" href="/angebote/robinson-beach-b4-8/">Robinson Beach B4.8 ansehen</a>
-    <a class="btn-ghost" href="/ratenzahlung-bulgarien/">Ratenzahlung 40% erklärt</a>
-  </div>
+
 </div>
 </section>
 
 
-<!-- ══ CONTROL GATE ══════════════════════════════════════════ -->
-<section style="padding:56px 0 64px;">
+<!-- ══ RATENZAHLUNG USP ═══════════════════════════════════ -->
+<section class="section-sm">
 <div class="container reveal">
-  <div style="
-    max-width:620px;
-    margin:0 auto;
-    padding:44px 40px;
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(212,175,55,.28);
-    border-radius:20px;
-    text-align:center;
-    position:relative;
-    overflow:hidden;
-  ">
-    <!-- Gold glow top -->
-    <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:200px;height:1px;background:linear-gradient(to right,transparent,rgba(212,175,55,.6),transparent);"></div>
-
-    <!-- Label -->
-    <div style="font-family:sans-serif;font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:rgba(212,175,55,.7);margin-bottom:20px;">Zugang &amp; Kontrolle</div>
-
-    <!-- Headline -->
-    <h2 style="font-size:clamp(20px,3vw,28px);font-weight:800;line-height:1.2;color:#fff;margin-bottom:14px;">
-      Nicht alle Objekte sind öffentlich sichtbar
-    </h2>
-
-    <!-- Subline -->
-    <p style="font-family:sans-serif;font-size:15px;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:32px;max-width:440px;margin-left:auto;margin-right:auto;">
-      Ein Teil der Angebote wird erst nach Qualifikation freigeschaltet.
-    </p>
-
-    <!-- Bullets -->
-    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:36px;text-align:left;max-width:320px;margin-left:auto;margin-right:auto;">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <div style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
-        <span style="font-family:sans-serif;font-size:14px;color:rgba(255,255,255,.75);">Zugang zu weiteren Einheiten</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <div style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
-        <span style="font-family:sans-serif;font-size:14px;color:rgba(255,255,255,.75);">Strukturierte Deals</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <div style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
-        <span style="font-family:sans-serif;font-size:14px;color:rgba(255,255,255,.75);">Auswahl nach Kapital</span>
+  <div class="rate-bar">
+    <div>
+      <div class="section-label" style="margin-bottom:8px;">Ihr Marktvorteil</div>
+      <h2 style="font-family:var(--mc-font-display);font-size:20px;font-weight:700;margin-bottom:4px;">Ratenzahlung – direkt vom Bauträger oder Bank</h2>
+      <p style="font-family:var(--mc-font-body);font-size:13px;color:var(--mc-text-muted);margin-bottom:14px;">40% Anzahlung beim Notar. Rest je nach Objekt in Raten. Eigentumsübertragung nach Zahlung.</p>
+      <div class="rate-chips">
+        <span class="chip">nur 40% Anzahlung</span>
+        <span class="chip">Rest 5–10 Jahre</span>
+        <span class="chip">Kein Bankkredit nötig</span>
+        <span class="chip">Eigentum nach Zahlung</span>
       </div>
     </div>
-
-    <!-- CTA -->
-    <a href="/investor-check/" style="
-      display:inline-flex;align-items:center;justify-content:center;
-      background:var(--gold);color:#000;
-      font-family:sans-serif;font-weight:800;font-size:15px;
-      padding:16px 36px;border-radius:11px;letter-spacing:.04em;
-      transition:background .15s,transform .12s;
-      text-decoration:none;
-    " onmouseover="this.style.background='#f0d060';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='var(--gold)';this.style.transform='none'">
-      Investor Check starten →
-    </a>
-
-    <!-- Secondary line -->
-    <p style="font-family:sans-serif;font-size:11px;color:rgba(255,255,255,.3);margin-top:14px;letter-spacing:.04em;">
-      Direkter Zugang nur nach Prüfung
-    </p>
-
-    <!-- Gold glow bottom -->
-    <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:200px;height:1px;background:linear-gradient(to right,transparent,rgba(212,175,55,.4),transparent);"></div>
+    <a class="btn-gold" href="/ratenzahlung-bulgarien/" style="white-space:nowrap;">Wie es funktioniert →</a>
   </div>
 </div>
 </section>
 
-<!-- ══ WHY BULGARIA ═══════════════════════════════════════ -->
+
+<!-- ══ MARKT vs KAPITAL — INVESTOR ROUTING ════════════════ -->
+<section class="section-sm">
+<div class="container reveal">
+
+  <div style="text-align:center;max-width:620px;margin:0 auto 36px;">
+    <div class="section-label" style="justify-content:center;margin-bottom:12px;">Zugang &amp; Struktur</div>
+    <h2 style="font-family:var(--mc-font-display);font-size:clamp(20px,2.8vw,28px);font-weight:800;margin-bottom:12px;">Zwei Wege — wählen Sie Ihren Zugang</h2>
+    <p style="font-family:var(--mc-font-body);font-size:15px;line-height:1.7;color:var(--mc-text-muted);">Ein Teil der Objekte ist nicht öffentlich zugänglich. Diese Deals sind ausschließlich für Investoren mit strukturiertem Kapitalzugang reserviert.</p>
+  </div>
+
+  <div class="investor-split">
+
+    <!-- MARKT — Standard -->
+    <div class="split-card">
+      <div>
+        <div class="split-type">STANDARD ZUGANG</div>
+        <div class="split-name">Beton Gold Markt</div>
+        <div class="split-desc">Öffentlicher Marktzugang</div>
+        <div class="split-note">Für Eigennutzer &amp; Einsteiger</div>
+        <ul class="split-list">
+          <li>Direkt verfügbare Objekte</li>
+          <li>Einstieg ab 25.000 €</li>
+          <li>Keine Qualifikation erforderlich</li>
+        </ul>
+      </div>
+      <a class="btn-ghost" href="/angebote/" style="text-align:center;margin-top:auto;justify-content:center;">Objekte ansehen →</a>
+    </div>
+
+    <!-- KAPITAL — Investor (highlighted) -->
+    <div class="split-card split-card--gold">
+      <div class="split-badge">EMPFOHLEN</div>
+      <div>
+        <div class="split-type">INVESTOR ZUGANG</div>
+        <div class="split-name">Beton Gold Kapital</div>
+        <div class="split-desc">Strukturierter Kapitalzugang</div>
+        <div class="split-note">Für Investoren empfohlen</div>
+        <ul class="split-list">
+          <li>Off-Market Deals</li>
+          <li>Bankportfolios</li>
+          <li>Exklusive Investments</li>
+          <li>Zugang nur nach Qualifikation</li>
+        </ul>
+      </div>
+      <a class="btn-gold" href="/investor-check/" style="text-align:center;margin-top:auto;justify-content:center;">Investor Check starten →</a>
+    </div>
+
+  </div>
+
+  <p style="text-align:center;font-family:var(--mc-font-body);font-size:12px;color:var(--mc-text-muted);margin:20px auto 0;max-width:480px;line-height:1.7;">
+    Beton Gold Markt ist der Einstieg.<br>Beton Gold Kapital ist der Zugang zu strukturierten Investments.
+  </p>
+
+</div>
+</section>
+
+
+<!-- ══ WARUM BULGARIEN ════════════════════════════════════ -->
 <section class="section">
 <div class="container reveal">
   <div class="section-label">Warum Bulgarien</div>
@@ -982,75 +1110,8 @@ body::before{
 </div>
 </section>
 
-<!-- ══ INVESTOR FLOW SPLIT ════════════════════════════════ -->
-<section class="section-sm">
-<div class="container reveal">
 
-  <!-- Block 1: updated intro text -->
-  <div style="text-align:center;max-width:640px;margin:0 auto 40px;">
-    <div class="section-label" style="justify-content:center;margin-bottom:12px;">Zugang &amp; Struktur</div>
-    <p style="font-size:15px;line-height:1.7;color:var(--muted);">Ein Teil der Objekte ist nicht öffentlich zugänglich.<br>Diese Deals sind ausschließlich für Investoren mit strukturiertem Kapitalzugang reserviert.</p>
-  </div>
-
-  <!-- Block 2: two-path split -->
-  <h2 style="text-align:center;font-size:clamp(20px,2.8vw,28px);margin-bottom:28px;">Zwei Wege – wählen Sie Ihren Zugang</h2>
-
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:820px;margin:0 auto;">
-
-    <!-- LEFT: Markt / Standard -->
-    <div style="border:1px solid var(--line);border-radius:16px;padding:28px 24px;display:flex;flex-direction:column;gap:16px;">
-      <div>
-        <div style="font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--muted);margin-bottom:6px;">STANDARD ZUGANG</div>
-        <div style="font-size:16px;font-weight:700;margin-bottom:2px;">Beton Gold Markt</div>
-        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Öffentlicher Marktzugang</div>
-        <div style="font-size:11px;color:var(--muted);opacity:.7;margin-bottom:16px;font-style:italic;">Für Eigennutzer &amp; Einsteiger</div>
-        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;">
-          <li style="font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;"><span style="color:var(--gold);flex-shrink:0;">→</span>Direkt verfügbare Objekte</li>
-          <li style="font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;"><span style="color:var(--gold);flex-shrink:0;">→</span>Einstieg ab 25.000 €</li>
-          <li style="font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;"><span style="color:var(--gold);flex-shrink:0;">→</span>Keine Qualifikation erforderlich</li>
-        </ul>
-      </div>
-      <a class="btn-ghost" href="/angebote/" style="text-align:center;margin-top:auto;">Objekte ansehen →</a>
-    </div>
-
-    <!-- RIGHT: Kapital / Investor — gold highlighted -->
-    <div style="border:1px solid rgba(212,175,55,.5);border-radius:16px;padding:28px 24px;background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(212,175,55,.03));display:flex;flex-direction:column;gap:16px;position:relative;">
-      <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:10px;font-weight:800;letter-spacing:.1em;padding:3px 12px;border-radius:0 0 8px 8px;">EMPFOHLEN</div>
-      <div>
-        <div style="font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--gold);margin-bottom:6px;">INVESTOR ZUGANG</div>
-        <div style="font-size:16px;font-weight:700;margin-bottom:2px;">Beton Gold Kapital</div>
-        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Strukturierter Kapitalzugang</div>
-        <div style="font-size:11px;color:var(--gold);opacity:.85;margin-bottom:16px;font-style:italic;">Für Investoren (empfohlen)</div>
-        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;">
-          <li style="font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;"><span style="color:var(--gold);flex-shrink:0;">→</span>Off-Market Deals</li>
-          <li style="font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;"><span style="color:var(--gold);flex-shrink:0;">→</span>Bankportfolios</li>
-          <li style="font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;"><span style="color:var(--gold);flex-shrink:0;">→</span>Exklusive Investments</li>
-          <li style="font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;"><span style="color:var(--gold);flex-shrink:0;">→</span>Zugang nur nach Qualifikation</li>
-        </ul>
-      </div>
-      <a class="btn-gold" href="/investor-check/" style="text-align:center;margin-top:auto;">Investor Check starten →</a>
-    </div>
-
-  </div>
-
-  <!-- Micro text -->
-  <p style="text-align:center;font-size:12px;color:var(--muted);margin:20px auto 0;max-width:480px;line-height:1.7;">
-    Beton Gold Markt ist der Einstieg.<br>
-    Beton Gold Kapital ist der Zugang zu strukturierten Investments.
-  </p>
-
-  <style>
-    @media(max-width:560px){
-      .investor-split-grid{grid-template-columns:1fr !important;}
-    }
-  </style>
-
-</div>
-</section>
-
-<!-- ══ FÜR INVESTOREN (removed — merged above) ══════════════ -->
-
-<!-- ══ HOW IT WORKS ═══════════════════════════════════════ -->
+<!-- ══ KAUFPROZESS ════════════════════════════════════════ -->
 <section class="section-sm">
 <div class="container reveal">
   <div class="section-label">Kaufprozess</div>
@@ -1065,20 +1126,59 @@ body::before{
 </section>
 
 
+<!-- ══ REGIONEN ═══════════════════════════════════════════ -->
+<section class="section">
+<div class="container reveal">
+  <div class="section-label">Regionen &amp; Märkte</div>
+  <h2 class="section-title">Wo wir aktiv sind</h2>
+  <p class="section-sub">Schwarzmeerküste, Inland und Deutschland – direkte Marktzugänge ohne Zwischenhändler.</p>
+  <div class="reg-grid">
+    <div class="reg-card"><div class="reg-name">Sonnenstrand</div><div class="reg-text">8 km Sandstrand, 35 km Flughafen Burgas. Ab 25.000 €. Volle Vermietungsinfrastruktur.</div><a class="reg-link" href="/immobilien-sonnenstrand/">Mehr →</a></div>
+    <div class="reg-card"><div class="reg-name">Burgas</div><div class="reg-text">Wirtschaftsmetropole · 10 km Flughafen · ganzjährig. Starkes Bankportfolio.</div><a class="reg-link" href="/immobilien-burgas/">Mehr →</a></div>
+    <div class="reg-card"><div class="reg-name">Varna</div><div class="reg-text">Größte Küstenstadt BG. Internationaler Flughafen. Nordküste stärkstes Portfolio.</div><a class="reg-link" href="/immobilien-varna/">Mehr →</a></div>
+    <div class="reg-card"><div class="reg-name">Nessebar</div><div class="reg-text">UNESCO-Weltkulturerbe. Premiumlage. 5 km von Sonnenstrand. Steigende Werte.</div><a class="reg-link" href="/immobilien-nessebar/">Mehr →</a></div>
+    <div class="reg-card"><div class="reg-name">Bankimmobilien</div><div class="reg-text">15–30% unter Marktwert. NPL-Portfolios. Ratenzahlung über Bank: 40% Anzahlung.</div><a class="reg-link" href="/bankimmobilien/">Mehr →</a></div>
+    <div class="reg-card"><div class="reg-name">Off-Market</div><div class="reg-text">Nicht öffentlich inseriert. Kein Bieterwettbewerb. Direkter Preisvorteil auf Anfrage.</div><a class="reg-link" href="/offmarket/">Mehr →</a></div>
+  </div>
+</div>
+</section>
+
+
+<!-- ══ INVESTOR CHECK — ACCESS GATE ══════════════════════ -->
+<section style="padding:56px 0 64px;">
+<div class="container reveal">
+  <div class="access-gate">
+    <div class="access-gate-label">Zugang &amp; Kontrolle</div>
+    <h2>Nicht alle Objekte sind öffentlich sichtbar</h2>
+    <p>Ein Teil der Angebote wird erst nach Qualifikation freigeschaltet. Strukturierte Deals, Bankportfolios und Off-Market Einheiten.</p>
+    <div class="access-gate-bullets">
+      <div class="access-gate-bullet">Zugang zu weiteren Einheiten</div>
+      <div class="access-gate-bullet">Strukturierte Deals</div>
+      <div class="access-gate-bullet">Auswahl nach Kapital</div>
+    </div>
+    <a class="btn-gold" href="/investor-check/" style="font-size:15px;padding:16px 40px;font-weight:800;">Investor Check starten →</a>
+    <p class="access-gate-note">Direkter Zugang nur nach Prüfung</p>
+  </div>
+</div>
+</section>
+
+
 <!-- ══ FINAL CTA ══════════════════════════════════════════ -->
 <section class="section">
 <div class="container reveal">
   <div class="cta-band">
     <h2>Starten Sie mit dem Investor Check.</h2>
-    <p>Danach erhalten Sie passende Objekte – öffentlich oder exklusiv.</p>
+    <p>Danach erhalten Sie passende Objekte – öffentlich oder exklusiv. Zugang zu Angeboten die nicht auf Portalen erscheinen.</p>
     <div class="cta-row">
-      <a class="btn-gold" href="/investor-check/">Investor Check starten →</a>
+      <a class="btn-gold" href="/investor-check/" style="font-size:15px;padding:16px 36px;">Investor Check starten →</a>
+      <a class="btn-ghost" href="/angebote/">Angebote ansehen</a>
     </div>
   </div>
 </div>
 </section>
 
-<!-- ══ LINK CLOUD (SEO) ═══════════════════════════════════ -->
+
+<!-- ══ SEO LINK CLOUD ═════════════════════════════════════ -->
 <section class="section-sm" style="padding-top:0;">
 <div class="container">
   <div class="link-cloud">
@@ -1092,15 +1192,19 @@ body::before{
     <a href="/angebote/haus-75000-einbeck/">Haus Einbeck 75k</a>
     <a href="/grundstuecke-bulgarien/">Grundstücke</a>
     <a href="/immobilien-varna/">Varna</a>
-    <a href="/ratenzahlung-bankimmobilien/">Bank-Ratenzahlung</a>
-    <a href="/auktionen/">Auktionen BG</a>
+    <a href="/immobilien-bulgarien-guide-2026/">Marktbericht 2026</a>
+    <a href="/steuervorteil-bulgarien-10-prozent/">10% Flat Tax</a>
+    <a href="/ratenzahlung-bulgarien/">Ratenzahlung 40%</a>
+    <a href="/immobilien-sonnenstrand/">Sonnenstrand</a>
+    <a href="/immobilien-burgas/">Burgas</a>
+    <a href="/neubau-bulgarien/">Neubau Bulgarien</a>
   </div>
 </div>
 </section>
 
 </main>
 
-<!-- FOOTER -->
+<!-- ══ FOOTER ═════════════════════════════════════════════ -->
 <footer class="footer">
 <div class="container">
   <div class="footer-inner">
@@ -1114,12 +1218,12 @@ body::before{
         <a href="/datenschutz/">Datenschutz</a>
         <a href="/kontakt/">Kontakt</a>
         <a href="/faq/">FAQ</a>
-        <a href="/ratenzahlung-bulgarien/" style="color:var(--gold);">Ratenzahlung 40%</a>
+        <a href="/ratenzahlung-bulgarien/" style="color:var(--mc-gold);">Ratenzahlung 40%</a>
       </div>
     </div>
     <div>
-      <a class="btn primary" href="/investor-check/" style="font-size:13px;">Verfügbarkeit prüfen →</a>
-      <div style="font-family:sans-serif;font-size:11px;color:var(--muted);margin-top:6px;">Zugang nach Qualifikation</div>
+      <a class="btn-gold" href="/investor-check/" style="font-size:13px;padding:12px 22px;">Verfügbarkeit prüfen →</a>
+      <div style="font-family:var(--mc-font-body);font-size:11px;color:var(--mc-text-muted);margin-top:6px;">Zugang nach Qualifikation</div>
     </div>
   </div>
 </div>
@@ -1127,17 +1231,16 @@ body::before{
 
 <script src="/assets/markt.js"></script>
 <script>
-// Scroll reveal
+// ── SCROLL REVEAL ─────────────────────────────────────────────────────
 const ro = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);}});
 },{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 
-// ── STICKY FILTER: добавляем тень когда прилип ───────────────────────
+// ── STICKY FILTER: shadow when stuck ─────────────────────────────────
 (function(){
   var wrap = document.getElementById('hp-filter-wrap');
   if(!wrap) return;
-  // sentinel — невидимый элемент на 1px выше фильтра
   var sentinel = document.createElement('div');
   sentinel.style.cssText='position:absolute;height:1px;width:1px;top:0;left:0;pointer-events:none;';
   wrap.parentNode.insertBefore(sentinel, wrap);
