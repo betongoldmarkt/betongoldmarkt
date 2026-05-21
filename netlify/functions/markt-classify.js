@@ -167,12 +167,18 @@ exports.handler = async function (event) {
     console.error('[markt-classify] MAKE_WEBHOOK_URL env var not set — lead NOT forwarded');
   } else {
     try {
-      await fetch(MAKE_WEBHOOK, {
+      const makeRes = await fetch(MAKE_WEBHOOK, {
         method:    'POST',
         headers:   { 'Content-Type': 'application/json' },
         body:      JSON.stringify(enriched),
         keepalive: true,
       });
+      if (!makeRes.ok) {
+        const makeBody = await makeRes.text();
+        console.error('[markt-classify] Make rejected — status:', makeRes.status, '— body:', makeBody.slice(0, 300));
+      } else {
+        console.log('[markt-classify] Make accepted — status:', makeRes.status);
+      }
     } catch (e) {
       console.error('[markt-classify] Make.com forward error:', e.message);
       // Non-fatal: classification still succeeded
