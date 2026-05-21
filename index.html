@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="/assets/css/base.css"/>
 <link rel="stylesheet" href="/assets/css/layout.css"/>
 <link rel="stylesheet" href="/assets/markt.css"/>
+<link rel="stylesheet" href="/assets/css/nav.css"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"RealEstateAgent","@id":"https://betongoldmarkt.de/#org",
   "name":"Beton Gold Markt","legalName":"ELITE DIVAS VIDA GROUP S.L.",
   "taxID":"B42625657","url":"https://betongoldmarkt.de/","telephone":"+491604922713",
@@ -44,43 +45,7 @@ body::before{
   opacity:.025;pointer-events:none;z-index:0;
 }
 
-/* ── HEADER ───────────────────────────── */
-.hdr{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:0 24px;height:58px;
-  display:flex;align-items:center;justify-content:space-between;
-  background:rgba(9,9,11,.85);
-  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--line);
-  transition:background .3s;
-  box-sizing:border-box;
-}
-.hdr-brand{display:flex;flex-direction:column;line-height:1;}
-.hdr-brand .name{font-size:15px;font-weight:700;letter-spacing:.02em;color:var(--gold);}
-.hdr-brand .tag{font-size:10px;color:var(--muted);font-family:sans-serif;letter-spacing:.04em;}
-.hdr-nav{display:flex;gap:4px;align-items:center;}
-.hdr-nav a{
-  font-family:sans-serif;font-size:12px;font-weight:500;
-  color:var(--muted);padding:6px 10px;border-radius:8px;
-  transition:color .15s,background .15s;letter-spacing:.02em;
-}
-.hdr-nav a:hover{color:var(--text);background:rgba(255,255,255,.06);}
-.hdr-nav a.rate{color:var(--gold);border:1px solid rgba(212,175,55,.35);padding:5px 10px;}
-.hdr-nav a.rate:hover{background:var(--gold-dim);}
-.hdr-nav a.wa-btn{
-  background:var(--gold);color:#000;font-weight:700;
-  padding:6px 14px;border-radius:8px;font-size:12px;
-}
-.hdr-nav a.wa-btn:hover{background:var(--gold2);}
-.hdr-nav a.nav-bold{color:var(--text);font-weight:700;}
-.hdr-nav a.nav-bold:hover{color:var(--gold);}
-.hdr-nav a.nav-cta{background:var(--gold);color:#000;font-weight:700;padding:6px 14px;border-radius:8px;font-size:12px;}
-.hdr-nav a.nav-cta:hover{background:var(--gold2);transform:translateY(-1px);}
-
-@media(max-width:780px){
-  .hdr-nav .hide-m{display:none;}
-  .hdr{padding:0 16px;}
-}
+/* ── HEADER — styles moved to /assets/css/nav.css (Batch 5.3) ── */
 
 /* ── HERO ─────────────────────────────── */
 .hero{
