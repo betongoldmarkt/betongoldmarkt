@@ -1,0 +1,239 @@
+/*
+ * MARKT_UI_SYSTEM_V1 — tokens.css
+ * Batch 5.1 · DIETRICH OS · betongoldmarkt.de
+ *
+ * ADDITIVE ONLY. No selectors. No component rules. No overrides.
+ * All variables use --mc-* namespace to avoid collision with:
+ *   markt.css   → --bg, --gold, --line, --text, --muted
+ *   style.css   → --bg, --gold, --line, --panel, --shadow
+ *   inline CSS  → --p1-*, --p2-*, --p3-*, --bg, --gold, --surface
+ *
+ * Load order: tokens.css → markt.css → page-specific CSS
+ */
+
+:root {
+
+  /* ═══════════════════════════════════════════════════════
+     COLORS — GOLD FAMILY
+     Canonical institutional gold: #C9A84C
+     (source: p1/p2/p3 MARKT templates — consistent across
+      all upgraded pages)
+  ═══════════════════════════════════════════════════════ */
+  --mc-gold:            #C9A84C;
+  --mc-gold-bright:     #D9BB6A;
+  --mc-gold-dim:        rgba(201,168,76,0.10);
+  --mc-gold-border:     rgba(201,168,76,0.25);
+  --mc-gold-border-hv:  rgba(201,168,76,0.55);
+  --mc-gold-glow:       rgba(201,168,76,0.15);
+  --mc-gold-line:       rgba(201,168,76,0.18);
+
+  /* ═══════════════════════════════════════════════════════
+     COLORS — BACKGROUNDS
+     Canonical base: #09090b
+     (deepest value in use — homepage)
+  ═══════════════════════════════════════════════════════ */
+  --mc-bg:              #09090b;
+  --mc-surface-1:       #0f0f12;
+  --mc-surface-2:       #141418;
+  --mc-surface-3:       #1a1a1f;
+
+  /* ═══════════════════════════════════════════════════════
+     COLORS — TEXT
+  ═══════════════════════════════════════════════════════ */
+  --mc-text:            #f0ede6;
+  --mc-text-muted:      rgba(240,237,230,0.55);
+  --mc-text-faint:      rgba(240,237,230,0.30);
+
+  /* ═══════════════════════════════════════════════════════
+     COLORS — BORDERS & LINES
+  ═══════════════════════════════════════════════════════ */
+  --mc-line:            rgba(255,255,255,0.07);
+  --mc-line-strong:     rgba(255,255,255,0.12);
+
+  /* ═══════════════════════════════════════════════════════
+     COLORS — GLASS / OVERLAY
+  ═══════════════════════════════════════════════════════ */
+  --mc-glass-bg:        rgba(9,9,11,0.88);
+  --mc-glass-blur:      blur(16px);
+  --mc-overlay:         rgba(9,9,11,0.80);
+
+  /* ═══════════════════════════════════════════════════════
+     COLORS — SEMANTIC
+  ═══════════════════════════════════════════════════════ */
+  --mc-success:         #10b981;
+  --mc-info:            #3b82f6;
+  --mc-warning:         #f59e0b;
+
+
+  /* ═══════════════════════════════════════════════════════
+     TYPOGRAPHY — FONT FAMILIES
+  ═══════════════════════════════════════════════════════ */
+  --mc-font-display: 'Georgia', 'Times New Roman', serif;
+  --mc-font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+                     Inter, Arial, sans-serif;
+  --mc-font-mono:    'SF Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* ═══════════════════════════════════════════════════════
+     TYPOGRAPHY — TYPE SCALE
+     Fluid values using clamp() for responsive rhythm.
+  ═══════════════════════════════════════════════════════ */
+  --mc-type-hero:   clamp(28px, 5.2vw, 68px);
+  --mc-type-h1:     clamp(24px, 4vw,   48px);
+  --mc-type-h2:     clamp(20px, 3vw,   32px);
+  --mc-type-h3:     clamp(16px, 2vw,   22px);
+  --mc-type-body:   15px;
+  --mc-type-sm:     13px;
+  --mc-type-xs:     11px;
+  --mc-type-label:  10px;
+
+  /* ═══════════════════════════════════════════════════════
+     TYPOGRAPHY — LINE HEIGHT
+  ═══════════════════════════════════════════════════════ */
+  --mc-leading-tight:   1.1;
+  --mc-leading-normal:  1.6;
+  --mc-leading-loose:   1.8;
+
+  /* ═══════════════════════════════════════════════════════
+     TYPOGRAPHY — LETTER SPACING
+  ═══════════════════════════════════════════════════════ */
+  --mc-tracking-tight:  -0.03em;
+  --mc-tracking-normal:  0.01em;
+  --mc-tracking-wide:    0.08em;
+  --mc-tracking-wider:   0.20em;
+
+
+  /* ═══════════════════════════════════════════════════════
+     SPACING — 8px BASE SCALE
+     --mc-space-1 = 4px  (half-unit)
+     --mc-space-2 = 8px  (base)
+     --mc-space-3 = 12px
+     --mc-space-4 = 16px
+     --mc-space-5 = 24px
+     --mc-space-6 = 32px
+     --mc-space-7 = 48px
+     --mc-space-8 = 64px
+     --mc-space-9 = 96px
+  ═══════════════════════════════════════════════════════ */
+  --mc-space-1:  4px;
+  --mc-space-2:  8px;
+  --mc-space-3:  12px;
+  --mc-space-4:  16px;
+  --mc-space-5:  24px;
+  --mc-space-6:  32px;
+  --mc-space-7:  48px;
+  --mc-space-8:  64px;
+  --mc-space-9:  96px;
+
+  /* Layout */
+  --mc-container-max:  1140px;
+  --mc-container-pad:  clamp(16px, 4vw, 32px);
+  --mc-nav-height:     58px;
+
+
+  /* ═══════════════════════════════════════════════════════
+     BORDER RADIUS
+  ═══════════════════════════════════════════════════════ */
+  --mc-radius-sm:   6px;
+  --mc-radius-md:   10px;
+  --mc-radius-lg:   14px;
+  --mc-radius-xl:   20px;
+  --mc-radius-pill: 999px;
+
+
+  /* ═══════════════════════════════════════════════════════
+     SHADOWS
+  ═══════════════════════════════════════════════════════ */
+  --mc-shadow-sm:   0 2px 8px  rgba(0,0,0,0.35);
+  --mc-shadow-md:   0 8px 24px rgba(0,0,0,0.45);
+  --mc-shadow-lg:   0 16px 48px rgba(0,0,0,0.55);
+  --mc-shadow-gold: 0 4px 24px rgba(201,168,76,0.15);
+
+
+  /* ═══════════════════════════════════════════════════════
+     OVERLAYS — pre-built gradient strings
+     Used as: background: var(--mc-overlay-hero)
+  ═══════════════════════════════════════════════════════ */
+  --mc-overlay-hero: linear-gradient(
+    to bottom,
+    rgba(9,9,11,0.25) 0%,
+    rgba(9,9,11,0.82) 100%
+  );
+  --mc-overlay-mini: linear-gradient(
+    to bottom,
+    rgba(9,9,11,0.28) 0%,
+    rgba(9,9,11,0.80) 100%
+  );
+  --mc-overlay-card: linear-gradient(
+    transparent 40%,
+    rgba(0,0,0,0.82) 100%
+  );
+
+
+  /* ═══════════════════════════════════════════════════════
+     GRADIENTS — surface & brand
+  ═══════════════════════════════════════════════════════ */
+  --mc-grad-gold: linear-gradient(
+    135deg,
+    rgba(201,168,76,0.12) 0%,
+    rgba(201,168,76,0.04) 100%
+  );
+  --mc-grad-surface: linear-gradient(
+    180deg,
+    var(--mc-bg) 0%,
+    var(--mc-surface-1) 100%
+  );
+  --mc-grad-footer: linear-gradient(
+    to top,
+    rgba(9,9,11,0.95),
+    transparent
+  );
+  --mc-grad-gold-line: linear-gradient(
+    to right,
+    transparent,
+    rgba(201,168,76,0.55),
+    transparent
+  );
+
+
+  /* ═══════════════════════════════════════════════════════
+     Z-INDEX SCALE
+     Centralized to prevent silent stacking conflicts.
+  ═══════════════════════════════════════════════════════ */
+  --mc-z-base:        0;
+  --mc-z-card:        1;
+  --mc-z-dropdown:    50;
+  --mc-z-sticky:      80;
+  --mc-z-filter:      90;
+  --mc-z-nav:         100;
+  --mc-z-sticky-cta:  200;
+  --mc-z-modal:       500;
+  --mc-z-toast:       900;
+
+
+  /* ═══════════════════════════════════════════════════════
+     ANIMATION — EASING CURVES
+  ═══════════════════════════════════════════════════════ */
+  --mc-ease-out:    cubic-bezier(0.16, 1,    0.3,  1);
+  --mc-ease-in:     cubic-bezier(0.4,  0,    1,    1);
+  --mc-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ═══════════════════════════════════════════════════════
+     ANIMATION — DURATION SCALE
+  ═══════════════════════════════════════════════════════ */
+  --mc-duration-xs:  120ms;
+  --mc-duration-sm:  180ms;
+  --mc-duration-md:  300ms;
+  --mc-duration-lg:  500ms;
+  --mc-duration-xl:  800ms;
+
+
+  /* ═══════════════════════════════════════════════════════
+     BREAKPOINTS — reference values (not used in calc())
+     Use in @media queries as literal values.
+     Documented here for system consistency.
+     xs: 380px  · sm: 480px  · md: 640px
+     lg: 780px  · xl: 1024px · 2xl: 1200px
+  ═══════════════════════════════════════════════════════ */
+
+}
+/* end :root */
