@@ -1,0 +1,257 @@
+/*
+ * MARKT_UI_SYSTEM_V1 — typography.css
+ * Batch 5.5 · DIETRICH OS · betongoldmarkt.de
+ *
+ * Unified institutional typography system for the MARKT platform.
+ * Two layers:
+ *
+ *   Layer 1 — Canonical new classes (.mc-*)
+ *     Clean slate. Use in future templates.
+ *     Covers: eyebrow, hero heading, section heading, card heading,
+ *             price display, meta, lead copy, legal copy.
+ *
+ *   Layer 2 — Cascade upgrades of existing typography classes
+ *     Adds: text-rendering, font-feature-settings, font-variant-numeric.
+ *     Does NOT change: font-size, color, padding, margin, line-height
+ *     on existing classes (CLS safety).
+ *
+ * Load order: tokens → base → layout → markt → nav → cards → buttons → typography
+ * Uses only --mc-* tokens from tokens.css.
+ * Preserves: all IDs, JS hooks, routing, forms, schema.
+ *
+ * CLS SAFETY: All Layer 2 rules add rendering quality only.
+ *             No font-size, no margin, no padding on existing selectors.
+ */
+
+
+/* ════════════════════════════════════════════════════════════════
+   LAYER 1 — CANONICAL TYPOGRAPHY SYSTEM (.mc-*)
+   Use these in new templates and future upgrades.
+════════════════════════════════════════════════════════════════ */
+
+/* ── Eyebrow label — small-caps section marker ──────────────── */
+.mc-eyebrow {
+  display: block;
+  font-size: var(--mc-type-xs);                       /* 11px */
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mc-gold);
+  line-height: 1;
+  font-feature-settings: "kern" 1, "liga" 0;
+}
+
+
+/* ── Hero heading — largest display type ───────────────────── */
+.mc-heading-hero {
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 800;
+  line-height: var(--mc-leading-tight);               /* 1.15 */
+  letter-spacing: -0.02em;
+  color: var(--mc-text);
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+.mc-heading-hero em {
+  font-style: normal;
+  color: var(--mc-gold);
+}
+
+
+/* ── Section heading — h2 level ─────────────────────────────── */
+.mc-heading-section {
+  font-size: clamp(20px, 3vw, 32px);
+  font-weight: 700;
+  line-height: var(--mc-leading-tight);
+  letter-spacing: -0.01em;
+  color: var(--mc-text);
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+
+/* ── Card heading — h3 level ────────────────────────────────── */
+.mc-heading-card {
+  font-size: var(--mc-type-h3);                       /* clamp(16px,2vw,22px) */
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  color: var(--mc-text);
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1;
+}
+
+
+/* ── Price — monetary value display ────────────────────────── */
+.mc-price {
+  font-size: var(--mc-type-h3);                       /* clamp(16px,2vw,22px) */
+  font-weight: 700;
+  color: var(--mc-gold);
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "kern" 1;
+}
+
+/* ── Price large — hero / featured price ────────────────────── */
+.mc-price--large {
+  font-size: clamp(22px, 3.5vw, 38px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+
+/* ── Lead copy — intro paragraph ───────────────────────────── */
+.mc-lead {
+  font-size: clamp(14px, 1.8vw, 16px);
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--mc-text-secondary);                    /* rgba(240,237,230,0.80) */
+  text-rendering: optimizeLegibility;
+}
+
+
+/* ── Meta copy — supporting detail lines ───────────────────── */
+.mc-meta {
+  font-size: var(--mc-type-xs);                       /* 11px */
+  font-weight: 400;
+  line-height: var(--mc-leading-normal);
+  color: var(--mc-text-muted);                        /* rgba(240,237,230,0.55) */
+  letter-spacing: 0.01em;
+}
+
+
+/* ── Legal / disclaimer copy ────────────────────────────────── */
+.mc-legal {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--mc-text-muted);
+  letter-spacing: 0.01em;
+}
+
+
+/* ── Inline gold accent ─────────────────────────────────────── */
+.mc-text-gold {
+  color: var(--mc-gold);
+}
+
+.mc-text-muted {
+  color: var(--mc-text-muted);
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   LAYER 2 — CASCADE UPGRADES OF EXISTING TYPOGRAPHY CLASSES
+   CLS SAFE: adds rendering quality only.
+   Does NOT change: font-size, color, margin, padding, line-height.
+════════════════════════════════════════════════════════════════ */
+
+/* ── Section titles (.section-title) — markt.css ───────────── */
+/* Adds: optimized rendering, kerning, ligatures                 */
+/* Does NOT change: font-size, color, margin                     */
+.section-title {
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+/* ── Hero titles (.hero-title) — markt.css ──────────────────── */
+.hero-title {
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
+  letter-spacing: -0.01em;
+}
+
+/* ── Homepage hero heading (.hero-h1) ───────────────────────── */
+/* Adds negative tracking for display-size text                  */
+.hero-h1 {
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+/* ── Breadcrumb (.breadcrumb) — normalise across p1/p2/p3 ──── */
+/* Adds: consistent rendering, slight tracking                   */
+.breadcrumb {
+  font-feature-settings: "kern" 1;
+  letter-spacing: 0.01em;
+}
+
+/* ── Section labels — small-caps eyebrow pattern ────────────── */
+/* Homepage: .section-label; p1: .p1-label; p2: .p2-section-label */
+/* Adds: kern + liga off (uppercase text, ligatures undesirable) */
+.section-label,
+.p1-label,
+.p2-section-label,
+.p3-section-label {
+  font-feature-settings: "kern" 1, "liga" 0;
+}
+
+/* ── Price elements — tabular numbers ──────────────────────── */
+/* Adds font-variant-numeric only — no size/color/margin change  */
+/* Homepage: .price, .price-tag; p1: .p1-price, .p1-price-main  */
+/* p2: .p2-price; p3: .p3-price; markt.css: .property-price     */
+.price,
+.price-tag,
+.p1-price,
+.p1-price-main,
+.p2-price,
+.p3-price,
+.property-price,
+.price-badge,
+.price-range {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "kern" 1;
+}
+
+/* ── Stats and figures — tabular alignment ──────────────────── */
+.stat-value,
+.mc-stat-value,
+.kpi-value {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "kern" 1;
+}
+
+/* ── Card titles — optimise rendering at small sizes ────────── */
+/* Adds: text-rendering only                                     */
+.pc-title,
+.p2-unit-title,
+.p3-unit-title,
+.card-title,
+.property-title {
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   RESPONSIVE TYPOGRAPHY ADJUSTMENTS
+   Only canonical .mc-* classes — no existing class changes.
+════════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .mc-heading-hero {
+    letter-spacing: -0.015em;
+  }
+
+  .mc-lead {
+    line-height: 1.65;
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   REDUCED MOTION — typography animations
+   Targets only canonical classes. Existing classes untouched.
+════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  /* No animation properties in typography layer — nothing to disable */
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   SAFARI / WEBKIT RENDERING SAFETY
+   Ensure font-feature-settings parse correctly in older Safari.
+════════════════════════════════════════════════════════════════ */
+@supports (font-feature-settings: "kern" 1) {
+  /* Feature detection wrapper — all rules above already use this syntax.
+     Keeping this block as a hook for future additions. */
+}

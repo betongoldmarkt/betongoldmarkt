@@ -1,0 +1,302 @@
+/*
+ * MARKT_UI_SYSTEM_V1 — effects.css
+ * Batch 5.5 · DIETRICH OS · betongoldmarkt.de
+ *
+ * Unified institutional visual effects system for the MARKT platform.
+ * Two layers:
+ *
+ *   Layer 1 — Canonical new classes (.mc-*)
+ *     Glass surfaces, separators, gold rules, section depth, overlays,
+ *     glow accents. Use in future templates.
+ *
+ *   Layer 2 — Cascade upgrades of existing classes
+ *     Adds: will-change hints for animated elements (performance only).
+ *     Does NOT override or touch the reveal hidden/shown states —
+ *     these are defined in inline <style> on each page and function
+ *     correctly. The inline definitions have equal cascade priority;
+ *     adding opacity/transform rules here risks overriding page-level
+ *     reveal logic. Layer 2 is therefore limited to will-change hints
+ *     and transition refinements on NON-reveal classes only.
+ *
+ * REVEAL CLASS ARCHITECTURE (read-only, do not change):
+ *   Homepage:  .reveal → .reveal.visible       (JS adds .visible)
+ *   p1/p2:     .reveal → .reveal.revealed      (JS adds .revealed)
+ *   p3:        .p3-reveal → .p3-reveal--visible (JS adds class)
+ *   These are intentionally left untouched. Page-level inline styles
+ *   own the reveal transitions and are authoritative.
+ *
+ * Load order: … → buttons → typography → effects
+ * Uses only --mc-* tokens from tokens.css.
+ * Preserves: all IDs, JS hooks, routing, forms, schema.
+ */
+
+
+/* ════════════════════════════════════════════════════════════════
+   LAYER 1 — CANONICAL EFFECTS SYSTEM (.mc-*)
+   Use these in new templates and future upgrades.
+════════════════════════════════════════════════════════════════ */
+
+/* ── Glass surface ──────────────────────────────────────────── */
+/* Frosted glass panel — nav, modals, overlays                   */
+.mc-glass {
+  background: var(--mc-glass-bg);                     /* rgba(9,9,11,0.88) */
+  backdrop-filter: var(--mc-glass-blur);              /* blur(16px) */
+  -webkit-backdrop-filter: var(--mc-glass-blur);
+  border: 1px solid var(--mc-gold-line);              /* rgba(201,168,76,0.18) */
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .mc-glass {
+    background: rgba(9, 9, 11, 0.97);
+  }
+}
+
+/* ── Glass light — subtler surface (cards, panels) ─────────── */
+.mc-glass--light {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+
+/* ── Gold separator — horizontal rule ──────────────────────── */
+.mc-separator {
+  border: none;
+  border-top: 1px solid var(--mc-gold-line);         /* rgba(201,168,76,0.18) */
+  margin: 0;
+}
+
+/* ── Gold rule — visible accent line ───────────────────────── */
+.mc-gold-rule {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--mc-gold-border-hv) 30%,                    /* rgba(201,168,76,0.55) */
+    var(--mc-gold-border-hv) 70%,
+    transparent
+  );
+  margin: 0;
+}
+
+/* ── Divider variants ───────────────────────────────────────── */
+.mc-divider {
+  border: none;
+  border-top: 1px solid var(--mc-line);              /* rgba(255,255,255,0.08) */
+  margin: var(--mc-space-5) 0;                        /* 24px */
+}
+
+.mc-divider--tight {
+  margin: var(--mc-space-3) 0;                        /* 12px */
+}
+
+.mc-divider--flush {
+  margin: 0;
+}
+
+.mc-divider--gold {
+  border-top-color: var(--mc-gold-line);
+}
+
+
+/* ── Gold glow — radial ambient light ──────────────────────── */
+/* Purely visual — pointer-events: none so it can't intercept   */
+.mc-glow {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 65%);
+  pointer-events: none;
+  user-select: none;
+}
+
+.mc-glow--sm  { width: 300px; height: 300px; }
+.mc-glow--md  { width: 600px; height: 600px; }
+.mc-glow--lg  { width: 900px; height: 900px; }
+
+
+/* ── Section depth — adds layered shadow to sections ───────── */
+.mc-section-depth {
+  position: relative;
+  z-index: 1;
+}
+
+.mc-section-depth::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 1px 0 var(--mc-gold-line),
+              inset 0 -1px 0 var(--mc-line);
+  pointer-events: none;
+  z-index: -1;
+}
+
+
+/* ── Section border top — gold accent ──────────────────────── */
+.mc-section--bordered {
+  border-top: 1px solid var(--mc-gold-line);
+}
+
+
+/* ── Overlays ───────────────────────────────────────────────── */
+/* Dark image overlay for text legibility                        */
+.mc-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.mc-overlay--dark {
+  background: linear-gradient(
+    180deg,
+    rgba(9,9,11,0.30) 0%,
+    rgba(9,9,11,0.65) 70%,
+    rgba(9,9,11,0.88) 100%
+  );
+}
+
+.mc-overlay--card {
+  background: linear-gradient(
+    180deg,
+    transparent 30%,
+    rgba(9,9,11,0.75) 70%,
+    rgba(9,9,11,0.95) 100%
+  );
+}
+
+.mc-overlay--subtle {
+  background: rgba(9, 9, 11, 0.45);
+}
+
+
+/* ── Fade entrance — canonical reveal for new elements ──────── */
+/* Use for NEW elements only. Do not add to existing .reveal     */
+/* elements — those use page-level inline animation definitions. */
+.mc-fade-up {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity   var(--mc-duration-lg) var(--mc-ease-out),
+    transform var(--mc-duration-lg) var(--mc-ease-out);
+}
+
+.mc-fade-up.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger delays — apply on children */
+.mc-fade-up--d1 { transition-delay: 0.08s; }
+.mc-fade-up--d2 { transition-delay: 0.16s; }
+.mc-fade-up--d3 { transition-delay: 0.24s; }
+.mc-fade-up--d4 { transition-delay: 0.32s; }
+
+
+/* ── Pulse glow animation — used on badges, live indicators ── */
+@keyframes mc-pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.40); }
+  50%       { box-shadow: 0 0 0 6px rgba(201,168,76,0); }
+}
+
+.mc-pulse {
+  animation: mc-pulse-glow 2.4s ease-in-out infinite;
+}
+
+
+/* ── Shine sweep — CTA button premium accent ────────────────── */
+@keyframes mc-shine {
+  0%   { left: -75%; }
+  100% { left: 125%; }
+}
+
+.mc-shine-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.mc-shine-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255,255,255,0.15) 50%,
+    transparent 80%
+  );
+  pointer-events: none;
+}
+
+.mc-shine-wrap:hover::after {
+  animation: mc-shine 0.65s var(--mc-ease-out) forwards;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   LAYER 2 — CASCADE UPGRADES OF EXISTING CLASSES
+   SCOPE: will-change performance hints only.
+   All opacity/transform reveal states are owned by page-level
+   inline styles and must not be touched here.
+════════════════════════════════════════════════════════════════ */
+
+/* ── will-change hints for animated reveal elements ────────── */
+/* Browser hint only — no visual change, no layout impact        */
+/* Removed when animation completes via JS (or ignored safely)  */
+.reveal {
+  will-change: opacity, transform;
+}
+
+.p3-reveal {
+  will-change: opacity, transform;
+}
+
+/* ── Remove will-change after reveal completes ──────────────── */
+/* Prevents GPU memory waste on already-visible elements         */
+.reveal.visible,
+.reveal.revealed {
+  will-change: auto;
+}
+
+.p3-reveal.p3-reveal--visible {
+  will-change: auto;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   REDUCED MOTION — disable all effects animations
+════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  /* Canonical fade-up */
+  .mc-fade-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  /* Shine sweep */
+  .mc-shine-wrap::after {
+    display: none;
+  }
+
+  /* Pulse glow */
+  .mc-pulse {
+    animation: none;
+  }
+
+  /* will-change hints — remove for reduced-motion users */
+  .reveal,
+  .p3-reveal {
+    will-change: auto;
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   SAFARI SAFE
+   backdrop-filter fallback declared above on .mc-glass.
+   Prevent stacking artefact on fixed children.
+════════════════════════════════════════════════════════════════ */
