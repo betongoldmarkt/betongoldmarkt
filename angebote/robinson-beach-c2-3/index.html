@@ -35,8 +35,676 @@
 }
 </script>
 <link rel="stylesheet" href="/assets/markt.css">
+<style>
+/* ── Phase 1 Prototype — Robinson Beach C2.3 ───────────────────────── */
+/* Scoped design tokens — override markt.css globals for this page only */
+:root {
+  --p1-gold:      #C9A84C;
+  --p1-gold-lt:   #E0C278;
+  --p1-gold-dim:  rgba(201,168,76,.08);
+  --p1-gold-line: rgba(201,168,76,.22);
+  --p1-bg:        #09090b;
+  --p1-surface:   #0f0f12;
+  --p1-surface2:  #141418;
+  --p1-text:      #f0ede6;
+  --p1-muted:     rgba(240,237,230,.48);
+  --p1-radius:    14px;
+}
+
+/* ── Keyframes ──────────────────────────────────────────────────────── */
+@keyframes kenBurns {
+  0%   { transform: scale(1.00) translateX(0); }
+  100% { transform: scale(1.08) translateX(-1%); }
+}
+@keyframes lineUp {
+  from { opacity:0; transform: translateY(22px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity:0; }
+  to   { opacity:1; }
+}
+@keyframes pulse {
+  0%,100% { opacity:1; }
+  50%      { opacity:.35; }
+}
+@keyframes revealUp {
+  from { opacity:0; transform:translateY(32px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ── Cinematic Hero ─────────────────────────────────────────────────── */
+.hero-cinematic {
+  position: relative;
+  height: 92vh;
+  min-height: 560px;
+  max-height: 860px;
+  overflow: hidden;
+  background: var(--p1-bg);
+}
+.hero-cinematic__img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  animation: kenBurns 14s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.hero-cinematic__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(9,9,11,.25) 0%,
+    rgba(9,9,11,.10) 35%,
+    rgba(9,9,11,.55) 70%,
+    rgba(9,9,11,.90) 100%
+  );
+}
+.hero-cinematic__inner {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 24px 52px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.hero-cinematic__breadcrumb {
+  font-size: 11px;
+  color: rgba(201,168,76,.7);
+  letter-spacing: .06em;
+  margin-bottom: 18px;
+  animation: fadeIn .6s ease both;
+}
+.hero-cinematic__breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+}
+.hero-cinematic__breadcrumb a:hover { color: var(--p1-gold); }
+.hero-cinematic__tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  color: var(--p1-gold);
+  border: 1px solid var(--p1-gold-line);
+  background: var(--p1-gold-dim);
+  border-radius: 4px;
+  padding: 3px 9px;
+  margin-bottom: 14px;
+  animation: lineUp .5s .15s ease both;
+}
+.hero-cinematic__h1 {
+  font-size: clamp(26px, 4.5vw, 52px);
+  font-weight: 800;
+  line-height: 1.12;
+  color: var(--p1-text);
+  margin: 0 0 10px;
+}
+.hero-cinematic__h1 span {
+  display: block;
+  animation: lineUp .55s ease both;
+}
+.hero-cinematic__h1 span:nth-child(2) { animation-delay:.12s; }
+.hero-cinematic__h1 span:nth-child(3) { animation-delay:.24s; color: var(--p1-gold); }
+.hero-cinematic__sub {
+  font-size: 14px;
+  color: var(--p1-muted);
+  margin-bottom: 28px;
+  animation: lineUp .55s .34s ease both;
+}
+.hero-cinematic__cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  animation: lineUp .55s .44s ease both;
+}
+/* Price badge — top-right corner */
+.price-badge {
+  position: absolute;
+  top: 80px;
+  right: 28px;
+  z-index: 3;
+  background: rgba(9,9,11,.82);
+  border: 1px solid var(--p1-gold-line);
+  border-radius: 12px;
+  padding: 14px 18px;
+  text-align: right;
+  backdrop-filter: blur(8px);
+  animation: fadeIn .7s .3s ease both;
+}
+.price-badge__label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: var(--p1-muted);
+  display: block;
+  margin-bottom: 4px;
+}
+.price-badge__price {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--p1-gold);
+  line-height: 1;
+}
+.price-badge__note {
+  font-size: 11px;
+  color: var(--p1-muted);
+  margin-top: 4px;
+}
+
+/* ── Stats Bar ──────────────────────────────────────────────────────── */
+.stats-bar {
+  background: var(--p1-surface);
+  border-bottom: 1px solid var(--p1-gold-line);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.stats-bar__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: stretch;
+  padding: 0 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.stats-bar__inner::-webkit-scrollbar { display: none; }
+.stats-bar__item {
+  flex: 0 0 auto;
+  padding: 14px 22px;
+  border-right: 1px solid var(--p1-gold-line);
+  text-align: center;
+  white-space: nowrap;
+}
+.stats-bar__item:last-child { border-right: none; }
+.stats-bar__val {
+  display: block;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--p1-gold);
+  line-height: 1;
+}
+.stats-bar__lbl {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--p1-muted);
+  margin-top: 3px;
+}
+
+/* ── Section base ───────────────────────────────────────────────────── */
+.p1-section {
+  padding: 72px 0;
+  background: var(--p1-bg);
+}
+.p1-section--alt { background: var(--p1-surface); }
+.p1-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.p1-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  color: var(--p1-gold);
+  margin-bottom: 10px;
+}
+.p1-h2 {
+  font-size: clamp(20px, 3vw, 30px);
+  font-weight: 800;
+  color: var(--p1-text);
+  margin: 0 0 10px;
+}
+.p1-lead {
+  font-size: 14px;
+  color: var(--p1-muted);
+  margin-bottom: 40px;
+  max-width: 560px;
+}
+
+/* ── Scroll reveal ──────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal--delay-1 { transition-delay: .08s; }
+.reveal--delay-2 { transition-delay: .16s; }
+.reveal--delay-3 { transition-delay: .24s; }
+.reveal--delay-4 { transition-delay: .32s; }
+
+/* ── Overview grid ──────────────────────────────────────────────────── */
+.ov-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media(max-width:560px){ .ov-grid { grid-template-columns:1fr; } }
+.ov-card {
+  background: var(--p1-surface2);
+  border: 1px solid var(--p1-gold-line);
+  border-radius: var(--p1-radius);
+  overflow: hidden;
+}
+.ov-card__img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform .5s ease;
+}
+.ov-card:hover .ov-card__img { transform: scale(1.04); }
+.ov-card__body {
+  padding: 16px 18px;
+}
+.ov-card__title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--p1-text);
+  margin: 0 0 5px;
+}
+.ov-card__desc {
+  font-size: 12px;
+  color: var(--p1-muted);
+  margin: 0 0 10px;
+}
+.ov-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ov-card__tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--p1-gold);
+  border: 1px solid var(--p1-gold-line);
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+
+/* ── Gallery ────────────────────────────────────────────────────────── */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 200px 200px;
+  gap: 8px;
+  border-radius: var(--p1-radius);
+  overflow: hidden;
+}
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--p1-surface2);
+}
+.gallery-item:first-child {
+  grid-column: 1 / 3;
+  grid-row: 1 / 3;
+}
+.gallery-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .4s ease;
+}
+.gallery-item:hover img { transform: scale(1.06); }
+.gallery-item__more {
+  position: absolute;
+  inset: 0;
+  background: rgba(9,9,11,.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+}
+.gallery-item__more span {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--p1-gold);
+}
+.gallery-item__more small {
+  font-size: 11px;
+  color: var(--p1-muted);
+}
+@media(max-width:600px){
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 160px 160px 160px;
+  }
+  .gallery-item:first-child {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+  }
+}
+
+/* ── Lightbox ───────────────────────────────────────────────────────── */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(9,9,11,.96);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.lightbox.open { display: flex; }
+.lightbox__img {
+  max-width: 90vw;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 0 60px rgba(0,0,0,.8);
+}
+.lightbox__nav {
+  display: flex;
+  gap: 16px;
+  margin-top: 18px;
+  align-items: center;
+}
+.lightbox__btn {
+  background: var(--p1-surface2);
+  border: 1px solid var(--p1-gold-line);
+  color: var(--p1-text);
+  border-radius: 8px;
+  padding: 8px 18px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: border-color .2s, color .2s;
+}
+.lightbox__btn:hover { border-color: var(--p1-gold); color: var(--p1-gold); }
+.lightbox__close {
+  position: absolute;
+  top: 20px; right: 24px;
+  background: none;
+  border: none;
+  color: var(--p1-muted);
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+}
+.lightbox__close:hover { color: var(--p1-text); }
+.lightbox__counter {
+  font-size: 12px;
+  color: var(--p1-muted);
+}
+
+/* ── Highlights grid ────────────────────────────────────────────────── */
+.hl-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+@media(max-width:480px){ .hl-grid { grid-template-columns:1fr; } }
+.hl-card {
+  background: var(--p1-surface2);
+  border: 1px solid rgba(201,168,76,.12);
+  border-radius: var(--p1-radius);
+  padding: 22px 20px;
+  transition: border-color .25s, box-shadow .25s;
+}
+.hl-card:hover {
+  border-color: var(--p1-gold-line);
+  box-shadow: 0 0 24px rgba(201,168,76,.08);
+}
+.hl-card__icon {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+.hl-card__title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--p1-text);
+  margin: 0 0 6px;
+}
+.hl-card__body {
+  font-size: 12px;
+  color: var(--p1-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Financing grid ─────────────────────────────────────────────────── */
+.fn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media(max-width:480px){ .fn-grid { grid-template-columns:1fr; } }
+.fn-card {
+  background: var(--p1-surface2);
+  border: 1px solid var(--p1-gold-line);
+  border-bottom: 3px solid var(--p1-gold);
+  border-radius: var(--p1-radius);
+  padding: 24px 22px;
+}
+.fn-card__title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--p1-muted);
+  margin: 0 0 8px;
+}
+.fn-card__amount {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--p1-gold);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.fn-card__desc {
+  font-size: 12px;
+  color: var(--p1-muted);
+  margin: 0;
+}
+
+/* ── Related properties ─────────────────────────────────────────────── */
+.rel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+@media(max-width:640px){ .rel-grid { grid-template-columns:1fr; } }
+.rel-card {
+  display: block;
+  text-decoration: none;
+  background: var(--p1-surface2);
+  border: 1px solid rgba(201,168,76,.12);
+  border-radius: var(--p1-radius);
+  overflow: hidden;
+  transition: border-color .25s, transform .25s;
+}
+.rel-card:hover {
+  border-color: var(--p1-gold-line);
+  transform: translateY(-3px);
+}
+.rel-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+.rel-card__body { padding: 14px 14px 16px; }
+.rel-card__title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--p1-text);
+  margin: 0 0 4px;
+}
+.rel-card__desc {
+  font-size: 11px;
+  color: var(--p1-muted);
+  margin: 0;
+}
+
+/* ── Final CTA section ──────────────────────────────────────────────── */
+.p1-final-cta {
+  padding: 80px 0;
+  background: var(--p1-surface);
+  text-align: center;
+}
+.p1-final-cta__h2 {
+  font-size: clamp(20px,3vw,28px);
+  font-weight: 800;
+  color: var(--p1-text);
+  margin: 0 0 10px;
+}
+.p1-final-cta__sub {
+  font-size: 13px;
+  color: var(--p1-muted);
+  margin: 0 0 28px;
+}
+
+/* ── Scarcity bar ───────────────────────────────────────────────────── */
+.scarcity-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(9,9,11,.96);
+  border: 1px solid rgba(201,168,76,.2);
+  border-radius: 10px;
+  padding: 11px 16px;
+  margin: 0 0 24px;
+}
+.scarcity-bar__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e05050;
+  flex-shrink: 0;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+.scarcity-bar__text {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--p1-text);
+}
+.scarcity-bar__note {
+  font-size: 11px;
+  color: var(--p1-muted);
+  margin-left: auto;
+}
+
+/* ── Sticky mobile CTA ──────────────────────────────────────────────── */
+.sticky-cta {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 90;
+  background: rgba(15,15,18,.97);
+  border-top: 1px solid var(--p1-gold-line);
+  padding: 12px 20px;
+  backdrop-filter: blur(10px);
+}
+.sticky-cta__inner {
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sticky-cta__info {
+  flex: 1;
+}
+.sticky-cta__price {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--p1-gold);
+}
+.sticky-cta__label {
+  font-size: 11px;
+  color: var(--p1-muted);
+}
+.sticky-cta__btn {
+  flex-shrink: 0;
+  background: var(--p1-gold);
+  color: #09090b;
+  font-size: 13px;
+  font-weight: 800;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+@media(max-width:768px){
+  .sticky-cta { display: block; }
+}
+
+/* ── Btn overrides ──────────────────────────────────────────────────── */
+.btn-p1-gold {
+  display: inline-block;
+  background: var(--p1-gold);
+  color: #09090b;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: .04em;
+  padding: 13px 26px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background .2s, box-shadow .2s;
+}
+.btn-p1-gold:hover {
+  background: var(--p1-gold-lt);
+  box-shadow: 0 4px 24px rgba(201,168,76,.25);
+}
+.btn-p1-outline {
+  display: inline-block;
+  border: 1px solid var(--p1-gold-line);
+  color: var(--p1-muted);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 13px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: border-color .2s, color .2s;
+}
+.btn-p1-outline:hover {
+  border-color: var(--p1-gold);
+  color: var(--p1-gold);
+}
+</style>
 </head>
 <body>
+
+<!-- ── Lightbox ──────────────────────────────────────────────────────── -->
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Bildgalerie">
+  <button class="lightbox__close" id="lbClose" aria-label="Schließen">&times;</button>
+  <img class="lightbox__img" id="lbImg" src="" alt="Robinson Beach C2.3">
+  <div class="lightbox__nav">
+    <button class="lightbox__btn" id="lbPrev">← Zurück</button>
+    <span class="lightbox__counter" id="lbCounter">1 / 10</span>
+    <button class="lightbox__btn" id="lbNext">Weiter →</button>
+  </div>
+</div>
+
+<!-- ── Sticky Mobile CTA ─────────────────────────────────────────────── -->
+<div class="sticky-cta" id="stickyCta">
+  <div class="sticky-cta__inner">
+    <div class="sticky-cta__info">
+      <div class="sticky-cta__price">157.000 €</div>
+      <div class="sticky-cta__label">C2.3 · 94 m² Meerblick · ACT 16</div>
+    </div>
+    <a href="#objekt-anfrage-section" class="sticky-cta__btn">Anfragen →</a>
+  </div>
+</div>
 
 <header class="header"><div class="container nav">
 <a class="brand" href="/"><span class="name">Beton Gold Markt</span><span class="tag">Immobilien · Bulgarien &amp; Deutschland</span></a>
@@ -48,64 +716,94 @@
 <a href="/offmarket/">Off-Market</a>
 <a href="/investor-check/?objekt=Apartment%20C2.3%20Robinson%20Beach" class="nav-cta">Investor Check</a></nav></div></header>
 
-<section class="investor-banner">
-  <div class="container">
-    <div class="banner-content">
-      <div class="banner-icon">🏦</div>
-      <div class="banner-text">
-        <h3>Premium Meerblick · Strukturierte Finanzierung</h3>
-        <p>Apartment C2.3 Robinson Beach — 94 m² mit direktem Meerblick</p>
-      </div>
-    </div>
+<!-- ── Cinematic Hero ────────────────────────────────────────────────── -->
+<section class="hero-cinematic">
+  <img class="hero-cinematic__img"
+       src="/assets/img/robinson-beach/c2-3/01.jpg"
+       alt="Apartment C2.3 Robinson Beach – Meerblick Balkon"
+       loading="eager"
+       fetchpriority="high">
+  <div class="hero-cinematic__overlay"></div>
+  <div class="price-badge">
+    <span class="price-badge__label">KAUFPREIS</span>
+    <div class="price-badge__price">157.000 €</div>
+    <div class="price-badge__note">40% Anzahlung</div>
   </div>
-</section>
-
-<section class="hero">
-  <div class="container">
-    <nav class="breadcrumb">
+  <div class="hero-cinematic__inner">
+    <div class="hero-cinematic__breadcrumb">
       <a href="/">Start</a> ›
       <a href="/angebote/">Angebote</a> ›
       <a href="/projekte/robinson-beach/">Robinson Beach</a> ›
       C2.3
-    </nav>
-    <h1 class="hero-title">Apartment C2.3 — Robinson Beach Meerblick</h1>
-    <p class="hero-description">94 m² · 2 Schlafzimmer · Direkter Meerblick · ACT 16 · 157.000 € · 40% Anzahlung</p>
-    <div class="cta-group">
-      <a href="#objekt-anfrage-section" data-scroll class="btn-gold">Verfügbarkeit prüfen →</a>
-      <a href="/projekte/robinson-beach/" class="btn-secondary">Projekt ansehen</a>
+    </div>
+    <div class="hero-cinematic__tag">ROBINSON BEACH · ELENITE · ACT 16</div>
+    <h1 class="hero-cinematic__h1">
+      <span>Apartment C2.3</span>
+      <span>94 m² · Direkter Meerblick</span>
+      <span>157.000 € · 40% Anzahlung</span>
+    </h1>
+    <p class="hero-cinematic__sub">2 Schlafzimmer · 2 Bäder · 2 Balkone · Südausrichtung · Ratenzahlung bis 10 Jahre</p>
+    <div class="hero-cinematic__cta">
+      <a href="#objekt-anfrage-section" data-scroll class="btn-p1-gold">Verfügbarkeit prüfen →</a>
+      <a href="/projekte/robinson-beach/" class="btn-p1-outline">Projekt ansehen</a>
     </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <h2 class="section-title">Investment-Übersicht</h2>
-    <div class="property-grid">
-      <div class="property-card">
-        <div class="property-image">
-          <img src="/assets/img/robinson-beach/c2-3/01.jpg" alt="Apartment C2.3 – Meerblick Balkon">
-        </div>
-        <div class="property-content">
-          <h3>Apartment C2.3</h3>
-          <p>94 m² · 2 Schlafzimmer · Direkter Meerblick · Südausrichtung</p>
-          <div class="property-meta">
-            <span>ACT 16</span>
-            <span>Bezugsbereit</span>
-            <span>157.000 €</span>
+<!-- ── Stats Bar ─────────────────────────────────────────────────────── -->
+<div class="stats-bar">
+  <div class="stats-bar__inner">
+    <div class="stats-bar__item">
+      <span class="stats-bar__val" data-count="157000" data-suffix=" €">157.000 €</span>
+      <span class="stats-bar__lbl">Kaufpreis</span>
+    </div>
+    <div class="stats-bar__item">
+      <span class="stats-bar__val">94 m²</span>
+      <span class="stats-bar__lbl">Wohnfläche</span>
+    </div>
+    <div class="stats-bar__item">
+      <span class="stats-bar__val">ACT 16</span>
+      <span class="stats-bar__lbl">Fertigstellung</span>
+    </div>
+    <div class="stats-bar__item">
+      <span class="stats-bar__val">40%</span>
+      <span class="stats-bar__lbl">Anzahlung</span>
+    </div>
+    <div class="stats-bar__item">
+      <span class="stats-bar__val">62.800 €</span>
+      <span class="stats-bar__lbl">Eigenkapital</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Investment Overview ────────────────────────────────────────────── -->
+<section class="p1-section reveal">
+  <div class="p1-container">
+    <div class="p1-label">OBJEKT</div>
+    <h2 class="p1-h2">Investment-Übersicht</h2>
+    <p class="p1-lead">Apartment C2.3 — direkte erste Meeresreihe, vollständig fertiggestellt.</p>
+    <div class="ov-grid">
+      <div class="ov-card reveal reveal--delay-1">
+        <img class="ov-card__img" src="/assets/img/robinson-beach/c2-3/02.jpg" alt="Apartment C2.3 Innenraum">
+        <div class="ov-card__body">
+          <div class="ov-card__title">Apartment C2.3</div>
+          <div class="ov-card__desc">94 m² · 2 Schlafzimmer · Direkter Meerblick · Südausrichtung</div>
+          <div class="ov-card__tags">
+            <span class="ov-card__tag">ACT 16</span>
+            <span class="ov-card__tag">Bezugsbereit</span>
+            <span class="ov-card__tag">157.000 €</span>
           </div>
         </div>
       </div>
-      <div class="property-card">
-        <div class="property-image">
-          <img src="/assets/img/robinson-beach/project/01.jpg" alt="Robinson Beach Anlage">
-        </div>
-        <div class="property-content">
-          <h3>Robinson Beach Elenite</h3>
-          <p>Erste Meeresreihe · Strand in 10 Metern · Komplette Infrastruktur · Pool & Restaurant</p>
-          <div class="property-meta">
-            <span>Geschlossene Anlage</span>
-            <span>Flughafen 35 km</span>
-            <span>EU Eigentum</span>
+      <div class="ov-card reveal reveal--delay-2">
+        <img class="ov-card__img" src="/assets/img/robinson-beach/project/01.jpg" alt="Robinson Beach Anlage">
+        <div class="ov-card__body">
+          <div class="ov-card__title">Robinson Beach Elenite</div>
+          <div class="ov-card__desc">Erste Meeresreihe · Strand in 10 m · Pool &amp; Restaurant · Komplette Infrastruktur</div>
+          <div class="ov-card__tags">
+            <span class="ov-card__tag">Geschlossene Anlage</span>
+            <span class="ov-card__tag">Flughafen 35 km</span>
+            <span class="ov-card__tag">EU Eigentum</span>
           </div>
         </div>
       </div>
@@ -113,84 +811,125 @@
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <h2 class="section-title">Investment-Highlights</h2>
-    <div class="value-props">
-      <div class="value-prop">
-        <div class="prop-icon">🏦</div>
-        <h4>Strukturierte Finanzierung</h4>
-        <p>40% Anzahlung (62.800 €), Restzahlung über 5-10 Jahre in Halbjahresraten. Kein Bankkredit erforderlich.</p>
+<!-- ── Gallery ────────────────────────────────────────────────────────── -->
+<section class="p1-section p1-section--alt reveal">
+  <div class="p1-container">
+    <div class="p1-label">GALERIE</div>
+    <h2 class="p1-h2">Robinson Beach C2.3</h2>
+    <p class="p1-lead">10 Aufnahmen — Objekt, Ausstattung &amp; Anlage.</p>
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="gallery-item" data-index="0">
+        <img src="/assets/img/robinson-beach/c2-3/01.jpg" alt="C2.3 Meerblick Hauptansicht" loading="lazy">
       </div>
-      <div class="value-prop">
-        <div class="prop-icon">🌊</div>
-        <h4>Meerblick & Balkone</h4>
-        <p>Direkter Meerblick von zwei Balkonen. Südausrichtung mit Panoramablick auf das Schwarze Meer.</p>
+      <div class="gallery-item" data-index="1">
+        <img src="/assets/img/robinson-beach/c2-3/02.jpg" alt="C2.3 Innenansicht" loading="lazy">
       </div>
-      <div class="value-prop">
-        <div class="prop-icon">📋</div>
-        <h4>ACT 16 Fertigstellung</h4>
-        <p>Vollständig fertiggestellt und baugenehmigt. Bezugsbereit nach Vertragsabschluss.</p>
+      <div class="gallery-item" data-index="2">
+        <img src="/assets/img/robinson-beach/c2-3/03.jpg" alt="C2.3 Wohnbereich" loading="lazy">
       </div>
-      <div class="value-prop">
-        <div class="prop-icon">🇪🇺</div>
-        <h4>EU Eigentum</h4>
-        <p>Vollständiges Eigentumsrecht mit EU-Grundbucheintrag. Keine Beschränkungen für EU-Bürger.</p>
+      <div class="gallery-item" data-index="3">
+        <img src="/assets/img/robinson-beach/c2-3/04.jpg" alt="C2.3 Schlafzimmer" loading="lazy">
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <h2 class="section-title">Finanzierungsmodell</h2>
-    <div class="property-grid">
-      <div class="property-card">
-        <div class="property-content">
-          <h3>40% Anzahlung</h3>
-          <p class="price">62.800 €</p>
-          <p>Einmalige Zahlung bei Vertragsabschluss</p>
-        </div>
-      </div>
-      <div class="property-card">
-        <div class="property-content">
-          <h3>Restzahlung 60%</h3>
-          <p class="price">94.200 €</p>
-          <p>Über 5-10 Jahre in Halbjahresraten</p>
+      <div class="gallery-item" data-index="4">
+        <div class="gallery-item__more">
+          <img src="/assets/img/robinson-beach/c2-3/05.jpg" alt="C2.3 weitere Bilder" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <span style="position:relative;z-index:1;">+5 weitere</span>
+          <small style="position:relative;z-index:1;">Galerie öffnen</small>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <h2 class="section-title">Ähnliche Investment-Objekte</h2>
-    <div class="related-properties">
-      <a href="/angebote/robinson-beach-b4-8/" class="related-property">
-        <img src="/assets/img/robinson-beach/b4-8/01.jpg" alt="Apartment B4.8 – 70 m² Top-Etage">
-        <h4>Apartment B4.8</h4>
-        <p>70 m² · 1 Schlafzimmer · Meerblick · 109.000 €</p>
+<!-- ── Investment Highlights ─────────────────────────────────────────── -->
+<section class="p1-section reveal">
+  <div class="p1-container">
+    <div class="p1-label">HIGHLIGHTS</div>
+    <h2 class="p1-h2">Investment-Highlights</h2>
+    <p class="p1-lead">Strukturierter Zugang zu einem limitierten Meerblick-Apartment.</p>
+    <div class="hl-grid">
+      <div class="hl-card reveal reveal--delay-1">
+        <div class="hl-card__icon">🏦</div>
+        <div class="hl-card__title">Strukturierte Finanzierung</div>
+        <p class="hl-card__body">40% Anzahlung (62.800 €), Restzahlung über 5–10 Jahre in Halbjahresraten. Kein Bankkredit erforderlich.</p>
+      </div>
+      <div class="hl-card reveal reveal--delay-2">
+        <div class="hl-card__icon">🌊</div>
+        <div class="hl-card__title">Meerblick &amp; Balkone</div>
+        <p class="hl-card__body">Direkter Meerblick von zwei Balkonen. Südausrichtung mit Panoramablick auf das Schwarze Meer.</p>
+      </div>
+      <div class="hl-card reveal reveal--delay-3">
+        <div class="hl-card__icon">📋</div>
+        <div class="hl-card__title">ACT 16 Fertigstellung</div>
+        <p class="hl-card__body">Vollständig fertiggestellt und baugenehmigt. Bezugsbereit nach Vertragsabschluss.</p>
+      </div>
+      <div class="hl-card reveal reveal--delay-4">
+        <div class="hl-card__icon">🇪🇺</div>
+        <div class="hl-card__title">EU Eigentum</div>
+        <p class="hl-card__body">Vollständiges Eigentumsrecht mit EU-Grundbucheintrag. Keine Beschränkungen für EU-Bürger.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Financing Model ────────────────────────────────────────────────── -->
+<section class="p1-section p1-section--alt reveal">
+  <div class="p1-container">
+    <div class="p1-label">FINANZIERUNG</div>
+    <h2 class="p1-h2">Finanzierungsmodell</h2>
+    <p class="p1-lead">Bankkredit-freie Struktur mit langen Laufzeiten.</p>
+    <div class="fn-grid">
+      <div class="fn-card reveal reveal--delay-1">
+        <div class="fn-card__title">ANZAHLUNG 40%</div>
+        <div class="fn-card__amount">62.800 €</div>
+        <p class="fn-card__desc">Einmalige Zahlung bei Vertragsabschluss</p>
+      </div>
+      <div class="fn-card reveal reveal--delay-2">
+        <div class="fn-card__title">RESTZAHLUNG 60%</div>
+        <div class="fn-card__amount">94.200 €</div>
+        <p class="fn-card__desc">Über 5–10 Jahre in Halbjahresraten</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Related Properties ─────────────────────────────────────────────── -->
+<section class="p1-section reveal">
+  <div class="p1-container">
+    <div class="p1-label">WEITERE OBJEKTE</div>
+    <h2 class="p1-h2">Ähnliche Investment-Objekte</h2>
+    <div class="rel-grid">
+      <a href="/angebote/robinson-beach-b4-8/" class="rel-card reveal reveal--delay-1">
+        <img src="/assets/img/robinson-beach/b4-8/01.jpg" alt="Apartment B4.8 – 70 m² Top-Etage" loading="lazy">
+        <div class="rel-card__body">
+          <div class="rel-card__title">Apartment B4.8</div>
+          <div class="rel-card__desc">70 m² · 1 Schlafzimmer · Meerblick · 109.000 €</div>
+        </div>
       </a>
-      <a href="/projekte/gardenia-hills/" class="related-property">
-        <img src="/assets/img/gardenia-hills/project/01.jpg" alt="Gardenia Hills – Premium Resort">
-        <h4>Gardenia Hills</h4>
-        <p>Premium Resort in Sonnenstrand · Meerblick-Apartments</p>
+      <a href="/projekte/gardenia-hills/" class="rel-card reveal reveal--delay-2">
+        <img src="/assets/img/gardenia-hills/project/01.jpg" alt="Gardenia Hills – Premium Resort" loading="lazy">
+        <div class="rel-card__body">
+          <div class="rel-card__title">Gardenia Hills</div>
+          <div class="rel-card__desc">Premium Resort in Sonnenstrand · Meerblick-Apartments</div>
+        </div>
       </a>
-      <a href="/bankimmobilien/" class="related-property">
-        <img src="/assets/img/bank-properties/01.jpg" alt="Bankimmobilien Bulgarien">
-        <h4>Bankimmobilien</h4>
-        <p>Strukturierte Bankbestände · Reduzierte Preise</p>
+      <a href="/bankimmobilien/" class="rel-card reveal reveal--delay-3">
+        <img src="/assets/img/bank-properties/01.jpg" alt="Bankimmobilien Bulgarien" loading="lazy">
+        <div class="rel-card__body">
+          <div class="rel-card__title">Bankimmobilien</div>
+          <div class="rel-card__desc">Strukturierte Bankbestände · Reduzierte Preise</div>
+        </div>
       </a>
     </div>
   </div>
 </section>
 
-<section class="final-cta">
-  <div class="container">
-    <h2>Verfügbarkeit prüfen</h2>
-    <p>Strukturierter Zugang zu diesem limitierten Meerblick-Apartment. Qualifikation erforderlich.</p>
-    <a href="#objekt-anfrage-section" data-scroll class="btn-gold">Jetzt prüfen →</a>
+<!-- ── Final CTA ──────────────────────────────────────────────────────── -->
+<section class="p1-final-cta reveal">
+  <div class="p1-container">
+    <h2 class="p1-final-cta__h2">Verfügbarkeit prüfen</h2>
+    <p class="p1-final-cta__sub">Strukturierter Zugang zu diesem limitierten Meerblick-Apartment. Qualifikation erforderlich.</p>
+    <a href="#objekt-anfrage-section" data-scroll class="btn-p1-gold">Jetzt prüfen →</a>
   </div>
 </section>
 
@@ -213,8 +952,97 @@
     </div>
   </div>
 
-<section style="padding:20px 0 48px;" id="objekt-anfrage-section"><div class="container"><div style="background:rgba(255,255,255,.03);border:1px solid rgba(214,178,94,.3);border-radius:14px;padding:22px 20px;"><div style="font-size:11px;font-weight:800;color:var(--gold);letter-spacing:.1em;margin-bottom:10px;">DIREKTANFRAGE</div><h2 style="font-size:16px;font-weight:700;margin:0 0 6px;">Apartment C2.3 Robinson Beach</h2><p style="font-size:12px;color:var(--muted);margin:0 0 16px;">Anfrage direkt zum Objekt. Wir melden uns innerhalb von 24h.</p><form name="objekt-anfrage" method="POST" action="/danke/" data-netlify="true" class="objekt-anfrage-form" style="display:flex;flex-direction:column;gap:9px;"><input type="hidden" name="form-name" value="objekt-anfrage"><input type="hidden" name="source" value="Markt"><input type="hidden" name="layer" value="Markt"><input type="hidden" name="form_name" value="objekt-anfrage"><input type="hidden" name="object_id" value="robinson-c23"><input type="hidden" name="object_name" value="Apartment C2.3 Robinson Beach"><input type="hidden" name="project_name" value="Robinson Beach"><input type="hidden" name="price" value="157000 EUR"><input type="hidden" name="region" value="Elenite, Bulgarien"><input type="hidden" name="asset_type" value="Apartment"><input type="hidden" name="page_url" value="https://betongoldmarkt.de/angebote/robinson-beach-c2-3/"><input type="text" name="name" placeholder="Ihr Name" required style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;"><input type="email" name="email" placeholder="E-Mail" required style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;"><input type="tel" name="telefon" placeholder="Telefon (optional)" style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;"><select name="kapital_raw" required style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;"><option value="">Budget wählen</option><option value="bis 50.000 EUR">bis 50.000 €</option><option value="50.000-100.000 EUR">50.000–100.000 €</option><option value="100.000-200.000 EUR">100.000–200.000 €</option><option value="200.000 EUR+">200.000 €+</option></select><select name="ziel" style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;"><option value="">Ziel (optional)</option><option value="Eigennutzung">Eigennutzung</option><option value="Investment">Investment</option><option value="Noch unsicher">Noch unsicher</option></select><textarea name="nachricht" placeholder="Nachricht (optional)" rows="2" style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;resize:vertical;"></textarea><button type="submit" class="btn primary" style="align-self:flex-start;font-size:13px;">Anfrage absenden &#x2192;</button></form></div></div></section>
+<section style="padding:20px 0 48px;" id="objekt-anfrage-section"><div class="container"><div style="background:rgba(255,255,255,.03);border:1px solid rgba(214,178,94,.3);border-radius:14px;padding:22px 20px;"><div class="scarcity-bar"><div class="scarcity-bar__dot"></div><span class="scarcity-bar__text">Limitierte Einheit — 1 Apartment verfügbar</span><span class="scarcity-bar__note">Robinson Beach C2.3</span></div><div style="font-size:11px;font-weight:800;color:var(--gold);letter-spacing:.1em;margin-bottom:10px;">DIREKTANFRAGE</div><h2 style="font-size:16px;font-weight:700;margin:0 0 6px;">Apartment C2.3 Robinson Beach</h2><p style="font-size:12px;color:var(--muted);margin:0 0 16px;">Anfrage direkt zum Objekt. Wir melden uns innerhalb von 24h.</p><form name="objekt-anfrage" method="POST" action="/danke/" data-netlify="true" class="objekt-anfrage-form" style="display:flex;flex-direction:column;gap:9px;"><input type="hidden" name="form-name" value="objekt-anfrage"><input type="hidden" name="source" value="Markt"><input type="hidden" name="layer" value="Markt"><input type="hidden" name="form_name" value="objekt-anfrage"><input type="hidden" name="object_id" value="robinson-c23"><input type="hidden" name="object_name" value="Apartment C2.3 Robinson Beach"><input type="hidden" name="project_name" value="Robinson Beach"><input type="hidden" name="price" value="157000 EUR"><input type="hidden" name="region" value="Elenite, Bulgarien"><input type="hidden" name="asset_type" value="Apartment"><input type="hidden" name="page_url" value="https://betongoldmarkt.de/angebote/robinson-beach-c2-3/"><input type="text" name="name" placeholder="Ihr Name" required style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;"><input type="email" name="email" placeholder="E-Mail" required style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;"><input type="tel" name="telefon" placeholder="Telefon (optional)" style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;"><select name="kapital_raw" required style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;"><option value="">Budget wählen</option><option value="bis 50.000 EUR">bis 50.000 €</option><option value="50.000-100.000 EUR">50.000–100.000 €</option><option value="100.000-200.000 EUR">100.000–200.000 €</option><option value="200.000 EUR+">200.000 €+</option></select><select name="ziel" style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;"><option value="">Ziel (optional)</option><option value="Eigennutzung">Eigennutzung</option><option value="Investment">Investment</option><option value="Noch unsicher">Noch unsicher</option></select><textarea name="nachricht" placeholder="Nachricht (optional)" rows="2" style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;resize:vertical;"></textarea><button type="submit" class="btn primary" style="align-self:flex-start;font-size:13px;">Anfrage absenden &#x2192;</button></form></div></div></section>
 <script src="/assets/markt.js?v=t4"></script>
+<script>
+(function(){
+  'use strict';
+
+  // ── Scroll reveal via IntersectionObserver ───────────────────────
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var ro = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) {
+          e.target.classList.add('revealed');
+          ro.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(function(el){ ro.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('revealed'); });
+  }
+
+  // ── Gallery lightbox ──────────────────────────────────────────────
+  var images = [
+    '/assets/img/robinson-beach/c2-3/01.jpg',
+    '/assets/img/robinson-beach/c2-3/02.jpg',
+    '/assets/img/robinson-beach/c2-3/03.jpg',
+    '/assets/img/robinson-beach/c2-3/04.jpg',
+    '/assets/img/robinson-beach/c2-3/05.jpg',
+    '/assets/img/robinson-beach/c2-3/06.jpg',
+    '/assets/img/robinson-beach/c2-3/07.jpg',
+    '/assets/img/robinson-beach/c2-3/08.jpg',
+    '/assets/img/robinson-beach/c2-3/09.jpg',
+    '/assets/img/robinson-beach/c2-3/10.jpg'
+  ];
+  var lb      = document.getElementById('lightbox');
+  var lbImg   = document.getElementById('lbImg');
+  var lbCtr   = document.getElementById('lbCounter');
+  var lbPrev  = document.getElementById('lbPrev');
+  var lbNext  = document.getElementById('lbNext');
+  var lbClose = document.getElementById('lbClose');
+  var current = 0;
+
+  function lbShow(idx) {
+    current = (idx + images.length) % images.length;
+    lbImg.src = images[current];
+    lbImg.alt = 'Robinson Beach C2.3 – Bild ' + (current + 1);
+    lbCtr.textContent = (current + 1) + ' / ' + images.length;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function lbHide() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('galleryGrid').addEventListener('click', function(e){
+    var item = e.target.closest('.gallery-item');
+    if (!item) return;
+    lbShow(parseInt(item.dataset.index, 10) || 0);
+  });
+
+  lbPrev.addEventListener('click',  function(){ lbShow(current - 1); });
+  lbNext.addEventListener('click',  function(){ lbShow(current + 1); });
+  lbClose.addEventListener('click', lbHide);
+  lb.addEventListener('click', function(e){ if (e.target === lb) lbHide(); });
+
+  document.addEventListener('keydown', function(e){
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft')  lbShow(current - 1);
+    if (e.key === 'ArrowRight') lbShow(current + 1);
+    if (e.key === 'Escape')     lbHide();
+  });
+
+  // ── Sticky CTA: hide when form is visible ────────────────────────
+  var stickyCta  = document.getElementById('stickyCta');
+  var formSection = document.getElementById('objekt-anfrage-section');
+  if (stickyCta && formSection && 'IntersectionObserver' in window) {
+    var fo = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        stickyCta.style.display = e.isIntersecting ? 'none' : '';
+      });
+    }, { threshold: 0.1 });
+    fo.observe(formSection);
+  }
+
+  // ── Smooth scroll for data-scroll links ─────────────────────────
+  // (markt.js handles this; no duplicate needed)
+
+})();
+</script>
 </footer>
 
 </body>
