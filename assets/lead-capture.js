@@ -53,13 +53,18 @@
   }
 
   document.addEventListener('submit', function(e){
-    var form = e.target.closest('form.lead-capture-form');
+    var form = e.target.closest('form.lead-capture-form, form.objekt-anfrage-form');
     if (!form) return;
 
     e.preventDefault();
     e.stopPropagation();
 
     var payload = toPayload(form);
+
+    // Correct lead_type for object forms (toPayload defaults to 'general_investor_check')
+    if (form.classList.contains('objekt-anfrage-form')) {
+      payload['lead_type'] = 'object_request';
+    }
 
     // Fire webhook FIRST (max 2s), then submit to Netlify
     var webhookDone = sendWebhook(payload);
