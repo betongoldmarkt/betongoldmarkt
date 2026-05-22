@@ -83,9 +83,9 @@ body::before {
   position:absolute; inset:0;
   background-image:var(--hero-img);
   background-size:cover;
-  /* Desktop: show upper portion — sea horizon + building top */
-  background-position:center 30%;
-  filter:brightness(0.75) saturate(1.05) contrast(1.05); /* VISIBILITY FIX: lifted from 0.40 — calibrated for daylight beach image */
+  /* Desktop: centered on sea horizon — sky above, beach below fold */
+  background-position:center 42%;
+  filter:brightness(0.88) saturate(1.08) contrast(1.06); /* V2: institutional brightness — daylight beach, edge-only vignette */
   /* GPU compositing — ultra-slow cinematic drift, zero paint cost */
   will-change:transform;
   animation:heroDrift 90s ease-in-out infinite alternate;
@@ -94,39 +94,38 @@ body::before {
   0%   { transform:translateZ(0) scale(1.000); }
   100% { transform:translateZ(0) scale(1.030); }
 }
-/* Tablet crop — shift up slightly to show more sea horizon */
+/* Tablet crop — proportional to desktop re-centering */
 @media(max-width:900px){
-  .hero-bg-img{ background-position:center 24%; }
+  .hero-bg-img{ background-position:center 36%; }
 }
-/* Mobile crop — anchor to top: sky + sea horizon visible above fold */
+/* Mobile crop — horizon visible above fold */
 @media(max-width:480px){
-  .hero-bg-img{ background-position:center 18%; }
+  .hero-bg-img{ background-position:center 30%; }
 }
 
-/* Atmospheric haze — Concept 5: European Coastal Harmony
-   Left panel deepens behind text column.
-   Amber capital glow at bottom-left. Gold horizon breath at sea line.
-   No grid. No animation. Cinematic. Institutional. */
+/* Atmospheric haze — V2: edge-only treatment.
+   Left panel: light — text readable, image breathes through.
+   Lower-left glow: subtle anchor only. Center stays open. */
 .hero-bg {
   position:absolute; inset:0; z-index:1; pointer-events:none;
   background:
-    linear-gradient(100deg, rgba(8,12,22,.38) 0%, rgba(8,12,22,.18) 46%, transparent 68%),
-    radial-gradient(ellipse 70% 65% at 4% 90%, rgba(8,12,22,.20) 0%, transparent 72%),
+    linear-gradient(100deg, rgba(8,12,22,.24) 0%, rgba(8,12,22,.10) 38%, transparent 60%),
+    radial-gradient(ellipse 70% 65% at 4% 90%, rgba(8,12,22,.12) 0%, transparent 72%),
     radial-gradient(ellipse 80% 55% at 12% 74%, rgba(201,168,76,.08) 0%, transparent 68%),
     radial-gradient(ellipse 60% 22% at 52% 36%, rgba(201,168,76,.04) 0%, transparent 100%);
 }
 
-/* Multi-layer cinematic vignette — protects text zone.
-   4 layers: bottom seal / top frame / left depth / radial floor.
-   Top layer is subtle — allows sea horizon to breathe but prevents
-   sky from reading as too bright when new hero image is swapped in. */
+/* Edge-only cinematic vignette — V2: institutional open center.
+   Bottom: seals lowest 30% (typography zone). Center: fully open.
+   Top: feather only. Left depth: light guide rail for text.
+   Radial floor: anchor — keeps bottom weight without crushing image. */
 .hero-grad {
   position:absolute; inset:0; z-index:2;
   background:
-    linear-gradient(to top,    rgba(9,9,11,.80) 0%,  rgba(9,9,11,.48) 32%, rgba(9,9,11,.10) 62%, transparent 76%),
-    linear-gradient(to bottom, rgba(9,9,11,.28) 0%,  transparent 20%),
-    linear-gradient(to right,  rgba(9,9,11,.30) 0%,  transparent 52%),
-    radial-gradient(ellipse 80% 40% at 50% 100%, rgba(9,9,11,.68) 0%, transparent 70%);
+    linear-gradient(to top,    rgba(9,9,11,.60) 0%,  rgba(9,9,11,.22) 28%, rgba(9,9,11,.04) 52%, transparent 65%),
+    linear-gradient(to bottom, rgba(9,9,11,.16) 0%,  transparent 18%),
+    linear-gradient(to right,  rgba(9,9,11,.18) 0%,  transparent 44%),
+    radial-gradient(ellipse 80% 40% at 50% 100%, rgba(9,9,11,.40) 0%, transparent 70%);
 }
 
 /* Floating gold micro-dots */
