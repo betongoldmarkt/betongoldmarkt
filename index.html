@@ -169,33 +169,66 @@ body::before {
 }
 @keyframes heroFade { from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;} }
 
-/* Hero vertical brand marker */
+/* ── Hero vertical brand marker — v2 Dietrich Signature ───
+   Full cinematic composition:
+   RUNE → | → BETON GOLD MARKT / CAPITAL → | → BG·DE → | → SCROLL
+   Mix-blend-mode:screen — light emission on dark hero.
+   3-layer warm glow — near halo + mid ambient + far aura.   */
 .hero-side-marker {
   position:absolute; right:clamp(12px,4vw,60px); top:50%;
   transform:translateY(-50%); z-index:3;
-  display:flex; flex-direction:column; align-items:center; gap:14px;
+  display:flex; flex-direction:column; align-items:center; gap:8px;
   animation:heroFade 1s .4s ease-out both;
 }
 @media(max-width:640px){ .hero-side-marker{ display:none !important; } }
 
-/* ── Dietrich Rune — authority signature mark ─────────────
-   Cinematic blend: screen (light emission on dark bg).
-   Dual-layer drop-shadow: close gold halo + wide ambient.
-   Inherits heroFade from .hero-side-marker parent.
-   No JS. No animation beyond inherited fade.
-   aria-hidden: decorative — no screen reader content.    */
+/* Rune mark — enlarged, softer 3-layer warm glow */
 .hero-rune {
   display:block;
   color:var(--mc-gold);
-  opacity:.82;
+  opacity:.78;
   mix-blend-mode:screen;
   filter:
-    drop-shadow(0 0 5px rgba(201,168,76,.65))
-    drop-shadow(0 0 12px rgba(201,168,76,.30));
-  width:18px; height:30px;
+    drop-shadow(0 0  4px rgba(201,168,76,.50))
+    drop-shadow(0 0 16px rgba(201,168,76,.28))
+    drop-shadow(0 0 40px rgba(201,168,76,.12));
+  width:28px; height:52px;
   flex-shrink:0;
 }
-@media(max-width:900px){ .hero-rune{ width:15px; height:25px; } }
+@media(max-width:900px){ .hero-rune{ width:22px; height:42px; } }
+
+/* Vertical divider lines — 3 variants */
+.hsm-line { width:1px; flex-shrink:0; background:linear-gradient(to bottom, rgba(201,168,76,.38), rgba(201,168,76,.06)); }
+.hsm-line--a { height:20px; }
+.hsm-line--b { height:24px; }
+.hsm-line--c { height:18px; opacity:.55; }
+
+/* Brand name — vertical, ghost white */
+.hsm-brand {
+  writing-mode:vertical-rl; text-orientation:mixed;
+  font-family:var(--mc-font-body); font-size:8px; font-weight:500;
+  letter-spacing:.08em; text-transform:uppercase;
+  color:rgba(255,255,255,.26); line-height:1; white-space:nowrap;
+}
+/* Capital sublabel — vertical, warm gold */
+.hsm-capital {
+  writing-mode:vertical-rl; text-orientation:mixed;
+  font-family:var(--mc-font-body); font-size:7px; font-weight:400;
+  letter-spacing:.14em; text-transform:uppercase;
+  color:rgba(201,168,76,.42); line-height:1; white-space:nowrap; margin-top:3px;
+}
+/* Geographic identifier — horizontal */
+.hsm-geo {
+  font-family:var(--mc-font-body); font-size:9px; font-weight:500;
+  letter-spacing:.10em; color:rgba(201,168,76,.62); white-space:nowrap;
+}
+/* Scroll label — vertical, very faint */
+.hsm-scroll-lbl {
+  writing-mode:vertical-rl; text-orientation:mixed;
+  font-family:var(--mc-font-body); font-size:7px; font-weight:400;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:rgba(255,255,255,.18); line-height:1; white-space:nowrap;
+}
 
 /* ── Hero H1 — dominant investor headline ───────────────── */
 /* ── HERO H1 — DACH institutional split ──────────────────
@@ -950,32 +983,51 @@ body::before {
   </div>
 
   <!-- Vertical brand marker — desktop only -->
+  <!-- Hero vertical brand signature — v2 Dietrich Rune System
+       Composition: RUNE / line / BETON GOLD MARKT + CAPITAL / line / BG·DE / line / SCROLL
+       Desktop only (hidden <640px). Inherits heroFade. Decorative — aria-hidden. -->
   <div class="hero-side-marker">
-    <!-- Dietrich Rune — authority mark · 5-line runic sigil
-         Spine + apex arch + two crossbars = architectural gateway
-         Replaces vertical text. Inherits heroFade from parent. -->
+
+    <!-- ① Dietrich Rune — 5-line geometric mark, enlarged to 28×52px CSS -->
     <svg class="hero-rune"
          xmlns="http://www.w3.org/2000/svg"
-         viewBox="0 0 18 30"
-         width="18" height="30"
+         viewBox="0 0 24 44"
          fill="none"
          aria-hidden="true"
          focusable="false">
-      <!-- Vertical spine — full height authority axis -->
-      <line x1="9" y1="2"  x2="9"  y2="28" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-      <!-- Apex — left arm: architectural gateway / portal -->
-      <line x1="9" y1="2"  x2="2"  y2="9"  stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      <!-- Vertical spine — full authority axis -->
+      <line x1="12" y1="2"  x2="12" y2="42" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <!-- Apex — left arm -->
+      <line x1="12" y1="2"  x2="3"  y2="12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
       <!-- Apex — right arm -->
-      <line x1="9" y1="2"  x2="16" y2="9"  stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-      <!-- Upper crossbar — first authority register -->
-      <line x1="4" y1="14" x2="14" y2="14" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-      <!-- Lower crossbar — second authority register -->
-      <line x1="5" y1="22" x2="13" y2="22" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+      <line x1="12" y1="2"  x2="21" y2="12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <!-- Upper crossbar — first register -->
+      <line x1="5"  y1="19" x2="19" y2="19" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+      <!-- Lower crossbar — second register -->
+      <line x1="7"  y1="31" x2="17" y2="31" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
     </svg>
-    <!-- Gold gradient line — preserved structural element -->
-    <div style="width:1px;height:60px;background:linear-gradient(var(--mc-gold),transparent);"></div>
-    <!-- Market identifiers — preserved -->
-    <div style="font-family:var(--mc-font-body);font-size:9px;color:var(--mc-gold);letter-spacing:.1em;opacity:.65;">BG · DE</div>
+
+    <!-- ② Divider A -->
+    <div class="hsm-line hsm-line--a"></div>
+
+    <!-- ③ Brand name — vertical ghost white -->
+    <span class="hsm-brand">Beton Gold Markt</span>
+
+    <!-- ④ Capital sublabel — vertical warm gold -->
+    <span class="hsm-capital">Capital</span>
+
+    <!-- ⑤ Divider B -->
+    <div class="hsm-line hsm-line--b"></div>
+
+    <!-- ⑥ Geographic identifier — horizontal -->
+    <span class="hsm-geo">BG · DE</span>
+
+    <!-- ⑦ Divider C — fading -->
+    <div class="hsm-line hsm-line--c"></div>
+
+    <!-- ⑧ Scroll label — vertical, very faint -->
+    <span class="hsm-scroll-lbl">Scroll</span>
+
   </div>
 
   <div class="hero-content">
