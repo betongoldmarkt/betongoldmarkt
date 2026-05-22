@@ -757,6 +757,144 @@ body::before {
   .pc-img { transition:none; }
   .pillar { transition:none; }
 }
+
+
+/* ══════════════════════════════════════════════════════════
+   BATCH 6.3 — CINEMATIC HOMEPAGE RHYTHM SYSTEM
+   Institutional spacing · Atmospheric depth · Premium pacing
+   DACH investor presentation register · Capital platform feel
+
+   Scope: spacing, pacing, depth, transitions only.
+   Hero, copy, routing, layout structure — untouched.
+══════════════════════════════════════════════════════════ */
+
+/* ── 1. RHYTHM TOKENS — luxury vertical scale ──────────── */
+:root {
+  --mc-section-pad:    clamp(72px, 9vw, 112px);
+  --mc-section-pad-sm: clamp(56px, 7vw,  88px);
+  --mc-sep-h:          80px; /* atmospheric separator height */
+}
+
+/* ── 2. SECTION SPACING — institutional breathing room ──── */
+.section    { padding:var(--mc-section-pad) 0;    position:relative; }
+.section-sm { padding:var(--mc-section-pad-sm) 0; position:relative; }
+
+/* ── 3. ATMOSPHERIC SEPARATORS — no visible lines ─────────
+   Radial gold breathe at each section boundary.
+   Sub-perceptual: felt as warmth, not seen as element.    */
+.section::before, .section-sm::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0;
+  height:var(--mc-sep-h);
+  background:radial-gradient(ellipse 55% var(--mc-sep-h) at 50% 0%, rgba(201,168,76,.07) 0%, transparent 100%);
+  pointer-events:none; z-index:0;
+}
+
+/* ── 4. SECTION HIERARCHY — elevated reading rhythm ─────── */
+.section-label { margin-bottom:14px; }
+.section-title {
+  font-size:clamp(26px,3.8vw,44px);
+  letter-spacing:-.022em;
+  line-height:1.10;
+  margin-bottom:16px;
+}
+.section-sub {
+  font-size:15px;
+  line-height:1.85;
+  margin-bottom:40px;
+  max-width:620px;
+}
+
+/* ── 5. CAPITAL STRIP — expanded dashboard breathing ─────── */
+.capital-item { padding:44px 28px; }
+
+/* ── 6. PILLAR STRIP — institutional pad ───────────────── */
+.pillar { padding:32px 24px; }
+
+/* ── 7. CARD DEPTH — controlled elevation + hover lift ───── */
+.why-card {
+  box-shadow:0 2px 20px rgba(0,0,0,.28);
+  transition:box-shadow var(--mc-duration-md,250ms) ease,
+             border-color var(--mc-duration-md,250ms) ease,
+             transform var(--mc-duration-md,250ms) ease;
+}
+.why-card:hover {
+  box-shadow:0 8px 40px rgba(0,0,0,.44), 0 0 0 1px rgba(201,168,76,.16);
+  border-color:rgba(201,168,76,.24);
+  transform:translateY(-2px);
+}
+.step {
+  box-shadow:0 2px 20px rgba(0,0,0,.28);
+  transition:box-shadow var(--mc-duration-md,250ms) ease,
+             transform var(--mc-duration-md,250ms) ease;
+}
+.step:hover {
+  box-shadow:0 8px 40px rgba(0,0,0,.44);
+  transform:translateY(-2px);
+}
+.split-card {
+  box-shadow:0 4px 32px rgba(0,0,0,.35);
+  transition:box-shadow var(--mc-duration-md,250ms) ease;
+}
+.split-card--gold {
+  box-shadow:0 4px 48px rgba(0,0,0,.48),
+             0 0 0 1px rgba(201,168,76,.24),
+             0 0 80px rgba(201,168,76,.07);
+}
+
+/* ── 8. FEATURE CONTAINERS — atmospheric depth ───────────── */
+.rate-bar {
+  box-shadow:0 8px 48px rgba(0,0,0,.40),
+             0 0 0 1px rgba(201,168,76,.20);
+}
+.access-gate {
+  box-shadow:0 16px 64px rgba(0,0,0,.55),
+             0 0 100px rgba(201,168,76,.07);
+}
+.cta-band {
+  box-shadow:0 12px 56px rgba(0,0,0,.48),
+             0 0  80px rgba(201,168,76,.06);
+}
+
+/* ── 9. REVEAL — cinematic institutional entry ──────────── */
+.reveal {
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .90s ease, transform .90s ease;
+}
+.reveal.visible { opacity:1; transform:none; }
+
+/* ── 10. MOBILE + iPAD — balanced premium rhythm ─────────── */
+@media(max-width:900px){
+  :root {
+    --mc-section-pad:    clamp(60px, 8vw, 88px);
+    --mc-section-pad-sm: clamp(48px, 6vw, 72px);
+    --mc-sep-h:          60px;
+  }
+  .capital-item { padding:32px 18px; }
+  .pillar       { padding:26px 18px; }
+}
+@media(max-width:600px){
+  :root {
+    --mc-section-pad:    52px;
+    --mc-section-pad-sm: 40px;
+    --mc-sep-h:          48px;
+  }
+  .section-title { letter-spacing:-.015em; }
+  .section-sub   { font-size:14px; margin-bottom:28px; }
+}
+@media(max-width:400px){
+  :root {
+    --mc-section-pad:    44px;
+    --mc-section-pad-sm: 36px;
+  }
+}
+
+/* ── 11. REDUCED MOTION — rhythm preserves accessibility ──── */
+@media(prefers-reduced-motion:reduce){
+  .why-card, .step, .split-card { transition:none !important; transform:none !important; }
+  .why-card:hover, .step:hover  { transform:none !important; }
+}
 </style>
 </head>
 <body>
