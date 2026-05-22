@@ -285,9 +285,12 @@
   }
 
   .hdr-nav a.nav-cta,
-  .menu a.nav-cta,
+  .menu a.nav-cta {
+    padding: 5px 18px 5px 13px;                 /* +5px right — calmer mobile tap target */
+  }
+
   .hdr-nav a.wa-btn {
-    padding: 5px var(--mc-space-3);              /* 5px 12px */
+    padding: 5px var(--mc-space-3);             /* 5px 12px — unchanged */
   }
 
   /* Hide rate border on very small screens — keep gold color */

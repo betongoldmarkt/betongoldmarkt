@@ -284,8 +284,9 @@ body::before {
 /* Hero CTA row */
 .hero-cta { display:flex; gap:10px; flex-wrap:wrap; align-items:center; animation:heroFade .8s .38s ease-out both; }
 @media(max-width:520px){
-  .hero-cta { display:grid; grid-template-columns:1fr; gap:8px; }
+  .hero-cta { display:grid; grid-template-columns:1fr; gap:12px; }
   .hero-cta a { text-align:center; justify-content:center; }
+  .hero-cta-note { margin-top:14px; }
 }
 .hero-cta-note {
   font-family:var(--mc-font-body); font-size:11px;
@@ -906,12 +907,16 @@ body::before {
   }
   .section-title { letter-spacing:-.015em; }
   .section-sub   { font-size:14px; margin-bottom:28px; }
+  /* Hero crop: shift left so building reads calmer on portrait screens */
+  .hero-bg-img { background-position:38% center !important; }
 }
 @media(max-width:400px){
   :root {
     --mc-section-pad:    44px;
     --mc-section-pad-sm: 36px;
   }
+  /* Tighter portrait: pull further left for smallest screens */
+  .hero-bg-img { background-position:32% center !important; }
 }
 
 /* ── 11. REDUCED MOTION — rhythm preserves accessibility ──── */
