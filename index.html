@@ -75,21 +75,18 @@ body::before {
   padding-top: var(--mc-nav-height);
 }
 
-/* ══ VISIBILITY DEBUG — hero-coast-01 force render ══════════
-   Strip all filters, gradients, animations. Direct URL + cache bust.
-   Rollback: restore original .hero-bg-img block below.
-   Original values preserved as comments for reinstatement.
-   Original filter: brightness(0.88) saturate(1.08) contrast(1.06)
-   Original position: center 42% / tablet 36% / mobile 30%
-   Original animation: heroDrift 90s ease-in-out infinite alternate
-══════════════════════════════════════════════════════════════ */
+/* ── Hero background image — forced render ───────────────────
+   Single active path. Cache-buster: ?v=homepage-final.
+   z-index:0 inside hero stacking context (hero: position:relative).
+   hero-content sits above at z-index:2.
+   No filters. No blend. No animation. Raw render.             */
 .hero-bg-img {
   position:absolute !important;
   inset:0 !important;
-  z-index:1 !important;
+  z-index:0 !important;
   opacity:1 !important;
   display:block !important;
-  background-image:url('/assets/img/hero/hero-coast-01.webp') !important;
+  background-image:url('/assets/img/hero/hero-coast-01.webp?v=homepage-final') !important;
   background-size:cover !important;
   background-position:center center !important;
   background-repeat:no-repeat !important;
@@ -98,21 +95,6 @@ body::before {
   will-change:auto !important;
   animation:none !important;
   transform:none !important;
-}
-
-/* DEBUG: atmospheric haze — suspended for visibility test */
-.hero-bg {
-  display:none !important;
-}
-
-/* DEBUG: cinematic vignette — suspended for visibility test */
-.hero-grad {
-  display:none !important;
-}
-
-/* DEBUG: hero-dots — suspended for visibility test */
-.hero-dots {
-  display:none !important;
 }
 
 /* Atmospheric haze — V2: edge-only treatment.
@@ -161,7 +143,7 @@ body::before {
 
 /* Hero content */
 .hero-content {
-  position:relative; z-index:3;
+  position:relative; z-index:2;
   padding: 0 clamp(20px,5vw,80px) clamp(56px,8vh,96px);
   max-width:900px;
   padding-top:clamp(88px,13vh,130px);
