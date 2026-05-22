@@ -169,68 +169,24 @@ body::before {
 }
 @keyframes heroFade { from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;} }
 
-/* ── Hero vertical brand marker — v2 Dietrich Signature ───
-   Full cinematic composition:
-   RUNE → | → BETON GOLD MARKT / CAPITAL → | → BG·DE → | → SCROLL
-   Mix-blend-mode:screen — light emission on dark hero.
-   3-layer warm glow — near halo + mid ambient + far aura.   */
-.hero-side-marker {
-  position:absolute; right:clamp(12px,4vw,60px); top:50%;
+/* ── Hero signature overlay — cinematic production asset ───
+   Replaces CSS-generated SVG signature system entirely.
+   mix-blend-mode:screen: dark areas transparent against hero image.
+   Asset handles all visual design — no CSS geometry needed.
+   Positioned right edge, vertically centered in hero.        */
+.hero-signature-overlay {
+  position:absolute; right:22px; top:50%;
   transform:translateY(-50%); z-index:3;
-  display:flex; flex-direction:column; align-items:center; gap:8px;
+  width:110px; height:auto; opacity:.82;
+  pointer-events:none; display:block;
+  mix-blend-mode:screen;
   animation:heroFade 1s .4s ease-out both;
 }
-@media(max-width:640px){ .hero-side-marker{ display:none !important; } }
-
-/* Rune mark — exact reference geometry (44×80 viewBox → 22×40px CSS)
-   Metallic warm gold: 3-layer glow, restrained — discreet institutional mark.
-   Screen blend: light-emission on dark hero bg.
-   Opacity .70: embedded-in-architecture feel, not dominant logo. */
-.hero-rune {
-  display:block;
-  color:var(--mc-gold);
-  opacity:.70;
-  mix-blend-mode:screen;
-  filter:
-    drop-shadow(0 0  3px rgba(201,168,76,.45))
-    drop-shadow(0 0 10px rgba(201,168,76,.22))
-    drop-shadow(0 0 28px rgba(201,168,76,.09));
-  width:22px; height:40px;
-  flex-shrink:0;
+@media(max-width:900px){
+  .hero-signature-overlay { width:80px; opacity:.60; right:14px; }
 }
-@media(max-width:900px){ .hero-rune{ width:18px; height:33px; } }
-
-/* Vertical divider lines — 3 variants */
-.hsm-line { width:1px; flex-shrink:0; background:linear-gradient(to bottom, rgba(201,168,76,.38), rgba(201,168,76,.06)); }
-.hsm-line--a { height:20px; }
-.hsm-line--b { height:24px; }
-.hsm-line--c { height:18px; opacity:.55; }
-
-/* Brand name — vertical, ghost white */
-.hsm-brand {
-  writing-mode:vertical-rl; text-orientation:mixed;
-  font-family:var(--mc-font-body); font-size:8px; font-weight:500;
-  letter-spacing:.08em; text-transform:uppercase;
-  color:rgba(255,255,255,.26); line-height:1; white-space:nowrap;
-}
-/* Capital sublabel — vertical, warm gold */
-.hsm-capital {
-  writing-mode:vertical-rl; text-orientation:mixed;
-  font-family:var(--mc-font-body); font-size:7px; font-weight:400;
-  letter-spacing:.14em; text-transform:uppercase;
-  color:rgba(201,168,76,.42); line-height:1; white-space:nowrap; margin-top:3px;
-}
-/* Geographic identifier — horizontal */
-.hsm-geo {
-  font-family:var(--mc-font-body); font-size:9px; font-weight:500;
-  letter-spacing:.10em; color:rgba(201,168,76,.62); white-space:nowrap;
-}
-/* Scroll label — vertical, very faint */
-.hsm-scroll-lbl {
-  writing-mode:vertical-rl; text-orientation:mixed;
-  font-family:var(--mc-font-body); font-size:7px; font-weight:400;
-  letter-spacing:.18em; text-transform:uppercase;
-  color:rgba(255,255,255,.18); line-height:1; white-space:nowrap;
+@media(max-width:640px){
+  .hero-signature-overlay { display:none; }
 }
 
 /* ── Hero H1 — dominant investor headline ───────────────── */
@@ -985,59 +941,15 @@ body::before {
     <span></span><span></span><span></span><span></span><span></span>
   </div>
 
-  <!-- Vertical brand marker — desktop only -->
-  <!-- Hero vertical brand signature — v2 Dietrich Rune System
-       Composition: RUNE / line / BETON GOLD MARKT + CAPITAL / line / BG·DE / line / SCROLL
-       Desktop only (hidden <640px). Inherits heroFade. Decorative — aria-hidden. -->
-  <div class="hero-side-marker">
-
-    <!-- ① Dietrich Rune — exact reference geometry
-         Spine: full vertical authority axis
-         Diamond wings: two arms from upper junction (y≈15%)
-         spreading to outer vertices (y≈45%, x≈9–91%)
-         returning to lower junction (y≈65%)
-         Spine continues above and below the mark.
-         No curves. No crossbars. No apex arrow. No fills. -->
-    <svg class="hero-rune"
-         xmlns="http://www.w3.org/2000/svg"
-         viewBox="0 0 44 80"
-         fill="none"
-         aria-hidden="true"
-         focusable="false">
-      <!-- Vertical spine — institutional axis, full height -->
-      <line x1="22" y1="3"  x2="22" y2="77" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-      <!-- Upper-left arm: upper junction → left vertex -->
-      <line x1="22" y1="13" x2="4"  y2="36" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-      <!-- Lower-left arm: left vertex → lower junction -->
-      <line x1="4"  y1="36" x2="22" y2="54" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-      <!-- Upper-right arm: upper junction → right vertex -->
-      <line x1="22" y1="13" x2="40" y2="36" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-      <!-- Lower-right arm: right vertex → lower junction -->
-      <line x1="40" y1="36" x2="22" y2="54" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-    </svg>
-
-    <!-- ② Divider A -->
-    <div class="hsm-line hsm-line--a"></div>
-
-    <!-- ③ Brand name — vertical ghost white -->
-    <span class="hsm-brand">Beton Gold Markt</span>
-
-    <!-- ④ Capital sublabel — vertical warm gold -->
-    <span class="hsm-capital">Capital</span>
-
-    <!-- ⑤ Divider B -->
-    <div class="hsm-line hsm-line--b"></div>
-
-    <!-- ⑥ Geographic identifier — horizontal -->
-    <span class="hsm-geo">BG · DE</span>
-
-    <!-- ⑦ Divider C — fading -->
-    <div class="hsm-line hsm-line--c"></div>
-
-    <!-- ⑧ Scroll label — vertical, very faint -->
-    <span class="hsm-scroll-lbl">Scroll</span>
-
-  </div>
+  <!-- Hero signature overlay — production asset replaces CSS-generated signature.
+       mix-blend-mode:screen embeds mark into architecture. Decorative — aria-hidden. -->
+  <img class="hero-signature-overlay"
+       src="/assets/img/brand/hero-signature-overlay.webp"
+       width="440" height="660"
+       alt=""
+       aria-hidden="true"
+       loading="eager"
+       decoding="async">
 
   <div class="hero-content">
 
