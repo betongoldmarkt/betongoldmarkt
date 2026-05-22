@@ -61,26 +61,26 @@ body::before {
    HERO
 ══════════════════════════════════════════════════════════ */
 .hero {
-  position:relative; height:100svh; min-height:620px; max-height:920px;
+  position:relative; height:100svh; min-height:640px; max-height:960px;
   display:flex; align-items:flex-end; overflow:hidden;
   background:var(--mc-bg);
   padding-top: var(--mc-nav-height);
 }
 
-/* Background image — filter applied here only, not to text children */
+/* Background image — cinematic treatment: dark, contrast, film-grade */
 .hero-bg-img {
   position:absolute; inset:0;
   background-image:url('/assets/img/robinson-beach/project/01.jpg');
-  background-size:cover; background-position:center;
-  filter:brightness(0.52) saturate(1.15);
+  background-size:cover; background-position:center 30%;
+  filter:brightness(0.38) saturate(1.25) contrast(1.05);
 }
 
-/* Animated gold grid lines */
+/* Animated gold grid — financial texture */
 .hero-bg {
   position:absolute; inset:0; z-index:1;
   background-image:
-    linear-gradient(rgba(201,168,76,.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(201,168,76,.07) 1px, transparent 1px);
+    linear-gradient(rgba(201,168,76,.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,.09) 1px, transparent 1px);
   background-size:72px 72px;
   animation:gridDrift 32s linear infinite;
 }
@@ -89,30 +89,31 @@ body::before {
   100% { background-position:72px 72px; }
 }
 
-/* Radial gold glow */
+/* Radial gold glow — ambient light from bottom-left */
 .hero-bg::before {
   content:''; position:absolute; inset:0;
   background:
-    radial-gradient(ellipse 70% 60% at 20% 60%, rgba(201,168,76,.10) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 40% at 75% 30%, rgba(201,168,76,.05) 0%, transparent 60%);
+    radial-gradient(ellipse 70% 55% at 15% 75%, rgba(201,168,76,.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 78% 25%, rgba(201,168,76,.06) 0%, transparent 60%);
 }
 
 /* Diagonal gold accent line */
 .hero-bg::after {
   content:''; position:absolute;
   top:-10%; left:55%; width:1px; height:130%;
-  background:linear-gradient(transparent 0%, rgba(201,168,76,.25) 30%, rgba(201,168,76,.35) 55%, rgba(201,168,76,.10) 80%, transparent 100%);
+  background:linear-gradient(transparent 0%, rgba(201,168,76,.28) 30%, rgba(201,168,76,.38) 55%, rgba(201,168,76,.10) 80%, transparent 100%);
   transform:rotate(-12deg); transform-origin:top center;
   animation:linePulse 5s ease-in-out infinite;
 }
 @keyframes linePulse { 0%,100%{opacity:.5;} 50%{opacity:1;} }
 
-/* Bottom gradient fade */
+/* Multi-layer cinematic vignette — protects text zone */
 .hero-grad {
   position:absolute; inset:0; z-index:2;
   background:
-    linear-gradient(to top, rgba(9,9,11,.72) 0%, rgba(9,9,11,.22) 40%, transparent 70%),
-    linear-gradient(to right, rgba(9,9,11,.18) 0%, transparent 55%);
+    linear-gradient(to top, rgba(9,9,11,.92) 0%, rgba(9,9,11,.55) 35%, rgba(9,9,11,.12) 65%, transparent 80%),
+    linear-gradient(to right, rgba(9,9,11,.30) 0%, transparent 58%),
+    radial-gradient(ellipse 80% 40% at 50% 100%, rgba(9,9,11,.65) 0%, transparent 70%);
 }
 
 /* Floating gold micro-dots */
@@ -137,10 +138,9 @@ body::before {
 /* Hero content */
 .hero-content {
   position:relative; z-index:3;
-  padding: 0 clamp(20px,5vw,80px) clamp(40px,6vh,72px);
-  max-width:840px;
+  padding: 0 clamp(20px,5vw,80px) clamp(48px,7vh,80px);
+  max-width:900px;
   padding-top:clamp(80px,12vh,120px);
-  padding-bottom:clamp(140px,16vh,165px);
   animation:heroFade .9s ease-out both;
 }
 @keyframes heroFade { from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;} }
@@ -154,30 +154,62 @@ body::before {
 }
 @media(max-width:640px){ .hero-side-marker{ display:none !important; } }
 
+/* ── Hero H1 — dominant investor headline ───────────────── */
 .hero-h1 {
   font-family:var(--mc-font-display);
-  font-size:clamp(26px,4.8vw,62px); font-weight:700;
+  font-size:clamp(32px,5.5vw,68px); font-weight:700;
   line-height:1.05; letter-spacing:-.03em; color:#fff;
-  margin-bottom:20px;
+  margin-bottom:16px;
 }
 .hero-h1 em { color:var(--mc-gold); font-style:normal; }
 
 .hero-sub {
-  font-family:var(--mc-font-body); font-size:16px;
-  color:rgba(255,255,255,.72); max-width:520px;
-  margin-bottom:36px; line-height:1.75;
+  font-family:var(--mc-font-body); font-size:clamp(14px,1.6vw,17px);
+  color:rgba(255,255,255,.70); max-width:540px;
+  margin-bottom:32px; line-height:1.70;
 }
 
-.hero-fact-row {
-  display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px;
-  animation:heroFade .8s .22s ease-out both;
+/* ── Hero Price Anchors — THE dominant visual element ────── */
+/* Three large gold values: 40% | 25.000 € | 10%             */
+/* These must dominate the hero above the CTA.               */
+.hero-anchors {
+  display:flex; align-items:flex-start; flex-wrap:wrap; gap:0;
+  margin-bottom:32px;
+  animation:heroFade .85s .15s ease-out both;
 }
-.hero-fact {
-  font-family:var(--mc-font-body); font-size:12px; color:rgba(255,255,255,.72);
-  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.13);
-  border-radius:var(--mc-radius-sm); padding:5px 11px;
+.hero-anchor {
+  display:flex; flex-direction:column; gap:3px;
+  padding-right:28px; position:relative;
+}
+.hero-anchor + .hero-anchor {
+  padding-left:28px;
+  border-left:1px solid rgba(201,168,76,.28);
+}
+.hero-anchor-val {
+  font-size:clamp(38px,5.8vw,68px);
+  font-weight:800; color:var(--mc-gold);
+  line-height:.92; letter-spacing:-.035em;
+  font-variant-numeric:tabular-nums;
+  text-shadow:0 0 60px rgba(201,168,76,.48), 0 0 120px rgba(201,168,76,.22);
+  display:block;
+}
+.hero-anchor-label {
+  font-family:var(--mc-font-body); font-size:10px;
+  color:rgba(255,255,255,.48); letter-spacing:.1em;
+  text-transform:uppercase; line-height:1.4;
+  margin-top:5px; display:block;
+}
+@media(max-width:620px){
+  .hero-anchor-val{ font-size:clamp(28px,9vw,44px); }
+  .hero-anchor + .hero-anchor{ padding-left:18px; }
+  .hero-anchor{ padding-right:18px; }
+}
+@media(max-width:380px){
+  .hero-anchors{ flex-direction:column; gap:14px; }
+  .hero-anchor + .hero-anchor{ border-left:none; border-top:1px solid rgba(201,168,76,.22); padding-left:0; padding-top:14px; }
 }
 
+/* Hero gold divider line */
 .hero-gold-line {
   width:56px; height:1px; background:rgba(201,168,76,.4);
   margin-bottom:24px; animation:heroFade .8s .3s ease-out both;
@@ -189,10 +221,9 @@ body::before {
   .hero-cta { display:grid; grid-template-columns:1fr; gap:8px; }
   .hero-cta a { text-align:center; justify-content:center; }
 }
-
 .hero-cta-note {
   font-family:var(--mc-font-body); font-size:11px;
-  color:rgba(255,255,255,.35); margin-top:8px; letter-spacing:.04em;
+  color:rgba(255,255,255,.32); margin-top:8px; letter-spacing:.04em;
 }
 
 /* Hero scroll indicator */
@@ -205,26 +236,6 @@ body::before {
 .scroll-line { width:1px; height:40px; background:linear-gradient(var(--mc-gold),transparent); animation:scrollPulse 2s ease-in-out infinite; }
 @keyframes scrollPulse { 0%,100%{opacity:.4;} 50%{opacity:1;} }
 @media(max-width:640px){ .hero-scroll{ display:none; } }
-
-/* Hero stats bar */
-.hero-stats {
-  position:absolute; bottom:0; left:0; right:0; z-index:4;
-  display:flex; border-top:1px solid var(--mc-line);
-  background:rgba(9,9,11,.75); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-}
-.hero-stat { flex:1; padding:14px 20px; border-right:1px solid var(--mc-line); text-align:center; }
-.hero-stat:last-child { border-right:none; }
-.hero-stat .val { font-size:22px; font-weight:700; color:var(--mc-gold); line-height:1; font-variant-numeric:tabular-nums; }
-.hero-stat .lbl { font-family:var(--mc-font-body); font-size:11px; color:var(--mc-text-muted); margin-top:4px; letter-spacing:.03em; }
-@media(max-width:600px){
-  .hero-stat .val{ font-size:14px; }
-  .hero-stat .lbl{ font-size:9px; }
-  .hero-stat{ padding:10px 8px; }
-  .hero-stats{ display:grid; grid-template-columns:1fr 1fr; }
-  .hero-stat:nth-child(2){ border-right:none; }
-  .hero-stat:nth-child(3){ border-top:1px solid var(--mc-line); }
-  .hero-stat:nth-child(4){ border-top:1px solid var(--mc-line); border-right:none; }
-}
 
 /* Button overrides for hero / homepage */
 .btn-gold {
@@ -243,37 +254,68 @@ body::before {
 }
 .btn-ghost:hover { border-color:var(--mc-gold); color:var(--mc-gold); }
 
+
 /* ══════════════════════════════════════════════════════════
-   AUTHORITY STRIP
+   CAPITAL STRIP — replaces authority strip
+   THE dominant financial number block.
+   4 values: 25.000 € / 40% Anzahlung / 5–10 J. / 10% Tax
 ══════════════════════════════════════════════════════════ */
-.authority-strip {
-  background:rgba(255,255,255,.02);
+.capital-strip {
+  background:#0a0a0d;
   border-bottom:1px solid var(--mc-gold-line);
+  position:relative; overflow:hidden;
 }
-.authority-inner {
-  display:flex; flex-wrap:wrap; align-items:stretch; justify-content:center;
-  border:1px solid var(--mc-gold-line); border-top:none; border-bottom:none;
+.capital-strip::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:var(--mc-grad-gold-line);
 }
-.authority-item {
-  flex:1; min-width:130px; max-width:200px;
-  padding:16px 20px; text-align:center;
+.capital-strip::after {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 70% 130% at 50% 100%, rgba(201,168,76,.07) 0%, transparent 65%);
+  pointer-events:none;
+}
+.capital-inner {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  position:relative; z-index:1;
+}
+.capital-item {
+  padding:32px 24px; text-align:center;
   border-right:1px solid var(--mc-line);
+  position:relative;
 }
-.authority-item:last-child { border-right:none; }
-.authority-val {
-  font-size:15px; font-weight:700; color:var(--mc-gold);
-  letter-spacing:-.01em; line-height:1; margin-bottom:4px;
-  font-variant-numeric:tabular-nums;
+.capital-item:last-child { border-right:none; }
+.capital-item::after {
+  content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+  width:36px; height:1px; background:rgba(201,168,76,.18);
 }
-.authority-lbl {
+.capital-val {
+  font-size:clamp(28px,3.8vw,48px); font-weight:800;
+  color:var(--mc-gold); line-height:1;
+  letter-spacing:-.025em; font-variant-numeric:tabular-nums;
+  text-shadow:0 0 40px rgba(201,168,76,.32);
+  margin-bottom:7px; display:block;
+}
+.capital-lbl {
+  font-family:var(--mc-font-body); font-size:11px;
+  color:rgba(240,237,230,.65); letter-spacing:.08em;
+  text-transform:uppercase; display:block;
+}
+.capital-sub {
   font-family:var(--mc-font-body); font-size:10px;
-  color:var(--mc-text-faint); letter-spacing:.07em; text-transform:uppercase;
+  color:var(--mc-text-faint); letter-spacing:.03em;
+  margin-top:3px; display:block;
 }
-@media(max-width:640px){
-  .authority-item { min-width:calc(50% - 1px); border-bottom:1px solid var(--mc-line); }
-  .authority-item:nth-child(even){ border-right:none; }
-  .authority-item:nth-last-child(-n+2){ border-bottom:none; }
+@media(max-width:700px){
+  .capital-inner{ grid-template-columns:repeat(2,1fr); }
+  .capital-item:nth-child(2){ border-right:none; }
+  .capital-item:nth-child(n+3){ border-top:1px solid var(--mc-line); }
 }
+@media(max-width:400px){
+  .capital-inner{ grid-template-columns:1fr; }
+  .capital-item{ border-right:none !important; border-top:1px solid var(--mc-line); }
+  .capital-item:first-child{ border-top:none; }
+}
+
 
 /* ══════════════════════════════════════════════════════════
    SECTION UTILITIES
@@ -291,6 +333,7 @@ body::before {
 .section-label::after { content:''; flex:1; height:1px; background:var(--mc-line); }
 .section-title { font-family:var(--mc-font-display); font-size:clamp(22px,3.2vw,36px); font-weight:800; line-height:1.12; margin-bottom:10px; }
 .section-sub   { font-family:var(--mc-font-body); font-size:14px; color:var(--mc-text-muted); margin-bottom:28px; }
+
 
 /* ══════════════════════════════════════════════════════════
    PROPERTY CARDS
@@ -340,6 +383,7 @@ body::before {
 .hp-card { display:block; animation:cardIn .3s ease both; }
 .hp-card.hp-hidden { display:none !important; }
 
+
 /* ══════════════════════════════════════════════════════════
    4-PILLAR STRIP — Ratenzahlung / Bank / Auktion / Off-Market
 ══════════════════════════════════════════════════════════ */
@@ -372,6 +416,7 @@ body::before {
 .pillar-title { font-size:13px; font-weight:700; color:var(--mc-text); line-height:1; }
 .pillar-text  { font-family:var(--mc-font-body); font-size:12px; color:var(--mc-text-muted); line-height:1.55; }
 .pillar-arrow { font-family:var(--mc-font-body); font-size:11px; color:var(--mc-gold); margin-top:4px; }
+
 
 /* ══════════════════════════════════════════════════════════
    FILTER BAR — Live Deal Flow
@@ -428,6 +473,7 @@ body::before {
   color:var(--mc-text-muted); margin-bottom:16px; min-height:16px;
 }
 
+
 /* ══════════════════════════════════════════════════════════
    RATENZAHLUNG BAR
 ══════════════════════════════════════════════════════════ */
@@ -447,6 +493,7 @@ body::before {
   display:flex; align-items:center; gap:5px;
 }
 .chip::before { content:'✓'; color:var(--mc-gold); font-weight:700; }
+
 
 /* ══════════════════════════════════════════════════════════
    MARKT / KAPITAL ROUTING SPLIT
@@ -492,6 +539,7 @@ body::before {
 }
 .split-list li::before { content:'→'; color:var(--mc-gold); flex-shrink:0; }
 
+
 /* ══════════════════════════════════════════════════════════
    WHY BULGARIA
 ══════════════════════════════════════════════════════════ */
@@ -507,6 +555,7 @@ body::before {
 .why-title { font-size:13px; font-weight:600; margin-bottom:6px; }
 .why-text  { font-family:var(--mc-font-body); font-size:12px; color:var(--mc-text-muted); line-height:1.6; }
 
+
 /* ══════════════════════════════════════════════════════════
    KAUFPROZESS — 3 STEPS
 ══════════════════════════════════════════════════════════ */
@@ -520,6 +569,7 @@ body::before {
 .step-num   { font-size:42px; font-weight:700; color:var(--mc-gold-dim); position:absolute; top:16px; right:18px; line-height:1; font-family:var(--mc-font-body); }
 .step-title { font-size:14px; font-weight:700; margin-bottom:8px; }
 .step-text  { font-family:var(--mc-font-body); font-size:13px; color:var(--mc-text-muted); line-height:1.65; }
+
 
 /* ══════════════════════════════════════════════════════════
    REGIONS GRID
@@ -537,6 +587,7 @@ body::before {
 .reg-name { font-size:13px; font-weight:700; margin-bottom:4px; }
 .reg-text { font-family:var(--mc-font-body); font-size:12px; color:var(--mc-text-muted); line-height:1.5; }
 .reg-link { font-family:var(--mc-font-body); font-size:11px; color:var(--mc-gold); margin-top:8px; display:inline-block; }
+
 
 /* ══════════════════════════════════════════════════════════
    FINAL CTA BAND
@@ -557,6 +608,7 @@ body::before {
 .cta-band h2 { font-family:var(--mc-font-display); font-size:clamp(20px,3vw,30px); margin-bottom:10px; }
 .cta-band p  { font-family:var(--mc-font-body); font-size:14px; color:var(--mc-text-muted); margin-bottom:28px; max-width:480px; margin-left:auto; margin-right:auto; line-height:1.7; }
 .cta-row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+
 
 /* ══════════════════════════════════════════════════════════
    ACCESS GATE (Investor Control box)
@@ -611,6 +663,7 @@ body::before {
   color:rgba(255,255,255,.3); margin-top:12px; letter-spacing:.04em;
 }
 
+
 /* ══════════════════════════════════════════════════════════
    SEO LINK CLOUD
 ══════════════════════════════════════════════════════════ */
@@ -622,6 +675,7 @@ body::before {
   transition:color var(--mc-duration-sm), border-color var(--mc-duration-sm);
 }
 .link-cloud a:hover { color:var(--mc-text); border-color:var(--mc-line-strong); }
+
 
 /* ══════════════════════════════════════════════════════════
    FOOTER
@@ -637,11 +691,13 @@ body::before {
 .footer-links a { font-family:var(--mc-font-body); font-size:12px; font-weight:500; color:var(--mc-text-muted); transition:color var(--mc-duration-sm); }
 .footer-links a:hover { color:var(--mc-gold); }
 
+
 /* ══════════════════════════════════════════════════════════
    SCROLL REVEAL
 ══════════════════════════════════════════════════════════ */
 .reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease,transform .6s ease; }
 .reveal.visible { opacity:1; transform:none; }
+
 
 /* ══════════════════════════════════════════════════════════
    REDUCED MOTION
@@ -649,6 +705,7 @@ body::before {
 @media(prefers-reduced-motion:reduce){
   .hero-bg, .hero-bg::after, .hero-dots span,
   .scroll-line, .hero-content, .hero-scroll { animation:none !important; }
+  .hero-anchors { animation:none !important; }
   .reveal { transition:none !important; opacity:1; transform:none; }
   .pc-img { transition:none; }
   .pillar { transition:none; }
@@ -675,7 +732,10 @@ body::before {
 
 <main>
 
-<!-- ══ HERO ══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 1 — HERO
+     SHOCK ENTRY: Price dominates. Cinematic. 3-second read.
+══════════════════════════════════════════════════════════ -->
 <section class="hero">
   <!-- Background image layer — filter here only, does not affect children -->
   <div class="hero-bg-img"></div>
@@ -687,33 +747,45 @@ body::before {
 
   <!-- Vertical brand marker — desktop only -->
   <div class="hero-side-marker">
-    <div style="writing-mode:vertical-rl;font-family:var(--mc-font-body);font-size:9px;letter-spacing:.25em;color:rgba(255,255,255,.25);text-transform:uppercase;">EU · Markt · Kapital</div>
+    <div style="writing-mode:vertical-rl;font-family:var(--mc-font-body);font-size:9px;letter-spacing:.25em;color:rgba(255,255,255,.22);text-transform:uppercase;">EU · Markt · Kapital</div>
     <div style="width:1px;height:60px;background:linear-gradient(var(--mc-gold),transparent);"></div>
-    <div style="font-family:var(--mc-font-body);font-size:9px;color:var(--mc-gold);letter-spacing:.1em;opacity:.7;">BG · DE</div>
+    <div style="font-family:var(--mc-font-body);font-size:9px;color:var(--mc-gold);letter-spacing:.1em;opacity:.65;">BG · DE</div>
   </div>
 
   <div class="hero-content">
 
-    <!-- Eyebrow -->
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;animation:heroFade .7s ease-out both;">
-      <div style="width:32px;height:1px;background:var(--mc-gold);"></div>
-      <span style="font-family:var(--mc-font-body);font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--mc-gold);">EU Immobilienmarkt · DACH Investor Zugang</span>
-      <div style="width:8px;height:8px;border:1px solid var(--mc-gold);transform:rotate(45deg);"></div>
+    <!-- Eyebrow — location + audience signal -->
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;animation:heroFade .7s ease-out both;">
+      <div style="width:28px;height:1px;background:var(--mc-gold);opacity:.7;"></div>
+      <span style="font-family:var(--mc-font-body);font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--mc-gold);">Schwarzmeerküste · EU-Eigentumsrecht · DACH Investoren</span>
+      <div style="width:6px;height:6px;border:1px solid rgba(201,168,76,.6);transform:rotate(45deg);flex-shrink:0;"></div>
     </div>
 
-    <h1 class="hero-h1" style="animation:heroFade .8s .1s ease-out both;">
-      Bulgarien &amp; Deutschland —<br>Immobilien für <em>strukturierte Investoren</em>
+    <!-- PRIMARY HEADLINE — Option A -->
+    <h1 class="hero-h1" style="animation:heroFade .8s .08s ease-out both;">
+      Immobilien am Meer<br><em>ab 25.000 €</em>
     </h1>
 
-    <p class="hero-sub" style="animation:heroFade .8s .18s ease-out both;">
-      Apartments ab 25.000 €, Ratenzahlung 40%, Bankportfolios unter Marktwert.<br>Direktzugang ohne Makler — für DACH-Investoren.
+    <!-- Subheadline — the model in one line -->
+    <p class="hero-sub" style="animation:heroFade .8s .14s ease-out both;">
+      Mit 40% Anzahlung — ohne Bankkredit.<br>
+      Direktzugang zu Apartments, Bankobjekten und Off-Market Deals in Bulgarien.
     </p>
 
-    <div class="hero-fact-row">
-      <span class="hero-fact">Einstieg ab 25.000 €</span>
-      <span class="hero-fact">EU Eigentumsrecht</span>
-      <span class="hero-fact">10% Flat Tax Bulgarien</span>
-      <span class="hero-fact">Direktkauf ohne Bank</span>
+    <!-- PRICE ANCHORS — dominant visual: 40% | 25.000 € | 10% -->
+    <div class="hero-anchors">
+      <div class="hero-anchor">
+        <span class="hero-anchor-val">40%</span>
+        <span class="hero-anchor-label">Anzahlung<br>Rest in Raten</span>
+      </div>
+      <div class="hero-anchor">
+        <span class="hero-anchor-val">25.000 €</span>
+        <span class="hero-anchor-label">Einstieg<br>Kein Bankkredit</span>
+      </div>
+      <div class="hero-anchor">
+        <span class="hero-anchor-val">10%</span>
+        <span class="hero-anchor-label">Flat Tax<br>EU-Recht · DBA</span>
+      </div>
     </div>
 
     <div class="hero-gold-line"></div>
@@ -731,31 +803,133 @@ body::before {
     <span>Scroll</span>
   </div>
 
-  <div class="hero-stats">
-    <div class="hero-stat"><div class="val">ab 25k €</div><div class="lbl">Einstiegspreis</div></div>
-    <div class="hero-stat"><div class="val">40%</div><div class="lbl">Anzahlung Rate</div></div>
-    <div class="hero-stat"><div class="val">10%</div><div class="lbl">Flat Tax BG</div></div>
-    <div class="hero-stat"><div class="val">Off-Market</div><div class="lbl">Exklusiv verfügbar</div></div>
-  </div>
 </section>
 
 
-<!-- ══ AUTHORITY STRIP ════════════════════════════════════ -->
-<div class="authority-strip">
+<!-- ══════════════════════════════════════════════════════
+     SECTION 2 — CAPITAL STRIP
+     Dominant financial numbers. Replaces authority strip.
+     25.000 € | 40% Anzahlung | 5–10 Jahre | 10% Flat Tax
+══════════════════════════════════════════════════════════ -->
+<div class="capital-strip">
 <div class="container">
-  <div class="authority-inner">
-    <div class="authority-item"><div class="authority-val">ab 25.000 €</div><div class="authority-lbl">Direkteinstieg</div></div>
-    <div class="authority-item"><div class="authority-val">40% Anzahlung</div><div class="authority-lbl">Ratenzahlung aktiv</div></div>
-    <div class="authority-item"><div class="authority-val">EU-Recht</div><div class="authority-lbl">BG &amp; DE Eigentumsrecht</div></div>
-    <div class="authority-item"><div class="authority-val">10% Flat Tax</div><div class="authority-lbl">Bulgarien Steuervorteil</div></div>
-    <div class="authority-item"><div class="authority-val">Off-Market</div><div class="authority-lbl">Nicht öffentliche Deals</div></div>
-    <div class="authority-item"><div class="authority-val">Direktkauf</div><div class="authority-lbl">Ohne Bankkredit möglich</div></div>
+  <div class="capital-inner">
+    <div class="capital-item">
+      <span class="capital-val">25.000 €</span>
+      <span class="capital-lbl">Einstiegspreis</span>
+      <span class="capital-sub">Apartment mit Meerblick</span>
+    </div>
+    <div class="capital-item">
+      <span class="capital-val">40%</span>
+      <span class="capital-lbl">Anzahlung beim Notar</span>
+      <span class="capital-sub">Rest in monatlichen Raten</span>
+    </div>
+    <div class="capital-item">
+      <span class="capital-val">5–10 J.</span>
+      <span class="capital-lbl">Laufzeit Ratenzahlung</span>
+      <span class="capital-sub">Kein Bankkredit erforderlich</span>
+    </div>
+    <div class="capital-item">
+      <span class="capital-val">10%</span>
+      <span class="capital-lbl">Flat Tax Bulgarien</span>
+      <span class="capital-sub">EU-Eigentumsrecht · DBA aktiv</span>
+    </div>
   </div>
 </div>
 </div>
 
 
-<!-- ══ PREMIUM PROJEKTE ═══════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 3 — WHY BULGARIA
+     Reason before deals. Why does this market exist?
+     MOVED UP from position 8 → position 3.
+══════════════════════════════════════════════════════════ -->
+<section class="section">
+<div class="container reveal">
+  <div class="section-label">Warum Bulgarien</div>
+  <h2 class="section-title">Der günstigste EU-Markt</h2>
+  <p class="section-sub">Gleiche Rechtslage wie Deutschland – 3 bis 5× niedrigere Preise. Direkte Flüge. Wachsender Markt.</p>
+  <div class="why-grid">
+    <div class="why-card"><div class="why-val">EU-Recht</div><div class="why-title">Volles Eigentumsrecht</div><div class="why-text">Grundbuch, Notar, Erbrecht nach EU-Standard. Direkter Eigentumseintrag auf deutschen Namen.</div></div>
+    <div class="why-card"><div class="why-val">10%</div><div class="why-title">Flat Tax auf Mieteinnahmen</div><div class="why-text">Niedrigste Einkommensteuer der EU. DBA DE–BG aktiv. Grundsteuer 20–120 €/Jahr.</div></div>
+    <div class="why-card"><div class="why-val">ab 25k€</div><div class="why-title">Einstiegspreis</div><div class="why-text">Meerblick-Apartments ab 35k. Häuser ab 80k. Spanien vergleichbar: 150–350k.</div></div>
+    <div class="why-card"><div class="why-val">6–10%</div><div class="why-title">Mietrendite p.a.</div><div class="why-text">Ferienvermietung 5–8%. Langzeitmiete Burgas 7–10%. Deutlich über deutschem Niveau.</div></div>
+    <div class="why-card"><div class="why-val">2,5h</div><div class="why-title">Direktflüge ab DE/AT/CH</div><div class="why-text">Frankfurt, München, Wien, Zürich → Burgas oder Varna. Kein Visum, EU-Bürger frei.</div></div>
+    <div class="why-card"><div class="why-val">2007</div><div class="why-title">EU-Mitglied</div><div class="why-text">Stabile Wirtschaft, wachsender Tourismus. Immobilienpreise steigen seit 2015 kontinuierlich.</div></div>
+  </div>
+  <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
+    <a class="btn-ghost" href="/warum-bulgarien/">Alle Vorteile →</a>
+    <a class="btn-ghost" href="/steuervorteil-bulgarien/">Steuervorteile →</a>
+    <a class="btn-ghost" href="/immobilien-bulgarien-guide-2026/">Marktbericht 2026 →</a>
+  </div>
+</div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 4 — ACCESS MODEL (Part 1 of 2)
+     4-Pillar: Rate / Bank / Auktion / Off-Market
+══════════════════════════════════════════════════════════ -->
+<div class="pillar-section">
+<div class="container" style="padding-top:0;padding-bottom:0;">
+  <div class="pillar-grid">
+    <a href="/ratenzahlung-bulgarien/" class="pillar">
+      <div class="pillar-icon">◈</div>
+      <div class="pillar-title">Ratenzahlung</div>
+      <div class="pillar-text">40% Anzahlung beim Notar. Rest in Raten direkt vom Bauträger.</div>
+      <div class="pillar-arrow">Mehr →</div>
+    </a>
+    <a href="/bankimmobilien/" class="pillar">
+      <div class="pillar-icon">◉</div>
+      <div class="pillar-title">Bankimmobilien</div>
+      <div class="pillar-text">NPL-Portfolios 15–30% unter Marktwert. BG &amp; DE.</div>
+      <div class="pillar-arrow">Mehr →</div>
+    </a>
+    <a href="/auktionen/" class="pillar">
+      <div class="pillar-icon">◎</div>
+      <div class="pillar-title">Auktionen</div>
+      <div class="pillar-text">Versteigerungsimmobilien mit strukturierten Preisvorteilen.</div>
+      <div class="pillar-arrow">Mehr →</div>
+    </a>
+    <a href="/offmarket/" class="pillar">
+      <div class="pillar-icon">◐</div>
+      <div class="pillar-title">Off-Market</div>
+      <div class="pillar-text">Nicht öffentlich inseriert. Kein Bieterwettbewerb.</div>
+      <div class="pillar-arrow">Mehr →</div>
+    </a>
+  </div>
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 4 — ACCESS MODEL (Part 2 of 2)
+     Ratenzahlung USP bar
+══════════════════════════════════════════════════════════ -->
+<section class="section-sm">
+<div class="container reveal">
+  <div class="rate-bar">
+    <div>
+      <div class="section-label" style="margin-bottom:8px;">Ihr Marktvorteil</div>
+      <h2 style="font-family:var(--mc-font-display);font-size:20px;font-weight:700;margin-bottom:4px;">Ratenzahlung – direkt vom Bauträger oder Bank</h2>
+      <p style="font-family:var(--mc-font-body);font-size:13px;color:var(--mc-text-muted);margin-bottom:14px;">40% Anzahlung beim Notar. Rest je nach Objekt in Raten. Eigentumsübertragung nach Zahlung.</p>
+      <div class="rate-chips">
+        <span class="chip">nur 40% Anzahlung</span>
+        <span class="chip">Rest 5–10 Jahre</span>
+        <span class="chip">Kein Bankkredit nötig</span>
+        <span class="chip">Eigentum nach Zahlung</span>
+      </div>
+    </div>
+    <a class="btn-gold" href="/ratenzahlung-bulgarien/" style="white-space:nowrap;">Wie es funktioniert →</a>
+  </div>
+</div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 5 — FEATURED PROJECTS
+     Premium tier: Robinson Beach, Gardenia Hills, Bankimmobilien
+══════════════════════════════════════════════════════════ -->
 <section class="section">
 <div class="container reveal">
   <div class="section-label">Premium Investment Projekte</div>
@@ -829,40 +1003,10 @@ body::before {
 </section>
 
 
-<!-- ══ 4-PILLAR STRIP ═════════════════════════════════════ -->
-<div class="pillar-section">
-<div class="container" style="padding-top:0;padding-bottom:0;">
-  <div class="pillar-grid">
-    <a href="/ratenzahlung-bulgarien/" class="pillar">
-      <div class="pillar-icon">◈</div>
-      <div class="pillar-title">Ratenzahlung</div>
-      <div class="pillar-text">40% Anzahlung beim Notar. Rest in Raten direkt vom Bauträger.</div>
-      <div class="pillar-arrow">Mehr →</div>
-    </a>
-    <a href="/bankimmobilien/" class="pillar">
-      <div class="pillar-icon">◉</div>
-      <div class="pillar-title">Bankimmobilien</div>
-      <div class="pillar-text">NPL-Portfolios 15–30% unter Marktwert. BG &amp; DE.</div>
-      <div class="pillar-arrow">Mehr →</div>
-    </a>
-    <a href="/auktionen/" class="pillar">
-      <div class="pillar-icon">◎</div>
-      <div class="pillar-title">Auktionen</div>
-      <div class="pillar-text">Versteigerungsimmobilien mit strukturierten Preisvorteilen.</div>
-      <div class="pillar-arrow">Mehr →</div>
-    </a>
-    <a href="/offmarket/" class="pillar">
-      <div class="pillar-icon">◐</div>
-      <div class="pillar-title">Off-Market</div>
-      <div class="pillar-text">Nicht öffentlich inseriert. Kein Bieterwettbewerb.</div>
-      <div class="pillar-arrow">Mehr →</div>
-    </a>
-  </div>
-</div>
-</div>
-
-
-<!-- ══ LIVE DEAL FLOW — section header ════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 6 — LIVE DEAL FLOW
+     Filterable object grid. IDs preserved. JS intact.
+══════════════════════════════════════════════════════════ -->
 <section style="padding:52px 0 0;">
 <div class="container reveal">
   <div style="max-width:640px;border-left:2px solid var(--mc-gold-border-hv);padding-left:24px;margin-bottom:0;">
@@ -875,7 +1019,7 @@ body::before {
 </div>
 </section>
 
-<!-- Filter bar — sticky below nav -->
+<!-- Filter bar — sticky below nav — IDs preserved -->
 <div class="hp-filter-wrap" id="hp-filter-wrap">
 <div class="container">
   <div class="hp-filter-bar" id="hp-filter-bar" role="group" aria-label="Objektfilter">
@@ -892,7 +1036,7 @@ body::before {
 </div>
 </div>
 
-<!-- Count + empty state -->
+<!-- Count + empty state — IDs preserved -->
 <div class="container">
   <div id="hp-count" style="padding-top:12px;"></div>
   <div id="hp-empty" style="display:none;padding:24px 0;color:var(--mc-text-muted);font-family:var(--mc-font-body);font-size:14px;">Keine passenden Objekte gefunden.</div>
@@ -1011,28 +1155,9 @@ body::before {
 </section>
 
 
-<!-- ══ RATENZAHLUNG USP ═══════════════════════════════════ -->
-<section class="section-sm">
-<div class="container reveal">
-  <div class="rate-bar">
-    <div>
-      <div class="section-label" style="margin-bottom:8px;">Ihr Marktvorteil</div>
-      <h2 style="font-family:var(--mc-font-display);font-size:20px;font-weight:700;margin-bottom:4px;">Ratenzahlung – direkt vom Bauträger oder Bank</h2>
-      <p style="font-family:var(--mc-font-body);font-size:13px;color:var(--mc-text-muted);margin-bottom:14px;">40% Anzahlung beim Notar. Rest je nach Objekt in Raten. Eigentumsübertragung nach Zahlung.</p>
-      <div class="rate-chips">
-        <span class="chip">nur 40% Anzahlung</span>
-        <span class="chip">Rest 5–10 Jahre</span>
-        <span class="chip">Kein Bankkredit nötig</span>
-        <span class="chip">Eigentum nach Zahlung</span>
-      </div>
-    </div>
-    <a class="btn-gold" href="/ratenzahlung-bulgarien/" style="white-space:nowrap;">Wie es funktioniert →</a>
-  </div>
-</div>
-</section>
-
-
-<!-- ══ MARKT vs KAPITAL — INVESTOR ROUTING ════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 7 — MARKT vs KAPITAL — INVESTOR ROUTING
+══════════════════════════════════════════════════════════ -->
 <section class="section-sm">
 <div class="container reveal">
 
@@ -1088,30 +1213,9 @@ body::before {
 </section>
 
 
-<!-- ══ WARUM BULGARIEN ════════════════════════════════════ -->
-<section class="section">
-<div class="container reveal">
-  <div class="section-label">Warum Bulgarien</div>
-  <h2 class="section-title">Der günstigste EU-Markt</h2>
-  <p class="section-sub">Gleiche Rechtslage wie Deutschland – 3 bis 5× niedrigere Preise.</p>
-  <div class="why-grid">
-    <div class="why-card"><div class="why-val">EU-Recht</div><div class="why-title">Volles Eigentumsrecht</div><div class="why-text">Grundbuch, Notar, Erbrecht nach EU-Standard. Direkter Eigentumseintrag auf deutschen Namen.</div></div>
-    <div class="why-card"><div class="why-val">10%</div><div class="why-title">Flat Tax auf Mieteinnahmen</div><div class="why-text">Niedrigste Einkommensteuer der EU. DBA DE–BG aktiv. Grundsteuer 20–120 €/Jahr.</div></div>
-    <div class="why-card"><div class="why-val">ab 25k€</div><div class="why-title">Einstiegspreis</div><div class="why-text">Meerblick-Apartments ab 35k. Häuser ab 80k. Spanien vergleichbar: 150–350k.</div></div>
-    <div class="why-card"><div class="why-val">6–10%</div><div class="why-title">Mietrendite p.a.</div><div class="why-text">Ferienvermietung 5–8%. Langzeitmiete Burgas 7–10%. Deutlich über deutschem Niveau.</div></div>
-    <div class="why-card"><div class="why-val">2,5h</div><div class="why-title">Direktflüge ab DE/AT/CH</div><div class="why-text">Frankfurt, München, Wien, Zürich → Burgas oder Varna. Kein Visum, EU-Bürger frei.</div></div>
-    <div class="why-card"><div class="why-val">2007</div><div class="why-title">EU-Mitglied</div><div class="why-text">Stabile Wirtschaft, wachsender Tourismus. Immobilienpreise steigen seit 2015 kontinuierlich.</div></div>
-  </div>
-  <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
-    <a class="btn-ghost" href="/warum-bulgarien/">Alle Vorteile →</a>
-    <a class="btn-ghost" href="/steuervorteil-bulgarien/">Steuervorteile →</a>
-    <a class="btn-ghost" href="/immobilien-bulgarien-guide-2026/">Marktbericht 2026 →</a>
-  </div>
-</div>
-</section>
-
-
-<!-- ══ KAUFPROZESS ════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 8 — KAUFPROZESS
+══════════════════════════════════════════════════════════ -->
 <section class="section-sm">
 <div class="container reveal">
   <div class="section-label">Kaufprozess</div>
@@ -1126,7 +1230,9 @@ body::before {
 </section>
 
 
-<!-- ══ REGIONEN ═══════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 9 — REGIONEN
+══════════════════════════════════════════════════════════ -->
 <section class="section">
 <div class="container reveal">
   <div class="section-label">Regionen &amp; Märkte</div>
@@ -1144,7 +1250,9 @@ body::before {
 </section>
 
 
-<!-- ══ INVESTOR CHECK — ACCESS GATE ══════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 10 — INVESTOR CHECK — ACCESS GATE
+══════════════════════════════════════════════════════════ -->
 <section style="padding:56px 0 64px;">
 <div class="container reveal">
   <div class="access-gate">
@@ -1163,7 +1271,9 @@ body::before {
 </section>
 
 
-<!-- ══ FINAL CTA ══════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 11 — FINAL CTA
+══════════════════════════════════════════════════════════ -->
 <section class="section">
 <div class="container reveal">
   <div class="cta-band">
@@ -1178,7 +1288,9 @@ body::before {
 </section>
 
 
-<!-- ══ SEO LINK CLOUD ═════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SEO LINK CLOUD
+══════════════════════════════════════════════════════════ -->
 <section class="section-sm" style="padding-top:0;">
 <div class="container">
   <div class="link-cloud">
@@ -1307,13 +1419,13 @@ const fab = document.querySelector('.fa-fab');
 if(fab){
   const showFab = () => {
     if(window.scrollY > window.innerHeight * 0.85){
-      fab.classList.add('fab-visible');
+      fab.style.opacity='1'; fab.style.pointerEvents='auto';
     } else {
-      fab.classList.remove('fab-visible');
+      fab.style.opacity='0'; fab.style.pointerEvents='none';
     }
   };
   window.addEventListener('scroll', showFab, {passive:true});
 }
 </script>
-
-</body></html>
+</body>
+</html>
