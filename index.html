@@ -178,6 +178,25 @@ body::before {
 }
 @media(max-width:640px){ .hero-side-marker{ display:none !important; } }
 
+/* ── Dietrich Rune — authority signature mark ─────────────
+   Cinematic blend: screen (light emission on dark bg).
+   Dual-layer drop-shadow: close gold halo + wide ambient.
+   Inherits heroFade from .hero-side-marker parent.
+   No JS. No animation beyond inherited fade.
+   aria-hidden: decorative — no screen reader content.    */
+.hero-rune {
+  display:block;
+  color:var(--mc-gold);
+  opacity:.82;
+  mix-blend-mode:screen;
+  filter:
+    drop-shadow(0 0 5px rgba(201,168,76,.65))
+    drop-shadow(0 0 12px rgba(201,168,76,.30));
+  width:18px; height:30px;
+  flex-shrink:0;
+}
+@media(max-width:900px){ .hero-rune{ width:15px; height:25px; } }
+
 /* ── Hero H1 — dominant investor headline ───────────────── */
 /* ── HERO H1 — DACH institutional split ──────────────────
    "Immobilien am Meer"  → quiet category label
@@ -932,8 +951,30 @@ body::before {
 
   <!-- Vertical brand marker — desktop only -->
   <div class="hero-side-marker">
-    <div style="writing-mode:vertical-rl;font-family:var(--mc-font-body);font-size:9px;letter-spacing:.25em;color:rgba(255,255,255,.22);text-transform:uppercase;">EU · Markt · Kapital</div>
+    <!-- Dietrich Rune — authority mark · 5-line runic sigil
+         Spine + apex arch + two crossbars = architectural gateway
+         Replaces vertical text. Inherits heroFade from parent. -->
+    <svg class="hero-rune"
+         xmlns="http://www.w3.org/2000/svg"
+         viewBox="0 0 18 30"
+         width="18" height="30"
+         fill="none"
+         aria-hidden="true"
+         focusable="false">
+      <!-- Vertical spine — full height authority axis -->
+      <line x1="9" y1="2"  x2="9"  y2="28" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      <!-- Apex — left arm: architectural gateway / portal -->
+      <line x1="9" y1="2"  x2="2"  y2="9"  stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      <!-- Apex — right arm -->
+      <line x1="9" y1="2"  x2="16" y2="9"  stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      <!-- Upper crossbar — first authority register -->
+      <line x1="4" y1="14" x2="14" y2="14" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+      <!-- Lower crossbar — second authority register -->
+      <line x1="5" y1="22" x2="13" y2="22" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+    </svg>
+    <!-- Gold gradient line — preserved structural element -->
     <div style="width:1px;height:60px;background:linear-gradient(var(--mc-gold),transparent);"></div>
+    <!-- Market identifiers — preserved -->
     <div style="font-family:var(--mc-font-body);font-size:9px;color:var(--mc-gold);letter-spacing:.1em;opacity:.65;">BG · DE</div>
   </div>
 
