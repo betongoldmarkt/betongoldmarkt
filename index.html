@@ -182,20 +182,23 @@ body::before {
 }
 @media(max-width:640px){ .hero-side-marker{ display:none !important; } }
 
-/* Rune mark — enlarged, softer 3-layer warm glow */
+/* Rune mark — exact reference geometry (44×80 viewBox → 22×40px CSS)
+   Metallic warm gold: 3-layer glow, restrained — discreet institutional mark.
+   Screen blend: light-emission on dark hero bg.
+   Opacity .70: embedded-in-architecture feel, not dominant logo. */
 .hero-rune {
   display:block;
   color:var(--mc-gold);
-  opacity:.78;
+  opacity:.70;
   mix-blend-mode:screen;
   filter:
-    drop-shadow(0 0  4px rgba(201,168,76,.50))
-    drop-shadow(0 0 16px rgba(201,168,76,.28))
-    drop-shadow(0 0 40px rgba(201,168,76,.12));
-  width:28px; height:52px;
+    drop-shadow(0 0  3px rgba(201,168,76,.45))
+    drop-shadow(0 0 10px rgba(201,168,76,.22))
+    drop-shadow(0 0 28px rgba(201,168,76,.09));
+  width:22px; height:40px;
   flex-shrink:0;
 }
-@media(max-width:900px){ .hero-rune{ width:22px; height:42px; } }
+@media(max-width:900px){ .hero-rune{ width:18px; height:33px; } }
 
 /* Vertical divider lines — 3 variants */
 .hsm-line { width:1px; flex-shrink:0; background:linear-gradient(to bottom, rgba(201,168,76,.38), rgba(201,168,76,.06)); }
@@ -988,23 +991,29 @@ body::before {
        Desktop only (hidden <640px). Inherits heroFade. Decorative — aria-hidden. -->
   <div class="hero-side-marker">
 
-    <!-- ① Dietrich Rune — 5-line geometric mark, enlarged to 28×52px CSS -->
+    <!-- ① Dietrich Rune — exact reference geometry
+         Spine: full vertical authority axis
+         Diamond wings: two arms from upper junction (y≈15%)
+         spreading to outer vertices (y≈45%, x≈9–91%)
+         returning to lower junction (y≈65%)
+         Spine continues above and below the mark.
+         No curves. No crossbars. No apex arrow. No fills. -->
     <svg class="hero-rune"
          xmlns="http://www.w3.org/2000/svg"
-         viewBox="0 0 24 44"
+         viewBox="0 0 44 80"
          fill="none"
          aria-hidden="true"
          focusable="false">
-      <!-- Vertical spine — full authority axis -->
-      <line x1="12" y1="2"  x2="12" y2="42" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-      <!-- Apex — left arm -->
-      <line x1="12" y1="2"  x2="3"  y2="12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-      <!-- Apex — right arm -->
-      <line x1="12" y1="2"  x2="21" y2="12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-      <!-- Upper crossbar — first register -->
-      <line x1="5"  y1="19" x2="19" y2="19" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-      <!-- Lower crossbar — second register -->
-      <line x1="7"  y1="31" x2="17" y2="31" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+      <!-- Vertical spine — institutional axis, full height -->
+      <line x1="22" y1="3"  x2="22" y2="77" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <!-- Upper-left arm: upper junction → left vertex -->
+      <line x1="22" y1="13" x2="4"  y2="36" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+      <!-- Lower-left arm: left vertex → lower junction -->
+      <line x1="4"  y1="36" x2="22" y2="54" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+      <!-- Upper-right arm: upper junction → right vertex -->
+      <line x1="22" y1="13" x2="40" y2="36" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+      <!-- Lower-right arm: right vertex → lower junction -->
+      <line x1="40" y1="36" x2="22" y2="54" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
     </svg>
 
     <!-- ② Divider A -->
