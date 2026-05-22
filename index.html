@@ -169,25 +169,53 @@ body::before {
 }
 @keyframes heroFade { from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;} }
 
-/* ── Hero signature overlay — cinematic production asset ───
-   Replaces CSS-generated SVG signature system entirely.
-   mix-blend-mode:screen: dark areas transparent against hero image.
-   Asset handles all visual design — no CSS geometry needed.
-   Positioned right edge, vertically centered in hero.        */
-.hero-signature-overlay {
-  position:absolute; right:22px; top:50%;
+/* ── Hero Signature v3 — clean vector/HTML system ───────────
+   No bitmap. No external assets. Pure SVG + CSS + HTML text.
+   Structure: RUNE → │ → BRAND / CAPITAL → │ → BG·DE → │ → SCROLL → ∨
+   Right-edge architectural column. mix-blend-mode: each element controls own.
+   Desktop: full render. Tablet ≤900px: reduced opacity + scale.
+   Mobile ≤640px: hidden completely.                             */
+.hsg {
+  position:absolute; right:clamp(18px,3.2vw,52px); top:50%;
   transform:translateY(-50%); z-index:3;
-  width:110px; height:auto; opacity:.82;
-  pointer-events:none; display:block;
-  mix-blend-mode:screen;
-  animation:heroFade 1s .4s ease-out both;
+  display:flex; flex-direction:column; align-items:center; gap:5px;
+  pointer-events:none;
+  animation:heroFade 1s .45s ease-out both;
 }
 @media(max-width:900px){
-  .hero-signature-overlay { width:80px; opacity:.60; right:14px; }
+  .hsg { opacity:.52; right:12px; transform:translateY(-50%) scale(.88); }
 }
-@media(max-width:640px){
-  .hero-signature-overlay { display:none; }
+@media(max-width:640px){ .hsg { display:none; } }
+
+/* Rune mark: gold, 3-layer restrained warm glow */
+.hsg-rune {
+  display:block; flex-shrink:0;
+  color:rgba(201,168,76,.84);
+  width:22px; height:40px;
+  filter:
+    drop-shadow(0 0  4px rgba(201,168,76,.38))
+    drop-shadow(0 0 14px rgba(201,168,76,.16));
 }
+
+/* Connector lines — gradient gold → transparent */
+.hsg-line {
+  width:1px; flex-shrink:0;
+  background:linear-gradient(to bottom, rgba(201,168,76,.34), rgba(201,168,76,.04));
+}
+.hsg-line--sm { height:18px; }
+.hsg-line--md { height:26px; }
+
+/* Typography — all vertical-rl, uppercase, premium spacing */
+.hsg-brand, .hsg-capital, .hsg-scroll {
+  writing-mode:vertical-rl; text-orientation:mixed;
+  font-family:var(--mc-font-body);
+  text-transform:uppercase; white-space:nowrap; display:block;
+}
+.hsg-brand   { font-size:7.5px; font-weight:500; letter-spacing:.15em; color:rgba(255,255,255,.30); }
+.hsg-capital { font-size:6.5px; font-weight:400; letter-spacing:.18em; color:rgba(201,168,76,.46); margin-top:1px; }
+.hsg-geo     { font-family:var(--mc-font-body); font-size:8.5px; font-weight:500; letter-spacing:.14em; color:rgba(201,168,76,.66); white-space:nowrap; }
+.hsg-scroll  { font-size:6px;   font-weight:400; letter-spacing:.20em; color:rgba(255,255,255,.22); }
+.hsg-chevron { font-family:var(--mc-font-body); color:rgba(201,168,76,.36); font-size:8px; line-height:1; margin-top:1px; }
 
 /* ── Hero H1 — dominant investor headline ───────────────── */
 /* ── HERO H1 — DACH institutional split ──────────────────
@@ -941,15 +969,32 @@ body::before {
     <span></span><span></span><span></span><span></span><span></span>
   </div>
 
-  <!-- Hero signature overlay — production asset replaces CSS-generated signature.
-       mix-blend-mode:screen embeds mark into architecture. Decorative — aria-hidden. -->
-  <img class="hero-signature-overlay"
-       src="/assets/img/brand/hero-signature-overlay.webp"
-       width="440" height="660"
-       alt=""
-       aria-hidden="true"
-       loading="eager"
-       decoding="async">
+  <!-- Hero signature v3 — clean vector/HTML system.
+       Right-edge architectural column. No bitmap. No external assets.
+       Fully decorative — aria-hidden. Desktop/tablet only. -->
+  <div class="hsg" aria-hidden="true">
+
+    <!-- Rune: vertical spine + angular diamond wings (44×80 viewBox) -->
+    <svg class="hsg-rune" xmlns="http://www.w3.org/2000/svg"
+         viewBox="0 0 44 80" fill="none"
+         aria-hidden="true" focusable="false">
+      <line x1="22" y1="3"  x2="22" y2="77" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="22" y1="13" x2="4"  y2="36" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+      <line x1="4"  y1="36" x2="22" y2="54" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+      <line x1="22" y1="13" x2="40" y2="36" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+      <line x1="40" y1="36" x2="22" y2="54" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+    </svg>
+
+    <div class="hsg-line hsg-line--sm"></div>
+    <span class="hsg-brand">Beton Gold Markt</span>
+    <span class="hsg-capital">Capital</span>
+    <div class="hsg-line hsg-line--md"></div>
+    <span class="hsg-geo">BG · DE</span>
+    <div class="hsg-line hsg-line--sm"></div>
+    <span class="hsg-scroll">Scroll</span>
+    <span class="hsg-chevron">&#x2228;</span>
+
+  </div>
 
   <div class="hero-content">
 
