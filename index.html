@@ -250,7 +250,7 @@ body::before {
   font-weight:800; color:var(--mc-gold);
   line-height:.95; letter-spacing:-.03em;
   font-variant-numeric:tabular-nums;
-  text-shadow:0 0 40px rgba(201,168,76,.38), 0 0 90px rgba(201,168,76,.16);
+  text-shadow:0 0 40px rgba(201,168,76,.28), 0 0 90px rgba(201,168,76,.12);
   display:block;
 }
 .hero-anchor-label {
@@ -361,17 +361,17 @@ body::before {
   font-size:clamp(28px,3.8vw,48px); font-weight:800;
   color:var(--mc-gold); line-height:1;
   letter-spacing:-.025em; font-variant-numeric:tabular-nums;
-  text-shadow:0 0 60px rgba(201,168,76,.45), 0 0 120px rgba(201,168,76,.20);
+  text-shadow:0 0 60px rgba(201,168,76,.32), 0 0 120px rgba(201,168,76,.14);
   margin-bottom:7px; display:block;
 }
 .capital-lbl {
   font-family:var(--mc-font-body); font-size:11px;
-  color:rgba(240,237,230,.65); letter-spacing:.08em;
+  color:rgba(240,237,230,.65); letter-spacing:.12em;
   text-transform:uppercase; display:block;
 }
 .capital-sub {
-  font-family:var(--mc-font-body); font-size:10px;
-  color:var(--mc-text-faint); letter-spacing:.03em;
+  font-family:var(--mc-font-body); font-size:11px;
+  color:var(--mc-text-faint); letter-spacing:.05em;
   margin-top:3px; display:block;
 }
 @media(max-width:700px){
@@ -483,7 +483,7 @@ body::before {
 
 .pillar-icon { font-size:18px; color:var(--mc-gold); line-height:1; margin-bottom:2px; }
 .pillar-title { font-size:13px; font-weight:700; color:var(--mc-text); line-height:1; }
-.pillar-text  { font-family:var(--mc-font-body); font-size:12px; color:var(--mc-text-muted); line-height:1.55; }
+.pillar-text  { font-family:var(--mc-font-body); font-size:12px; color:var(--mc-text-muted); line-height:1.68; }
 .pillar-arrow { font-family:var(--mc-font-body); font-size:11px; color:var(--mc-gold); margin-top:4px; }
 
 
@@ -603,7 +603,7 @@ body::before {
   display:flex; flex-direction:column; gap:8px;
 }
 .split-list li {
-  font-family:var(--mc-font-body); font-size:13px; color:var(--mc-text-muted);
+  font-family:var(--mc-font-body); font-size:14px; color:var(--mc-text-muted);
   display:flex; align-items:flex-start; gap:8px;
 }
 .split-list li::before { content:'→'; color:var(--mc-gold); flex-shrink:0; }
@@ -618,11 +618,11 @@ body::before {
 
 .why-card {
   background:var(--mc-surface-1); border:1px solid var(--mc-line);
-  border-radius:var(--mc-radius-lg); padding:20px;
+  border-radius:var(--mc-radius-lg); padding:24px 22px;
 }
-.why-val   { font-size:26px; font-weight:700; color:var(--mc-gold); margin-bottom:6px; line-height:1; }
+.why-val   { font-size:26px; font-weight:600; color:var(--mc-gold); margin-bottom:6px; line-height:1; letter-spacing:-.018em; }
 .why-title { font-size:13px; font-weight:600; margin-bottom:6px; }
-.why-text  { font-family:var(--mc-font-body); font-size:12px; color:var(--mc-text-muted); line-height:1.6; }
+.why-text  { font-family:var(--mc-font-body); font-size:12px; color:var(--mc-text-muted); line-height:1.72; }
 
 
 /* ══════════════════════════════════════════════════════════
@@ -632,12 +632,12 @@ body::before {
 @media(max-width:640px){ .steps{ grid-template-columns:1fr; } }
 
 .step {
-  padding:24px; background:var(--mc-surface-1);
+  padding:28px; background:var(--mc-surface-1);
   border:1px solid var(--mc-line); border-radius:var(--mc-radius-lg); position:relative;
 }
 .step-num   { font-size:42px; font-weight:700; color:var(--mc-gold-dim); position:absolute; top:16px; right:18px; line-height:1; font-family:var(--mc-font-body); }
 .step-title { font-size:14px; font-weight:700; margin-bottom:8px; }
-.step-text  { font-family:var(--mc-font-body); font-size:13px; color:var(--mc-text-muted); line-height:1.65; }
+.step-text  { font-family:var(--mc-font-body); font-size:13px; color:var(--mc-text-muted); line-height:1.78; }
 
 
 /* ══════════════════════════════════════════════════════════
@@ -816,15 +816,17 @@ body::before {
 .section-label { margin-bottom:14px; }
 .section-title {
   font-size:clamp(26px,3.8vw,44px);
-  letter-spacing:-.022em;
-  line-height:1.10;
-  margin-bottom:16px;
+  font-weight:700;
+  letter-spacing:-.018em;
+  line-height:1.14;
+  margin-bottom:18px;
 }
 .section-sub {
   font-size:15px;
-  line-height:1.85;
-  margin-bottom:40px;
-  max-width:620px;
+  line-height:1.92;
+  margin-bottom:44px;
+  max-width:600px;
+  color:rgba(240,237,230,.62);
 }
 
 /* ── 5. CAPITAL STRIP — expanded dashboard breathing ─────── */
