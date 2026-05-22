@@ -178,7 +178,8 @@ body::before {
 .hsg {
   position:absolute; right:clamp(18px,3.2vw,52px); top:50%;
   transform:translateY(-50%); z-index:3;
-  display:flex; flex-direction:column; align-items:center; gap:5px;
+  display:none; /* STABILIZATION: hidden until hero image confirmed stable */
+  flex-direction:column; align-items:center; gap:5px;
   pointer-events:none;
   animation:heroFade 1s .45s ease-out both;
 }
