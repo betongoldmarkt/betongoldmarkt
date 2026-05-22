@@ -11,7 +11,7 @@
 <meta property="og:url" content="https://betongoldmarkt.de/"/>
 <meta property="og:image" content="/assets/img/og-default.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<link rel="preload" as="image" href="/assets/img/robinson-beach/project/01.jpg" fetchpriority="high"/>
+<link rel="preload" as="image" href="/assets/img/hero/hero-coast-01.webp" fetchpriority="high" type="image/webp"/>
 <link rel="stylesheet" href="/assets/css/tokens.css"/>
 <link rel="stylesheet" href="/assets/css/base.css"/>
 <link rel="stylesheet" href="/assets/css/layout.css"/>
@@ -37,10 +37,11 @@
 ────────────────────────────────────────────────────────── */
 :root {
   /* ── HERO IMAGE — swap this variable to change hero photo ──
-     When new cinematic asset is ready:
-     --hero-img: url('/assets/img/hero/hero-coast-01.jpg');
+     Active: hero-coast-01.webp (1920×1080, 16:9, WebP)
+     To replace: drop new file at /assets/img/hero/hero-coast-01.webp
+     No CSS changes needed — variable + preload update only.
   ─────────────────────────────────────────────────────────── */
-  --hero-img: url('/assets/img/robinson-beach/project/01.jpg');
+  --hero-img: url('/assets/img/hero/hero-coast-01.webp');
 
   --gold:     var(--mc-gold);
   --gold2:    var(--mc-gold-bright);
@@ -76,18 +77,22 @@ body::before {
 
 /* Background image — cinematic treatment: dark, contrast, film-grade.
    Swap hero: change --hero-img in :root.
-   When /assets/img/hero/hero-coast-01.jpg is ready, update --hero-img
-   and the preload <link> in <head>. Everything else adjusts automatically. */
+   Replace: swap /assets/img/hero/hero-coast-01.webp + update preload href.
+   Everything else adjusts automatically. */
 .hero-bg-img {
   position:absolute; inset:0;
   background-image:var(--hero-img);
   background-size:cover;
   /* Desktop: show upper portion — sea horizon + building top */
   background-position:center 30%;
-  filter:brightness(0.38) saturate(1.28) contrast(1.06);
-  /* GPU compositing hint — prevents repaint on filter animation */
+  filter:brightness(0.40) saturate(1.12) contrast(1.10);
+  /* GPU compositing — ultra-slow cinematic drift, zero paint cost */
   will-change:transform;
-  transform:translateZ(0);
+  animation:heroDrift 90s ease-in-out infinite alternate;
+}
+@keyframes heroDrift {
+  0%   { transform:translateZ(0) scale(1.000); }
+  100% { transform:translateZ(0) scale(1.030); }
 }
 /* Tablet crop — shift up slightly to show more sea horizon */
 @media(max-width:900px){
@@ -98,37 +103,18 @@ body::before {
   .hero-bg-img{ background-position:center 18%; }
 }
 
-/* Animated gold grid — financial texture */
+/* Atmospheric haze — Concept 5: European Coastal Harmony
+   Left panel deepens behind text column.
+   Amber capital glow at bottom-left. Gold horizon breath at sea line.
+   No grid. No animation. Cinematic. Institutional. */
 .hero-bg {
-  position:absolute; inset:0; z-index:1;
-  background-image:
-    linear-gradient(rgba(201,168,76,.09) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(201,168,76,.09) 1px, transparent 1px);
-  background-size:72px 72px;
-  animation:gridDrift 32s linear infinite;
-}
-@keyframes gridDrift {
-  0%   { background-position:0 0; }
-  100% { background-position:72px 72px; }
-}
-
-/* Radial gold glow — ambient light from bottom-left */
-.hero-bg::before {
-  content:''; position:absolute; inset:0;
+  position:absolute; inset:0; z-index:1; pointer-events:none;
   background:
-    radial-gradient(ellipse 70% 55% at 15% 75%, rgba(201,168,76,.12) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 40% at 78% 25%, rgba(201,168,76,.06) 0%, transparent 60%);
+    linear-gradient(100deg, rgba(8,12,22,.66) 0%, rgba(8,12,22,.28) 46%, transparent 68%),
+    radial-gradient(ellipse 70% 65% at 4% 90%, rgba(8,12,22,.50) 0%, transparent 72%),
+    radial-gradient(ellipse 80% 55% at 12% 74%, rgba(201,168,76,.08) 0%, transparent 68%),
+    radial-gradient(ellipse 60% 22% at 52% 36%, rgba(201,168,76,.04) 0%, transparent 100%);
 }
-
-/* Diagonal gold accent line */
-.hero-bg::after {
-  content:''; position:absolute;
-  top:-10%; left:55%; width:1px; height:130%;
-  background:linear-gradient(transparent 0%, rgba(201,168,76,.28) 30%, rgba(201,168,76,.38) 55%, rgba(201,168,76,.10) 80%, transparent 100%);
-  transform:rotate(-12deg); transform-origin:top center;
-  animation:linePulse 5s ease-in-out infinite;
-}
-@keyframes linePulse { 0%,100%{opacity:.5;} 50%{opacity:1;} }
 
 /* Multi-layer cinematic vignette — protects text zone.
    4 layers: bottom seal / top frame / left depth / radial floor.
@@ -137,10 +123,10 @@ body::before {
 .hero-grad {
   position:absolute; inset:0; z-index:2;
   background:
-    linear-gradient(to top,    rgba(9,9,11,.92) 0%,  rgba(9,9,11,.55) 35%, rgba(9,9,11,.10) 65%, transparent 78%),
-    linear-gradient(to bottom, rgba(9,9,11,.28) 0%,  transparent 22%),
-    linear-gradient(to right,  rgba(9,9,11,.28) 0%,  transparent 56%),
-    radial-gradient(ellipse 80% 38% at 50% 100%, rgba(9,9,11,.62) 0%, transparent 70%);
+    linear-gradient(to top,    rgba(9,9,11,.95) 0%,  rgba(9,9,11,.58) 32%, rgba(9,9,11,.12) 62%, transparent 76%),
+    linear-gradient(to bottom, rgba(9,9,11,.32) 0%,  transparent 20%),
+    linear-gradient(to right,  rgba(9,9,11,.46) 0%,  transparent 52%),
+    radial-gradient(ellipse 80% 40% at 50% 100%, rgba(9,9,11,.68) 0%, transparent 70%);
 }
 
 /* Floating gold micro-dots */
@@ -165,9 +151,9 @@ body::before {
 /* Hero content */
 .hero-content {
   position:relative; z-index:3;
-  padding: 0 clamp(20px,5vw,80px) clamp(48px,7vh,80px);
+  padding: 0 clamp(20px,5vw,80px) clamp(56px,8vh,96px);
   max-width:900px;
-  padding-top:clamp(80px,12vh,120px);
+  padding-top:clamp(88px,13vh,130px);
   animation:heroFade .9s ease-out both;
 }
 @keyframes heroFade { from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;} }
@@ -182,18 +168,32 @@ body::before {
 @media(max-width:640px){ .hero-side-marker{ display:none !important; } }
 
 /* ── Hero H1 — dominant investor headline ───────────────── */
+/* ── HERO H1 — DACH institutional split ──────────────────
+   "Immobilien am Meer"  → quiet category label
+   "ab 25.000 €"         → dominant price statement
+   Reference: UBS / FT / Porsche landing typography
+──────────────────────────────────────────────────────── */
 .hero-h1 {
   font-family:var(--mc-font-display);
-  font-size:clamp(32px,5.5vw,68px); font-weight:700;
-  line-height:1.05; letter-spacing:-.03em; color:#fff;
-  margin-bottom:16px;
+  font-size:clamp(14px,1.8vw,20px); font-weight:400;
+  line-height:1.3; letter-spacing:.03em; color:rgba(255,255,255,.58);
+  margin-bottom:22px;
 }
-.hero-h1 em { color:var(--mc-gold); font-style:normal; }
+/* "ab 25.000 €" — THE dominant visual object on the page */
+.hero-h1 em {
+  display:block;
+  font-family:var(--mc-font-display);
+  font-size:clamp(44px,6.6vw,82px); font-weight:800;
+  color:var(--mc-gold); font-style:normal;
+  line-height:.92; letter-spacing:-.04em;
+  text-shadow:0 0 60px rgba(201,168,76,.50), 0 0 140px rgba(201,168,76,.20);
+  margin-top:10px;
+}
 
 .hero-sub {
   font-family:var(--mc-font-body); font-size:clamp(14px,1.6vw,17px);
-  color:rgba(255,255,255,.70); max-width:540px;
-  margin-bottom:32px; line-height:1.70;
+  color:rgba(255,255,255,.52); max-width:460px;
+  margin-bottom:40px; line-height:1.72;
 }
 
 /* ── Hero Price Anchors — THE dominant visual element ────── */
@@ -201,45 +201,51 @@ body::before {
 /* These must dominate the hero above the CTA.               */
 .hero-anchors {
   display:flex; align-items:flex-start; flex-wrap:wrap; gap:0;
-  margin-bottom:32px;
+  margin-bottom:44px;
   animation:heroFade .85s .15s ease-out both;
 }
 .hero-anchor {
   display:flex; flex-direction:column; gap:3px;
-  padding-right:28px; position:relative;
+  padding-right:24px; position:relative;
 }
 .hero-anchor + .hero-anchor {
-  padding-left:28px;
-  border-left:1px solid rgba(201,168,76,.28);
+  padding-left:24px;
+  border-left:1px solid rgba(201,168,76,.16);
 }
 .hero-anchor-val {
-  font-size:clamp(38px,5.8vw,68px);
+  font-size:clamp(36px,5.4vw,64px);
   font-weight:800; color:var(--mc-gold);
-  line-height:.92; letter-spacing:-.035em;
+  line-height:.95; letter-spacing:-.03em;
   font-variant-numeric:tabular-nums;
-  text-shadow:0 0 60px rgba(201,168,76,.48), 0 0 120px rgba(201,168,76,.22);
+  text-shadow:0 0 40px rgba(201,168,76,.38), 0 0 90px rgba(201,168,76,.16);
   display:block;
 }
 .hero-anchor-label {
-  font-family:var(--mc-font-body); font-size:10px;
-  color:rgba(255,255,255,.48); letter-spacing:.1em;
-  text-transform:uppercase; line-height:1.4;
-  margin-top:5px; display:block;
+  font-family:var(--mc-font-body); font-size:10px; font-weight:600;
+  color:rgba(255,255,255,.50); letter-spacing:.12em;
+  text-transform:uppercase; line-height:1.5;
+  margin-top:6px; display:block;
 }
 @media(max-width:620px){
-  .hero-anchor-val{ font-size:clamp(28px,9vw,44px); }
-  .hero-anchor + .hero-anchor{ padding-left:18px; }
-  .hero-anchor{ padding-right:18px; }
+  .hero-anchor-val{ font-size:clamp(26px,8.5vw,42px); }
+  .hero-anchor + .hero-anchor{ padding-left:16px; }
+  .hero-anchor{ padding-right:16px; }
 }
 @media(max-width:380px){
   .hero-anchors{ flex-direction:column; gap:14px; }
-  .hero-anchor + .hero-anchor{ border-left:none; border-top:1px solid rgba(201,168,76,.22); padding-left:0; padding-top:14px; }
+  .hero-anchor + .hero-anchor{ border-left:none; border-top:1px solid rgba(201,168,76,.14); padding-left:0; padding-top:14px; }
 }
+
+/* ── CAPITAL DASHBOARD — uniform institutional grid ────────
+   All three values equal weight: 40% = 25.000 € = 10%
+   Price dominance lives in .hero-h1 em (above).
+   Strip reads as structured parameter table — BlackRock style.
+──────────────────────────────────────────────────────────── */
 
 /* Hero gold divider line */
 .hero-gold-line {
-  width:56px; height:1px; background:rgba(201,168,76,.4);
-  margin-bottom:24px; animation:heroFade .8s .3s ease-out both;
+  width:72px; height:1px; background:rgba(201,168,76,.32);
+  margin-bottom:28px; animation:heroFade .8s .3s ease-out both;
 }
 
 /* Hero CTA row */
@@ -268,18 +274,21 @@ body::before {
 .btn-gold {
   background:var(--mc-gold); color:#000;
   font-family:var(--mc-font-body); font-weight:700; font-size:14px;
-  padding:16px 32px; border-radius:var(--mc-radius-md); letter-spacing:.04em;
-  display:inline-flex; align-items:center; gap:7px;
+  padding:17px 38px; border-radius:var(--mc-radius-md); letter-spacing:.05em;
+  display:inline-flex; align-items:center; gap:8px;
+  box-shadow:0 1px 16px rgba(201,168,76,.14);
+  transition:background var(--mc-duration-sm), box-shadow var(--mc-duration-sm);
 }
-.btn-gold:hover { background:var(--mc-gold-bright); color:#000; }
+.btn-gold:hover { background:var(--mc-gold-bright); color:#000; box-shadow:0 3px 28px rgba(201,168,76,.28); }
 
 .btn-ghost {
-  border:1px solid rgba(255,255,255,.22); color:rgba(255,255,255,.8);
+  border:1px solid rgba(255,255,255,.18); color:rgba(255,255,255,.68);
   font-family:var(--mc-font-body); font-weight:500; font-size:13px;
-  padding:12px 22px; border-radius:var(--mc-radius-md); letter-spacing:.02em;
+  padding:13px 26px; border-radius:var(--mc-radius-md); letter-spacing:.03em;
   display:inline-flex; align-items:center; gap:7px;
+  transition:border-color var(--mc-duration-sm), color var(--mc-duration-sm);
 }
-.btn-ghost:hover { border-color:var(--mc-gold); color:var(--mc-gold); }
+.btn-ghost:hover { border-color:rgba(201,168,76,.48); color:rgba(255,255,255,.88); }
 
 
 /* ══════════════════════════════════════════════════════════
@@ -298,7 +307,7 @@ body::before {
 }
 .capital-strip::after {
   content:''; position:absolute; inset:0;
-  background:radial-gradient(ellipse 70% 130% at 50% 100%, rgba(201,168,76,.07) 0%, transparent 65%);
+  background:radial-gradient(ellipse 80% 160% at 50% 100%, rgba(201,168,76,.11) 0%, transparent 65%);
   pointer-events:none;
 }
 .capital-inner {
@@ -319,7 +328,7 @@ body::before {
   font-size:clamp(28px,3.8vw,48px); font-weight:800;
   color:var(--mc-gold); line-height:1;
   letter-spacing:-.025em; font-variant-numeric:tabular-nums;
-  text-shadow:0 0 40px rgba(201,168,76,.32);
+  text-shadow:0 0 60px rgba(201,168,76,.45), 0 0 120px rgba(201,168,76,.20);
   margin-bottom:7px; display:block;
 }
 .capital-lbl {
@@ -730,8 +739,8 @@ body::before {
    REDUCED MOTION
 ══════════════════════════════════════════════════════════ */
 @media(prefers-reduced-motion:reduce){
-  .hero-bg, .hero-bg::after, .hero-dots span,
-  .scroll-line, .hero-content, .hero-scroll { animation:none !important; }
+  .hero-bg-img { animation:none !important; transform:translateZ(0) scale(1); }
+  .hero-dots span, .scroll-line, .hero-content, .hero-scroll { animation:none !important; }
   .hero-anchors { animation:none !important; }
   .reveal { transition:none !important; opacity:1; transform:none; }
   .pc-img { transition:none; }
@@ -782,10 +791,10 @@ body::before {
   <div class="hero-content">
 
     <!-- Eyebrow — location + audience signal -->
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;animation:heroFade .7s ease-out both;">
-      <div style="width:28px;height:1px;background:var(--mc-gold);opacity:.7;"></div>
-      <span style="font-family:var(--mc-font-body);font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--mc-gold);">Schwarzmeerküste · EU-Eigentumsrecht · DACH Investoren</span>
-      <div style="width:6px;height:6px;border:1px solid rgba(201,168,76,.6);transform:rotate(45deg);flex-shrink:0;"></div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:26px;animation:heroFade .7s ease-out both;">
+      <div style="width:32px;height:1px;background:var(--mc-gold);opacity:.40;"></div>
+      <span style="font-family:var(--mc-font-body);font-size:9px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:rgba(201,168,76,.68);">Schwarzmeerküste · EU-Eigentumsrecht · DACH Investoren</span>
+      <div style="width:5px;height:5px;border:1px solid rgba(201,168,76,.25);transform:rotate(45deg);flex-shrink:0;"></div>
     </div>
 
     <!-- PRIMARY HEADLINE — Option A -->
