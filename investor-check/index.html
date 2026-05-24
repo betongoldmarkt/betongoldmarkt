@@ -81,11 +81,11 @@
     <div class="ic-label">Schritt 3 von 4</div>
     <p class="ic-q">Was suchen Sie?</p>
     <div class="ic-options">
-      <button class="ic-opt" onclick="icSet('level_raw','Apartment');icGo(4)"><span class="ic-opt-icon">▣</span><span>Apartment</span></button>
-      <button class="ic-opt" onclick="icSet('level_raw','Haus');icGo(4)"><span class="ic-opt-icon">⌂</span><span>Haus</span></button>
-      <button class="ic-opt" onclick="icSet('level_raw','Investment-Paket');icGo(4)"><span class="ic-opt-icon">◆</span><span>Investment-Paket</span></button>
-      <button class="ic-opt" onclick="icSet('level_raw','Ratenzahlung');icGo(4)"><span class="ic-opt-icon">%</span><span>Objekt mit Ratenzahlung</span></button>
-      <button class="ic-opt" onclick="icSet('level_raw','Noch offen');icGo(4)"><span class="ic-opt-icon">○</span><span>Noch offen</span></button>
+      <button class="ic-opt" onclick="icSet('level_raw','Apartment');icSet('asset_type','Apartment');icSet('suchtyp','Apartment');icGo(4)"><span class="ic-opt-icon">▣</span><span>Apartment</span></button>
+      <button class="ic-opt" onclick="icSet('level_raw','Haus');icSet('asset_type','Haus');icSet('suchtyp','Haus');icGo(4)"><span class="ic-opt-icon">⌂</span><span>Haus</span></button>
+      <button class="ic-opt" onclick="icSet('level_raw','Investment-Paket');icSet('asset_type','Investment-Paket');icSet('suchtyp','Investment-Paket');icGo(4)"><span class="ic-opt-icon">◆</span><span>Investment-Paket</span></button>
+      <button class="ic-opt" onclick="icSet('level_raw','Objekt mit Ratenzahlung');icSet('asset_type','Objekt mit Ratenzahlung');icSet('suchtyp','Objekt mit Ratenzahlung');icGo(4)"><span class="ic-opt-icon">%</span><span>Objekt mit Ratenzahlung</span></button>
+      <button class="ic-opt" onclick="icSet('level_raw','Noch offen');icSet('asset_type','Noch offen');icSet('suchtyp','Noch offen');icGo(4)"><span class="ic-opt-icon">○</span><span>Noch offen</span></button>
     </div>
     <button class="ic-back" onclick="icGo(2)">← Zurück</button>
   </div>
@@ -144,8 +144,11 @@
     <option value="Apartment">Apartment</option>
     <option value="Haus">Haus</option>
     <option value="Investment-Paket">Investment-Paket</option>
+    <option value="Objekt mit Ratenzahlung">Objekt mit Ratenzahlung</option>
     <option value="Noch offen">Noch offen</option>
   </select>
+  <input type="hidden" name="asset_type" id="ic-asset_type" value="">
+  <input type="hidden" name="suchtyp" id="ic-suchtyp" value="">
   <button type="submit">Submit</button>
 </form>
 </main>
