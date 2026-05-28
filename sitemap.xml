@@ -85,6 +85,9 @@
   <!-- NEW: Preis pro m² -->
   <url><loc>https://betongoldmarkt.de/preis-pro-m2-europa/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
+  <!-- Trust / Post-Purchase -->
+  <url><loc>https://betongoldmarkt.de/betreuung-bulgarien/</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
   <!-- Legal -->
   <url><loc>https://betongoldmarkt.de/impressum/</loc><lastmod>2026-03-19</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://betongoldmarkt.de/datenschutz/</loc><lastmod>2026-03-19</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
