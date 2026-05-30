@@ -21,6 +21,9 @@
 # Objekt duplicate
 /angebote/haus-89000-einbeck/  /angebote/haus-75000-einbeck/  301!
 
+# Robinson Beach C2.3 — slug rename (68m2 → 94m2, path normalised)
+/angebote/wohnung-robinson-beach-c23-68m2/  /angebote/robinson-beach-c2-3/  301!
+
 # RU cleanup
 /ru/angebote/haus-89000-einbeck/  /angebote/haus-75000-einbeck/  301!
 /ru/angebote/haus-75000-einbeck/  /angebote/haus-75000-einbeck/  301!
