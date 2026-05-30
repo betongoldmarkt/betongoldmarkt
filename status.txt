@@ -1,0 +1,80 @@
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   _redirects
+	modified:   angebote/apartment-varna-meerblick-68000/index.html
+	modified:   angebote/bankimmobilie-burgas-studio-27000/index.html
+	modified:   angebote/grundstueck-sonnenstrand-28000/index.html
+	modified:   angebote/haus-75000-einbeck/index.html
+	modified:   angebote/haus-rhodopen-45000/index.html
+	modified:   angebote/index.html
+	modified:   angebote/robinson-beach-b4-8/index.html
+	modified:   angebote/robinson-beach-c2-3/index.html
+	modified:   angebote/studio-gardenia-hills-h-202-55m2/index.html
+	modified:   angebote/studio-varna-29000/index.html
+	modified:   angebote/wohnung-nessebar-55000/index.html
+	modified:   apartments-am-meer-bulgarien/index.html
+	new file:   assets/img/og-default.jpg
+	modified:   auktionen/index.html
+	modified:   bankimmobilien/index.html
+	modified:   besichtigung-bulgarien/index.html
+	modified:   betreuung-bulgarien/index.html
+	modified:   burgas-vs-varna/index.html
+	modified:   datenschutz/index.html
+	modified:   dokumente-immobilienkauf-bulgarien/index.html
+	modified:   faq/index.html
+	modified:   grundbuch-bulgarien/index.html
+	modified:   grundstuecke-bulgarien/index.html
+	modified:   grundstuecke-investment/index.html
+	modified:   haeuser-bulgarien/index.html
+	modified:   hotel-investments/hotel-burgas/index.html
+	modified:   hotel-investments/hotel-sunny-beach/index.html
+	modified:   hotel-investments/index.html
+	modified:   hotel-investments/nessebar/index.html
+	modified:   hotel-investments/pomorie/index.html
+	modified:   immobilien-bulgarien-fuer-deutsche-kaeufer/index.html
+	modified:   immobilien-bulgarien-investment/index.html
+	modified:   immobilien-bulgarien-kaufen/index.html
+	modified:   immobilien-bulgarien-preise/index.html
+	modified:   immobilien-bulgarien/index.html
+	modified:   immobilien-burgas/index.html
+	modified:   immobilien-nessebar/index.html
+	modified:   immobilien-sonnenstrand/index.html
+	modified:   immobilien-varna/index.html
+	modified:   impressum/index.html
+	modified:   index.html
+	modified:   investor-check/index.html
+	modified:   investoren-lots/gardenia-hills-10-units/index.html
+	modified:   investoren-lots/gardenia-hills-20-units/index.html
+	modified:   investoren-lots/gardenia-hills-3-studios/index.html
+	modified:   investoren-lots/gardenia-hills-5-units/index.html
+	modified:   kaufnebenkosten-bulgarien/index.html
+	modified:   kaufprozess-bulgarien/index.html
+	modified:   kontakt/index.html
+	modified:   lebenshaltungskosten-bulgarien/index.html
+	modified:   markt-anfrage/index.html
+	modified:   neubau-bulgarien/burgas/index.html
+	modified:   neubau-bulgarien/index.html
+	modified:   neubau-bulgarien/nessebar/index.html
+	modified:   neubau-bulgarien/pomorie/index.html
+	modified:   neubau-bulgarien/sunny-beach/index.html
+	modified:   neubau-bulgarien/varna/index.html
+	modified:   notar-immobilienkauf-bulgarien/index.html
+	modified:   offmarket/index.html
+	modified:   preis-pro-m2-europa/index.html
+	modified:   projekte/robinson-beach/index.html
+	modified:   ratenzahlung-bankimmobilien/index.html
+	modified:   ratenzahlung-bulgarien/index.html
+	modified:   schwarzmeerkueste-bulgarien/index.html
+	modified:   steuervorteil-bulgarien/index.html
+	modified:   uebergabe-immobilien-bulgarien/index.html
+	modified:   warum-bulgarien/index.html
+	modified:   wohnung-bulgarien-meer/index.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	05_REPORTS/
+	status.txt
+
