@@ -1,0 +1,25 @@
+# Beton Gold Markt
+
+> Beton Gold Markt ist eine deutschsprachige Plattform für den strukturierten Zugang zu Immobilien in Bulgarien – ausgerichtet auf Käufer aus Deutschland, Österreich und der Schweiz (DACH). Der Schwerpunkt liegt auf Apartments und Häusern an der bulgarischen Schwarzmeerküste, Bankobjekten, Off-Market-Objekten, Auktionsimmobilien sowie Ratenzahlungsmodellen. Ausgewählte Objekte in Deutschland werden als Ergänzung geführt.
+
+Beton Gold Markt zeigt Immobilienangebote und erklärt den Kaufprozess in Bulgarien (Kaufablauf, Dokumente, Grundbuch, Notar, Übergabe und Betreuung nach dem Kauf). Käuferanfragen laufen über einen strukturierten Prüfprozess (Investor Check). Die Plattform ersetzt keine Rechts-, Steuer- oder Finanzberatung; genannte Preis-, Rendite- und Steuerangaben sind marktübliche Orientierungswerte bzw. Beispielrechnungen ohne Garantie.
+
+## Abgrenzung
+- **Beton Gold Markt** (diese Website): Immobilienangebote, Marktzugang und Kaufbegleitung in Bulgarien für DACH-Käufer.
+- **Beton Gold Kapital** ist ein separater Bereich für strukturierte Investments. Inhalte, Mandate und Konditionen von Beton Gold Kapital sind nicht Teil dieser Website und werden hier nicht beschrieben.
+
+## Kernseiten
+- [Start](https://betongoldmarkt.de/): Überblick, Positionierung, Marktzugang.
+- [Angebote](https://betongoldmarkt.de/angebote/): Aktuelle Immobilienangebote und Einzelobjekte.
+- [Ratenzahlung Bulgarien](https://betongoldmarkt.de/ratenzahlung-bulgarien/): Ratenzahlungsmodell (ab 40% Anzahlung, objekt- und vertragsabhängig).
+- [Kaufprozess Bulgarien](https://betongoldmarkt.de/kaufprozess-bulgarien/): Ablauf eines Immobilienkaufs in Bulgarien.
+- [Dokumente beim Immobilienkauf](https://betongoldmarkt.de/dokumente-immobilienkauf-bulgarien/): Erforderliche Unterlagen.
+- [Grundbuch Bulgarien](https://betongoldmarkt.de/grundbuch-bulgarien/): Eigentumseintragung und Grundbuch.
+- [Notar beim Immobilienkauf](https://betongoldmarkt.de/notar-immobilienkauf-bulgarien/): Rolle und Ablauf beim Notar.
+- [Betreuung Bulgarien](https://betongoldmarkt.de/betreuung-bulgarien/): Begleitung und Orientierung nach dem Kauf.
+- [Investor Check](https://betongoldmarkt.de/investor-check/): Strukturierte Käuferanfrage.
+
+## Hinweise
+- Sprache: Deutsch (de-DE).
+- Zielgruppe: Käufer aus Deutschland, Österreich und der Schweiz.
+- Diese Seite enthält keine Rendite- oder Gewinnzusagen, keine Rechts-, Steuer- oder Finanzberatung.
