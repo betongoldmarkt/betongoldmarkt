@@ -34,6 +34,11 @@
     // Add timestamp
     payload['created_at'] = new Date().toISOString();
 
+    // Page URL attribution — always capture the full current URL at submit time.
+    // Preserves path + query string (utm_source/medium/campaign/content, fbclid, pub).
+    // Make maps {{1.page_url}} → MARKT_LEADS.Page URL.
+    payload['page_url'] = window.location.href;
+
     return payload;
   }
 

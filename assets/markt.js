@@ -22,7 +22,10 @@ document.addEventListener('click', (e)=>{
     payload['layer']     = 'Markt';
     payload['form_name'] = payload['form_name'] || 'objekt-anfrage';
     payload['lead_type'] = 'object_request';
-    payload['page_url']  = payload['page_url']  || window.location.href;
+    // Always use the full current URL so query-string attribution survives
+    // (utm_source/medium/campaign/content, fbclid, pub). The static hidden
+    // page_url field holds only the canonical URL without query params.
+    payload['page_url']  = window.location.href;
     // Normalize phone
     var phone = payload['telefon'] || payload['phone'] || '';
     payload['telefon'] = phone;
