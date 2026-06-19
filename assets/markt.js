@@ -46,6 +46,13 @@ document.addEventListener('click', (e)=>{
 
     var payload = buildPayload(form);
 
+    // MARKT-THANKYOU-002: stash the entered name for /danke/ personalization.
+    // Display-only side effect — does not alter payload, attribution, or redirect.
+    try {
+      var nm = (payload['name'] || '').trim();
+      if (nm) { window.sessionStorage.setItem('bgm_lead_name', nm.slice(0, 60)); }
+    } catch (e) {}
+
     // Fire directly to DIETRICH_OS Make webhook, then Netlify submit
     var sent = fetch(DIETRICH_WEBHOOK, {
       method: 'POST',

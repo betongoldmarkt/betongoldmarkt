@@ -68,6 +68,13 @@
 
     var payload = toPayload(form);
 
+    // MARKT-THANKYOU-002: stash the entered name for /danke/ personalization.
+    // Display-only side effect — does not alter payload, attribution, or redirect.
+    try {
+      var nm = (payload['name'] || '').trim();
+      if (nm) { window.sessionStorage.setItem('bgm_lead_name', nm.slice(0, 60)); }
+    } catch (e) {}
+
     // Fire webhook FIRST (max 2s), then submit to Netlify
     var webhookDone = sendWebhook(payload);
     var timeout = new Promise(function(resolve){ setTimeout(resolve, 2000); });
