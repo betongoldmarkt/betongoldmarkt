@@ -12,8 +12,8 @@
 <a class="brand" href="/"><span class="name">Beton Gold Markt</span></a>
 </div></header>
 <main style="padding:60px 0;text-align:center;"><div class="container">
-<h1>Vielen Dank!</h1>
-<p class="muted">Ihre Anfrage ist eingegangen. Wir melden uns innerhalb von 24 Stunden.</p>
+<h1 id="danke-title">Vielen Dank.</h1>
+<p class="muted">Ihre Anfrage ist eingegangen.<br>Wir melden uns innerhalb von 24 Stunden persönlich bei Ihnen.<br>Ihre Daten werden vertraulich behandelt.</p>
 <div class="ctaRow" style="justify-content:center;margin-top:24px;">
 <a class="btn primary" href="/">Zur Startseite</a>
 <a class="btn" href="/angebote/">Weitere Angebote</a>
@@ -26,4 +26,17 @@
 <a href="/impressum/" class="muted small">Impressum</a>
 <a href="/datenschutz/" class="muted small">Datenschutz</a></div></div>
 </div></div></footer>
+<script>
+/* MARKT-THANKYOU-001 — optional, XSS-safe name personalization.
+   Reads a name only if already available (sessionStorage or ?name=); otherwise
+   the static fallback "Vielen Dank." stays. Never touches form/attribution logic. */
+(function(){
+  var name = '';
+  try { name = window.sessionStorage.getItem('bgm_lead_name') || ''; } catch (e) {}
+  if (!name) { try { name = new URLSearchParams(window.location.search).get('name') || ''; } catch (e) {} }
+  name = (name || '').trim().replace(/[^\p{L}\p{N} _.'\-]/gu, '').slice(0, 40).trim();
+  var t = document.getElementById('danke-title');
+  if (t && name) { t.textContent = 'Vielen Dank, ' + name + '.'; }  // textContent = no HTML injection
+})();
+</script>
 <script src="/assets/markt.js"></script></body></html>
