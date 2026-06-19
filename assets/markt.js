@@ -22,10 +22,12 @@ document.addEventListener('click', (e)=>{
     payload['layer']     = 'Markt';
     payload['form_name'] = payload['form_name'] || 'objekt-anfrage';
     payload['lead_type'] = 'object_request';
-    // Always use the full current URL so query-string attribution survives
-    // (utm_source/medium/campaign/content, fbclid, pub). The static hidden
-    // page_url field holds only the canonical URL without query params.
-    payload['page_url']  = window.location.href;
+    // Prefer the landing URL captured at first page load (before trackers can
+    // strip utm/pub via history.replaceState); fall back to the current URL.
+    // The static hidden page_url field holds only the canonical URL w/o query.
+    var bgmLanding = '';
+    try { bgmLanding = window.sessionStorage.getItem('bgm_landing_url') || ''; } catch (e) {}
+    payload['page_url']  = bgmLanding || window.location.href;
     // Normalize phone
     var phone = payload['telefon'] || payload['phone'] || '';
     payload['telefon'] = phone;
