@@ -1,0 +1,35 @@
+{
+  "version": "2026-06-24",
+  "source": "CONTENT_REGISTRY / PUBLICATION_REGISTRY (DIETRICH OS, AIR-005). Registry is the single source of truth; regenerate this file from the registry when content changes.",
+  "note": "Markt-only. content_id = CT-MKT-xxx; cluster_id = CL-MKT-xxx. Resolution order in code: page meta -> exact -> prefix -> contains -> (referrer/objekt fallbacks in JS). Excluded paths never produce a CID.",
+  "exact": {
+    "/": { "content_id": "CT-MKT-001", "cluster_id": "CL-MKT-IMMO" },
+    "/projekte/robinson-beach/": { "content_id": "CT-MKT-002", "cluster_id": "CL-MKT-PROJ" },
+    "/projekte/gardenia-hills/": { "content_id": "CT-MKT-003", "cluster_id": "CL-MKT-PROJ" },
+    "/angebote/": { "content_id": "CT-MKT-004", "cluster_id": "CL-MKT-OBJEKTE" },
+    "/ratenzahlung-bulgarien/": { "content_id": "CT-MKT-010", "cluster_id": "CL-MKT-RATEN" },
+    "/ratenzahlung-bankimmobilien/": { "content_id": "CT-MKT-011", "cluster_id": "CL-MKT-RATEN" },
+    "/neubau-bulgarien/": { "content_id": "CT-MKT-012", "cluster_id": "CL-MKT-NEUBAU" },
+    "/wohnung-bulgarien-meer/": { "content_id": "CT-MKT-013", "cluster_id": "CL-MKT-FERIEN" },
+    "/immobilien-sonnenstrand/": { "content_id": "CT-MKT-014", "cluster_id": "CL-MKT-STANDORT" },
+    "/immobilien-bulgarien-guide-2026/": { "content_id": "CT-MKT-015", "cluster_id": "CL-MKT-MARKT" },
+    "/betreuung-bulgarien/": { "content_id": "CT-MKT-016", "cluster_id": "CL-MKT-IMMO" }
+  },
+  "prefix": [
+    { "match": "/projekte/gardenia-hills/", "content_id": "CT-MKT-003", "cluster_id": "CL-MKT-PROJ" },
+    { "match": "/projekte/robinson-beach/", "content_id": "CT-MKT-002", "cluster_id": "CL-MKT-PROJ" }
+  ],
+  "contains": [
+    { "match": "gardenia", "content_id": "CT-MKT-003", "cluster_id": "CL-MKT-PROJ" },
+    { "match": "robinson", "content_id": "CT-MKT-002", "cluster_id": "CL-MKT-PROJ" }
+  ],
+  "exclude": [
+    "/impressum/",
+    "/datenschutz/",
+    "/faq/",
+    "/kontakt/",
+    "/danke/",
+    "/agb/",
+    "/widerruf/"
+  ]
+}
