@@ -28,6 +28,14 @@ document.addEventListener('click', (e)=>{
     var bgmLanding = '';
     try { bgmLanding = window.sessionStorage.getItem('bgm_landing_url') || ''; } catch (e) {}
     payload['page_url']  = bgmLanding || window.location.href;
+    // MARKT-CID-001: preserve cid attribution through page_url (additive, reversible)
+    try {
+      var cid = new URLSearchParams(window.location.search).get('cid') || '';
+      if (cid) {
+        payload['cid']      = cid;                  // forward-compat discrete field
+        payload['page_url'] = window.location.href; // ensure cid survives in page_url
+      }
+    } catch (e) {}
     // Normalize phone
     var phone = payload['telefon'] || payload['phone'] || '';
     payload['telefon'] = phone;
