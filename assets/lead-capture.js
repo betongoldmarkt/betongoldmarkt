@@ -170,7 +170,7 @@
 // Single data source: /assets/content-map.json (exported from CONTENT_REGISTRY).
 // Duplicated here so the Investor Check page works without markt.js loaded.
 window.BGM = window.BGM || (function(){
-  var MAP_URL = '/assets/content-map.json';
+  var MAP_URL = '/assets/content-map.json?v=markt076';
   var MAP_CACHE_KEY = 'bgm_content_map';
   var FIRST_TOUCH_KEY = 'bgm_first_touch';
 
