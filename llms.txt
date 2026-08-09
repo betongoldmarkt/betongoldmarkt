@@ -1,25 +1,71 @@
 # Beton Gold Markt
 
-> Beton Gold Markt ist eine deutschsprachige Plattform für den strukturierten Zugang zu Immobilien in Bulgarien – ausgerichtet auf Käufer aus Deutschland, Österreich und der Schweiz (DACH). Der Schwerpunkt liegt auf Apartments und Häusern an der bulgarischen Schwarzmeerküste, Bankobjekten, Off-Market-Objekten, Auktionsimmobilien sowie Ratenzahlungsmodellen. Ausgewählte Objekte in Deutschland werden als Ergänzung geführt.
+> Beton Gold Markt ist die Transaktionsseite eines Zwei-Marken-Ökosystems für Immobilien in Bulgarien. Die Marke zeigt veröffentlichte Objekte, erklärt Erwerbsmodelle und begleitet den Kauf – für Käufer, Investoren, Unternehmer und Unternehmen aus Deutschland, Österreich und der Schweiz. Schwerpunkt: Apartments und Häuser an der Schwarzmeerküste sowie in den Binnenland-Regionen, Bankbestände, Off-Market-Objekte, Auktionsimmobilien und projekt- bzw. objektbezogene Zahlungsmodelle. Ausgewählte Objekte in Deutschland werden als Ergänzung geführt.
 
-Beton Gold Markt zeigt Immobilienangebote und erklärt den Kaufprozess in Bulgarien (Kaufablauf, Dokumente, Grundbuch, Notar, Übergabe und Betreuung nach dem Kauf). Käuferanfragen laufen über einen strukturierten Prüfprozess (Investor Check). Die Plattform ersetzt keine Rechts-, Steuer- oder Finanzberatung; genannte Preis-, Rendite- und Steuerangaben sind marktübliche Orientierungswerte bzw. Beispielrechnungen ohne Garantie.
+## Entität
 
-## Abgrenzung
-- **Beton Gold Markt** (diese Website): Immobilienangebote, Marktzugang und Kaufbegleitung in Bulgarien für DACH-Käufer.
-- **Beton Gold Kapital** ist ein separater Bereich für strukturierte Investments. Inhalte, Mandate und Konditionen von Beton Gold Kapital sind nicht Teil dieser Website und werden hier nicht beschrieben.
+- Person: Dietrich Bauer — Gründer des Beton-Gold-Ökosystems.
+  - Rolle auf Beton Gold Markt: deutschsprachige Vertretung vor Ort in Bulgarien — Objektzugang, Prüfung und Erwerbsbegleitung.
+  - Rolle auf Beton Gold Kapital: „Architekt des Kapitals" — Kapitalarchitektur, Mandat und Investorenvertretung.
+  - Beide Rollen betreffen dieselbe Person; sie sind nach Marke getrennt und nicht austauschbar.
+- Betreiber: BG Real Assets EOOD (БГ Риъл Асетс ЕООД), UIC/EIK 208893096, Sitz Sofia, Bulgarien
+- Marke dieser Website: Beton Gold Markt
+- Schwestermarke: Beton Gold Kapital (https://betongoldkapital.de/)
+- Beide Marken werden von BG Real Assets EOOD betrieben. Sie sind nicht identisch und haben unterschiedliche Aufgaben.
+- Sprache: Deutsch (de-DE)
+- Kontakt: invest@betongoldmarkt.de
+
+## Rollen im Ökosystem
+
+- **Beton Gold Markt** (diese Website): Objekte, Projekte, Erwerbsmodelle und Transaktionsroute. Antwort auf die Frage „Was kann ich erwerben und auf welchem Weg?“
+- **Beton Gold Kapital**: Kapitalarchitektur, individuelles Suchmandat, strategischer Zugang und Investorenvertretung. Antwort auf die Frage „Wie strukturiere ich Kapital und wer vertritt mich?“
+
+## Geografie
+
+- Betreibersitz: Sofia, Bulgarien
+- Operativer Hub: Sofia
+- Ausführungsgebiet: Bulgarien
+- Strategischer Regionalcluster: Schwarzmeerküste
+- Nachfragemarkt: Deutschland, Österreich, Schweiz
+
+## Einstiegspunkte
+
+- Konkreter Erwerb, veröffentlichtes Objekt, projekt- oder objektbezogenes Zahlungsmodell → Beton Gold Markt
+- Mandat, Kapitalstruktur, individuelle Suche, Investorenvertretung → Beton Gold Kapital
+- Route unklar → Investor Check (https://betongoldmarkt.de/investor-check/)
 
 ## Kernseiten
+
 - [Start](https://betongoldmarkt.de/): Überblick, Positionierung, Marktzugang.
 - [Angebote](https://betongoldmarkt.de/angebote/): Aktuelle Immobilienangebote und Einzelobjekte.
-- [Ratenzahlung Bulgarien](https://betongoldmarkt.de/ratenzahlung-bulgarien/): Ratenzahlungsmodell (ab 40% Anzahlung, objekt- und vertragsabhängig).
+- [Bankimmobilien](https://betongoldmarkt.de/bankimmobilien/): Objekte aus bulgarischen Bankbeständen; Verfügbarkeit, Preis und rechtlicher Status werden objekt- oder bestandsbezogen geprüft.
+- [Projekte](https://betongoldmarkt.de/projekte/): Öffentlich dargestellte Projekte mit ihren Einheiten — Gardenia Hills und Robinson Beach, beide Bankbestand.
+- [Zahlungsmodelle](https://betongoldmarkt.de/ratenzahlung-bulgarien/): Zahlungsmodelle werden projekt- und objektbezogen bestätigt; dokumentierte Bedingungen einzelner Bankbestände und individuelle Modelle bei Bauträgerprojekten werden getrennt ausgewiesen.
+- [Off-Market](https://betongoldmarkt.de/offmarket/): Nicht öffentlich inserierte Objekte; Zugang nach Qualifikation.
+- [Regionen](https://betongoldmarkt.de/regionen/): Acht Regionscluster. Bulgarien ist der Markt; die Schwarzmeerküste ist eines von acht Clustern.
+- [Dietrich Bauer](https://betongoldmarkt.de/dietrich-bauer/): Deutschsprachige Vertretung vor Ort — Objektzugang, Prüfung, Erwerbsbegleitung.
 - [Kaufprozess Bulgarien](https://betongoldmarkt.de/kaufprozess-bulgarien/): Ablauf eines Immobilienkaufs in Bulgarien.
 - [Dokumente beim Immobilienkauf](https://betongoldmarkt.de/dokumente-immobilienkauf-bulgarien/): Erforderliche Unterlagen.
 - [Grundbuch Bulgarien](https://betongoldmarkt.de/grundbuch-bulgarien/): Eigentumseintragung und Grundbuch.
 - [Notar beim Immobilienkauf](https://betongoldmarkt.de/notar-immobilienkauf-bulgarien/): Rolle und Ablauf beim Notar.
 - [Betreuung Bulgarien](https://betongoldmarkt.de/betreuung-bulgarien/): Begleitung und Orientierung nach dem Kauf.
 - [Investor Check](https://betongoldmarkt.de/investor-check/): Strukturierte Käuferanfrage.
+- [Impressum](https://betongoldmarkt.de/impressum/): Betreiberangaben zum Diensteanbieter.
 
-## Hinweise
-- Sprache: Deutsch (de-DE).
-- Zielgruppe: Käufer aus Deutschland, Österreich und der Schweiz.
-- Diese Seite enthält keine Rendite- oder Gewinnzusagen, keine Rechts-, Steuer- oder Finanzberatung.
+## Regionale Hubs
+
+- https://betongoldmarkt.de/immobilien-varna/
+- https://betongoldmarkt.de/immobilien-burgas/
+- https://betongoldmarkt.de/immobilien-nessebar/
+- https://betongoldmarkt.de/immobilien-sonnenstrand/
+- https://betongoldmarkt.de/schwarzmeerkueste-bulgarien/
+- https://betongoldmarkt.de/immobilien-plovdiv/
+- https://betongoldmarkt.de/immobilien-bansko/
+- https://betongoldmarkt.de/immobilien-ruse/
+- https://betongoldmarkt.de/immobilien-stara-zagora/
+
+## Belegstatus
+
+- Preis-, Rendite- und Steuerangaben sind Orientierungswerte oder Beispielrechnungen mit offengelegter Berechnungsbasis. Keine Renditezusage, keine Garantie.
+- Beim Erwerb von Grund und Boden gilt der verfassungsrechtliche Rahmen Bulgariens (Art. 22 der Verfassung der Republik Bulgarien). Käufer aus der Schweiz sind keine EU-Bürger; die Erwerbsstruktur ist gesondert zu prüfen.
+- Diese Website ersetzt keine Rechts-, Steuer- oder Anlageberatung.

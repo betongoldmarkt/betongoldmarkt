@@ -22,6 +22,7 @@
   <url><loc>https://betongoldmarkt.de/angebote/robinson-beach-b4-8/</loc><lastmod>2026-06-11</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
   <!-- Projekte (canonical — Robinson Beach) -->
+  <url><loc>https://betongoldmarkt.de/projekte/</loc><lastmod>2026-08-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://betongoldmarkt.de/projekte/robinson-beach/</loc><lastmod>2026-06-11</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
   <!-- Projekte (canonical — Gardenia Hills) -->
@@ -55,7 +56,10 @@
   <url><loc>https://betongoldmarkt.de/immobilien-sonnenstrand/</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://betongoldmarkt.de/immobilien-varna/</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://betongoldmarkt.de/schwarzmeerkueste-bulgarien/</loc><lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/regionen/</loc><lastmod>2026-08-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://betongoldmarkt.de/dietrich-bauer/</loc><lastmod>2026-08-08</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://betongoldmarkt.de/kontakt/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://betongoldmarkt.de/markt-anfrage/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://betongoldmarkt.de/offmarket/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://betongoldmarkt.de/ratenzahlung-bulgarien/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://betongoldmarkt.de/ratenzahlung-bankimmobilien/</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -109,4 +113,8 @@
   <!-- Legal -->
   <url><loc>https://betongoldmarkt.de/impressum/</loc><lastmod>2026-03-19</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://betongoldmarkt.de/datenschutz/</loc><lastmod>2026-03-19</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://betongoldmarkt.de/immobilien-plovdiv/</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://betongoldmarkt.de/immobilien-bansko/</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://betongoldmarkt.de/immobilien-ruse/</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://betongoldmarkt.de/immobilien-stara-zagora/</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

@@ -1,0 +1,33 @@
+
+/* ── Beton Gold Markt · consent control ─────────────────────────────────────
+   Markt-native. Uses the existing Markt design tokens only (--mc-*).
+   No new design system, no component redesign. */
+#mc-consent[hidden]{display:none}
+#mc-consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;
+  background:var(--mc-glass-bg,rgba(9,9,11,0.94));color:var(--mc-text,#f0ede6);
+  border:1px solid var(--mc-gold-border,rgba(201,168,76,0.25));border-radius:12px;
+  padding:16px 18px;box-shadow:0 10px 40px rgba(0,0,0,.55);
+  font-size:14px;line-height:1.5;max-width:1120px;margin:0 auto}
+#mc-consent .mc-consent__row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+#mc-consent .mc-consent__text{flex:1 1 420px;min-width:0}
+#mc-consent .mc-consent__text b{color:var(--mc-gold,#C9A84C)}
+#mc-consent .mc-consent__text a{color:var(--mc-gold,#C9A84C)}
+#mc-consent ul{margin:8px 0 0;padding-left:18px;color:var(--mc-text-muted,rgba(240,237,230,0.55))}
+#mc-consent .mc-consent__actions{display:flex;gap:10px;flex-wrap:wrap}
+#mc-consent button{font:inherit;cursor:pointer;border-radius:8px;padding:9px 18px;
+  border:1px solid var(--mc-gold-border,rgba(201,168,76,0.25));
+  background:transparent;color:var(--mc-text,#f0ede6)}
+#mc-consent button:hover{border-color:var(--mc-gold-border-hv,rgba(201,168,76,0.55))}
+#mc-consent button.mc-consent__primary{background:var(--mc-gold,#C9A84C);color:#09090b;border-color:var(--mc-gold,#C9A84C);font-weight:600}
+#mc-consent button:focus-visible{outline:2px solid var(--mc-gold-bright,#D9BB6A);outline-offset:3px}
+@media (max-width:600px){#mc-consent{left:8px;right:8px;bottom:8px;padding:14px}
+  #mc-consent .mc-consent__actions{width:100%}
+  #mc-consent .mc-consent__actions button{flex:1 1 auto}}
+#mc-consent-status{color:var(--mc-text-muted,rgba(240,237,230,0.55));font-size:14px}
+
+/* ── Markt · responsive table containment ──────────────────────────────────
+   Tables keep every column, header and cell; the wrapper only allows a wide
+   table to scroll inside the content column instead of overflowing the page. */
+.mc-table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.mc-table-scroll>table{min-width:max-content}
+.mc-table-scroll:focus-visible{outline:2px solid var(--mc-gold,#C9A84C);outline-offset:3px}

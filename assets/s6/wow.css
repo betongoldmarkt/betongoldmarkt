@@ -1,0 +1,134 @@
+/* ============================================================
+ * MARKT WOW DIRECTION — task 013 · isolated build · Markt only.
+ * Loads AFTER bundle.css. Scope .markt-root throughout.
+ * Hybrid typography rule (documented in 03_TYPOGRAPHY_DECISION):
+ *   Inter (functional primary) = nav, body, buttons, labels, meta,
+ *   cards, forms, legal/evidence text — inherited from bundle tokens.
+ *   Serif display (Georgia stack) = hero H1 + major section headings
+ *   ONLY, via .mc-display. Georgia is NOT the primary font.
+ * ============================================================ */
+.markt-root { --mc-font-serif-display: Georgia, "Times New Roman", serif; }
+.markt-root .mc-display {
+  font-family: var(--mc-font-serif-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.markt-root .mc-microcaps {
+  font-family: var(--mc-font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mc-gold);
+}
+
+/* ---------- S1 · object-led hero (Motion 1: image reveal, once) ---------- */
+.markt-root .wow-hero { position: relative; min-height: 86vh; display: flex; align-items: flex-end; overflow: hidden; }
+.markt-root .wow-hero-media { position: absolute; inset: 0; }
+.markt-root .wow-hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.markt-root .wow-hero-scrim { position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(9,9,11,0.14) 0%, rgba(9,9,11,0.02) 45%, rgba(9,9,11,0.86) 82%, var(--mc-bg) 100%); }
+.markt-root .wow-hero-content { position: relative; z-index: 1; padding: var(--bgf-space-7) 0 var(--bgf-space-6); width: 100%; }
+.markt-root .wow-hero h1 { font-size: clamp(2.1rem, 5.4vw, 4rem); color: #fff; max-width: 16ch; margin-bottom: var(--bgf-space-3); }
+.markt-root .wow-hero-meta { display: flex; flex-wrap: wrap; gap: var(--bgf-space-4); align-items: baseline; margin: var(--bgf-space-3) 0 var(--bgf-space-5); }
+.markt-root .wow-price { font-size: clamp(1.3rem, 2.6vw, 1.9rem); color: var(--mc-gold); font-weight: 700; }
+.markt-root .wow-meta-item { color: var(--mc-text-secondary); font-size: var(--mc-fs-small); }
+.markt-root .wow-cta-row { display: flex; flex-wrap: wrap; gap: var(--bgf-space-4); }
+.markt-root .wow-btn { display: inline-block; padding: 14px 26px; border-radius: var(--bgf-radius-2);
+  font-weight: 600; font-size: var(--mc-fs-small); font-family: var(--mc-font-body); }
+.markt-root .wow-btn--gold { background: var(--mc-gold); color: #121212; }
+.markt-root .wow-btn--gold:hover { background: var(--mc-gold-bright); color: #121212; text-decoration: none; }
+.markt-root .wow-btn--line { border: 1px solid var(--mc-gold-border-hv); color: var(--mc-text); }
+.markt-root .wow-btn--line:hover { border-color: var(--mc-gold); text-decoration: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .markt-root .wow-hero-media img { animation: wow-hero-reveal 1100ms var(--bgf-ease-out) 1 both; }
+  @keyframes wow-hero-reveal { from { opacity: 0; transform: scale(1.035); } to { opacity: 1; transform: none; } }
+}
+
+/* ---------- S2 · access strip + cluster row (Motion 2: intent focus) ---------- */
+.markt-root .wow-strip { border-block: 1px solid var(--mc-gold-line); background: var(--mc-surface-1); }
+.markt-root .wow-strip-inner { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); }
+.markt-root .wow-strip a { padding: var(--bgf-space-5); border-inline-start: 1px solid var(--mc-line); color: var(--mc-text); transition: background var(--bgf-motion-base) var(--bgf-ease-standard); }
+.markt-root .wow-strip a:first-child { border-inline-start: 0; }
+.markt-root .wow-strip a:hover, .markt-root .wow-strip a:focus-visible { background: var(--mc-gold-dim); text-decoration: none; }
+.markt-root .wow-strip b { display: block; margin-bottom: 4px; }
+.markt-root .wow-strip span { font-size: var(--mc-fs-caption); color: var(--mc-text-muted); }
+.markt-root .wow-clusters { display: flex; flex-wrap: wrap; gap: var(--bgf-space-3); padding: var(--bgf-space-4) 0; }
+.markt-root .wow-clusters a { font-size: var(--mc-fs-caption); color: var(--mc-text-muted); border: 1px solid var(--mc-line); border-radius: var(--bgf-radius-pill); padding: 6px 14px; }
+.markt-root .wow-clusters a:hover { border-color: var(--mc-gold-border-hv); color: var(--mc-text); text-decoration: none; }
+
+/* ---------- S3 · six card families (Motion 3: card focus) ---------- */
+.markt-root .wow-cardgrid { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: var(--bgf-grid-gutter); }
+.markt-root [class^="cardf-"] { border-radius: var(--bgf-radius-3); overflow: hidden; background: var(--mc-surface-2); color: var(--mc-text); display: flex; flex-direction: column; transition: transform var(--bgf-motion-base) var(--bgf-ease-standard), border-color var(--bgf-motion-base) var(--bgf-ease-standard); }
+.markt-root [class^="cardf-"]:hover, .markt-root [class^="cardf-"]:focus-visible { text-decoration: none; transform: translateY(-3px); }
+@media (prefers-reduced-motion: reduce) { .markt-root [class^="cardf-"]:hover { transform: none; } }
+.markt-root [class^="cardf-"] img { width: 100%; object-fit: cover; display: block; }
+.markt-root .cardf-body { padding: var(--bgf-space-4); display: grid; gap: 6px; }
+.markt-root .cardf-price { color: var(--mc-gold); font-weight: 700; }
+.markt-root .cardf-label { font-size: var(--mc-fs-caption); letter-spacing: 0.14em; text-transform: uppercase; color: var(--mc-text-muted); }
+/* family 1 — public property: tall image, thin line */
+.markt-root .cardf-property { grid-column: span 4; border: 1px solid var(--mc-line); }
+.markt-root .cardf-property img { height: 210px; }
+/* family 2 — public project: wide image, gold top edge */
+.markt-root .cardf-project { grid-column: span 6; border: 1px solid var(--mc-line); border-top: 3px solid var(--mc-gold); }
+.markt-root .cardf-project img { height: 250px; }
+/* family 3 — bank property: double frame */
+.markt-root .cardf-bank { grid-column: span 4; border: 1px double var(--mc-gold-border-hv); outline: 1px solid var(--mc-line); outline-offset: 3px; }
+.markt-root .cardf-bank img { height: 180px; }
+/* family 4 — instalment: price row leads, gold left edge */
+.markt-root .cardf-raten { grid-column: span 4; border: 1px solid var(--mc-line); border-left: 3px solid var(--mc-gold); }
+.markt-root .cardf-raten img { height: 180px; }
+/* family 5 — off-market access category: no image, frame only */
+.markt-root .cardf-offmarket { grid-column: span 4; border: 1px solid var(--mc-gold-border); background: var(--mc-surface-1); justify-content: center; min-height: 180px; }
+/* family 6 — suchauftrag entry: dashed frame */
+.markt-root .cardf-suchauftrag { grid-column: span 4; border: 1px dashed var(--mc-gold-border-hv); background: transparent; justify-content: center; min-height: 180px; }
+
+/* ---------- S4 · Bulgaria map (Motion 4: region selection) ---------- */
+.markt-root .wow-map-wrap { display: grid; grid-template-columns: minmax(0,7fr) minmax(0,5fr); gap: var(--bgf-grid-gutter); align-items: start; }
+.markt-root .wow-map svg { width: 100%; height: auto; display: block; }
+.markt-root .wow-map .region { fill: var(--mc-surface-3); stroke: var(--mc-line-strong); cursor: pointer; transition: fill var(--bgf-motion-base) var(--bgf-ease-standard); }
+.markt-root .wow-map .region:hover, .markt-root .wow-map .region:focus-visible, .markt-root .wow-map .region[aria-pressed="true"] { fill: var(--mc-gold-dim); stroke: var(--mc-gold); outline: none; }
+.markt-root .wow-map-panel { border: 1px solid var(--mc-line); border-radius: var(--bgf-radius-3); padding: var(--bgf-space-5); background: var(--mc-surface-1); min-height: 180px; }
+.markt-root .wow-region-tiles { display: none; }
+@media (max-width: 780px) {
+  .markt-root .wow-map-wrap { display: none; }
+  .markt-root .wow-region-tiles { display: grid; gap: var(--bgf-space-3); }
+  .markt-root .wow-region-tiles button { text-align: left; padding: var(--bgf-space-4); background: var(--mc-surface-2); border: 1px solid var(--mc-line); border-radius: var(--bgf-radius-2); color: var(--mc-text); font-family: var(--mc-font-body); }
+  .markt-root .wow-strip-inner { grid-template-columns: 1fr; }
+  .markt-root .wow-strip a { border-inline-start: 0; border-top: 1px solid var(--mc-line); }
+  .markt-root .wow-cardgrid > [class^="cardf-"] { grid-column: 1 / -1 !important; }
+  .markt-root .wow-process { flex-direction: column; }
+  .markt-root .wow-authority { grid-template-columns: 1fr !important; }
+}
+
+/* ---------- S6 · acquisition process band (Motion 5: progression) ---------- */
+.markt-root .wow-process { display: flex; gap: var(--bgf-space-4); counter-reset: st; }
+.markt-root .wow-step { flex: 1; border-top: 2px solid var(--mc-line); padding-top: var(--bgf-space-3); transition: border-color 400ms var(--bgf-ease-standard); }
+.markt-root .wow-step::before { counter-increment: st; content: counter(st, decimal-leading-zero); display: block; color: var(--mc-text-faint); font-size: var(--mc-fs-caption); margin-bottom: 4px; }
+.markt-root .wow-step.is-active { border-top-color: var(--mc-gold); }
+.markt-root .wow-step.is-active::before { color: var(--mc-gold); }
+
+/* ---------- S7 · authority ---------- */
+.markt-root .wow-authority { display: grid; grid-template-columns: minmax(0,4fr) minmax(0,8fr); gap: var(--bgf-grid-gutter); align-items: center; }
+.markt-root .wow-authority img { width: 100%; border-radius: var(--bgf-radius-3); border: 1px solid var(--mc-line); }
+
+/* ---------- S9 · investor check (Motion 6: transition, once) ---------- */
+.markt-root .wow-invcheck { background: linear-gradient(180deg, var(--mc-surface-1), var(--mc-bg)); border-block: 1px solid var(--mc-gold-line); }
+@media (prefers-reduced-motion: no-preference) {
+  .markt-root .wow-io { opacity: 0; transform: translateY(14px); transition: opacity 500ms var(--bgf-ease-out), transform 500ms var(--bgf-ease-out); }
+  .markt-root .wow-io.is-in { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .markt-root .wow-io { opacity: 1; transform: none; } }
+
+/* nav disclosure */
+.markt-root .mc-nav details { position: relative; }
+.markt-root .mc-nav summary { cursor: pointer; list-style: none; color: var(--mc-text); }
+.markt-root .mc-nav summary::-webkit-details-marker { display: none; }
+.markt-root .mc-nav details[open] > .wow-disclosure { display: grid; }
+.markt-root .wow-disclosure { display: none; position: absolute; top: 100%; right: 0; z-index: var(--bgf-z-overlay);
+  background: var(--mc-glass-bg); backdrop-filter: var(--mc-glass-blur); border: 1px solid var(--mc-line-strong);
+  border-radius: var(--bgf-radius-3); padding: var(--bgf-space-4); min-width: 240px; gap: 4px; }
+.markt-root .wow-disclosure a { padding: 8px 10px; border-radius: var(--bgf-radius-1); color: var(--mc-text); }
+.markt-root .wow-disclosure a:hover { background: var(--mc-gold-dim); text-decoration: none; }
+@media (max-width: 780px) {
+  .markt-root .wow-disclosure { position: static; border: 0; background: transparent; }
+}

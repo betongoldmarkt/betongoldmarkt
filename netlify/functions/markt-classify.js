@@ -29,6 +29,86 @@
  *   OPENAI_API_KEY    — GPT-4o-mini classification (falls back to rule-based if absent)
  */
 
+/* ==== BG-FETCH-TIMEOUT-P0-004 ====================================================
+ * Shared server-side outbound-call policy for every DIETRICH OS Netlify Function.
+ * Canonical source: PATCH/fetch-with-timeout.js — embedded byte-identically into
+ * each Function so there is no bundler resolution risk at deploy time.
+ *
+ * POLICY (one policy, documented once, applied to all six outbound calls)
+ *   - Every outbound fetch is bounded by an AbortController deadline.
+ *   - Netlify synchronous Functions have a ~10 s wall clock. The budgets below
+ *     are chosen so the worst-case sequential path stays inside it:
+ *       markt-classify:  OpenAI 4 s  ->  Make 5 s   = 9 s worst case
+ *       investor-lead:   Telegram 4 s || webhook 5 s (parallel) = 5 s worst case
+ *       submission-created: same as investor-lead
+ *   - NO automatic retry. A retry could deliver the same lead twice, and a
+ *     duplicate lead is worse than a late one.
+ *   - A timeout is a controlled classification, never a thrown raw error.
+ *   - Nothing returned by this helper contains a URL, a token, a header, or an
+ *     upstream response body.
+ * ============================================================================= */
+
+var BG_TIMEOUT_MS = {
+  telegram: 4000,
+  lead_webhook: 5000,
+  make_webhook: 5000,
+  openai: 4000
+};
+
+/**
+ * Perform one bounded outbound request. Never throws, never retries.
+ * @returns {Promise<{ok:boolean, status:number|null, timedOut:boolean,
+ *                     errorCategory:string|null, durationMs:number, res:Response|null}>}
+ *          errorCategory is one of: null | "timeout" | "network" | "http_error"
+ *          It is a CATEGORY, never an upstream message, URL or body.
+ */
+async function bgFetch(url, options, budgetMs) {
+  var controller = new AbortController();
+  var started = Date.now();
+  var timer = setTimeout(function () { controller.abort(); }, budgetMs);
+  try {
+    var res = await fetch(url, Object.assign({}, options || {}, { signal: controller.signal }));
+    clearTimeout(timer);
+    return {
+      ok: res.ok === true,
+      status: res.status,
+      timedOut: false,
+      errorCategory: res.ok === true ? null : "http_error",
+      durationMs: Date.now() - started,
+      res: res
+    };
+  } catch (err) {
+    clearTimeout(timer);
+    var aborted = !!(err && (err.name === "AbortError" || controller.signal.aborted));
+    return {
+      ok: false,
+      status: null,
+      timedOut: aborted,
+      errorCategory: aborted ? "timeout" : "network",
+      durationMs: Date.now() - started,
+      res: null
+    };
+  }
+}
+
+/** HTTP status class ("2xx", "4xx", "none") for safe operational logging. */
+function bgStatusClass(status) {
+  if (status === null || status === undefined) return "none";
+  return String(Math.floor(status / 100)) + "xx";
+}
+
+/** Non-guessable correlation id for log lines. Contains no request data. */
+function bgCorrelationId() {
+  try {
+    return require("crypto").randomBytes(8).toString("hex");
+  } catch (e) {
+    return "nocid";
+  }
+}
+/* ==== BG-FETCH-TIMEOUT-P0-004 END ============================================ */
+
+
+
 // Webhook URL pulled from env so it never lives in source.
 // Set MAKE_WEBHOOK_URL in Netlify → Site settings → Environment variables.
 const MAKE_WEBHOOK = process.env.MAKE_WEBHOOK_URL || '';
@@ -72,6 +152,25 @@ const FIELD_LIMITS = {
   page_url:     300,
   nachricht:    500,
   created_at:   30,
+  // ── P0-002: canonical 15-field attribution contract ──────────────────────
+  // Additive. Existing Markt-only fields (content_id, cluster_id,
+  // first_touch_*) still pass through sanitizePayload untouched.
+  cid:          120,
+  content_id:   120,
+  campaign:     120,
+  cluster:      120,
+  cluster_id:   120,
+  lang:          16,
+  landing_page: 300,
+  referrer:     300,
+  utm_source:   120,
+  utm_medium:   120,
+  utm_campaign: 120,
+  utm_content:  120,
+  utm_term:     120,
+  first_touch_url:        300,
+  first_touch_content_id: 120,
+  first_touch_cluster_id: 120,
 };
 
 /**
@@ -124,6 +223,17 @@ function sanitizePayload(raw) {
   return safe;
 }
 
+// ── P0-002: server-side required-field validation ──────────────────────────
+// Runs on the server, cannot be bypassed from the client, and is not
+// conditional on any client-supplied flag.
+function missingRequired(safe) {
+  const missing = [];
+  if (!String(safe.name || '').trim()) missing.push('name');
+  const email = String(safe.email || '').trim();
+  if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) missing.push('email');
+  return missing;
+}
+
 exports.handler = async function (event) {
   // CORS preflight
   if (event.httpMethod === 'OPTIONS') {
@@ -136,7 +246,7 @@ exports.handler = async function (event) {
 
   // Reject oversized payloads before parse (IC-003)
   if ((event.body || '').length > MAX_PAYLOAD_BYTES) {
-    console.warn('[markt-classify] Payload too large:', (event.body || '').length, 'bytes');
+    console.log(JSON.stringify({ fn: 'markt-classify', error_category: 'payload_too_large', bytes: (event.body || '').length }));
     return cors(413, JSON.stringify({ error: 'Payload too large' }));
   }
 
@@ -148,7 +258,16 @@ exports.handler = async function (event) {
   }
 
   // Sanitize all fields — prevents prompt injection and oversized strings
+  const cid = bgCorrelationId();
   const payload = sanitizePayload(raw);
+
+  // ── P0-002: server-side required-field validation, before any spend ──
+  const missing = missingRequired(payload);
+  if (missing.length) {
+    return cors(422, JSON.stringify({
+      ok: false, delivered: false, error: 'missing_required_fields', fields: missing,
+    }));
+  }
 
   // ── Classify ──────────────────────────────────────────────────────
   const classification = await classify(payload);
@@ -163,43 +282,55 @@ exports.handler = async function (event) {
   };
 
   // ── Forward to Make.com ───────────────────────────────────────────
+  // P0-002: the response must state what actually happened. `delivered` is
+  // true only when Make confirmed receipt.
+  let delivered  = false;
+  let configured = Boolean(MAKE_WEBHOOK);
+
   if (!MAKE_WEBHOOK) {
-    console.error('[markt-classify] MAKE_WEBHOOK_URL env var not set — lead NOT forwarded');
+    console.log(JSON.stringify({ fn: 'markt-classify', cid, sink: 'make_webhook', delivered: false, error_category: 'not_configured' }));
   } else {
-    try {
-      const makeRes = await fetch(MAKE_WEBHOOK, {
-        method:    'POST',
-        headers:   { 'Content-Type': 'application/json' },
-        body:      JSON.stringify(enriched),
-        keepalive: true,
-      });
-      if (!makeRes.ok) {
-        const makeBody = await makeRes.text();
-        console.error('[markt-classify] Make rejected — status:', makeRes.status, '— body:', makeBody.slice(0, 300));
-      } else {
-        console.log('[markt-classify] Make accepted — status:', makeRes.status);
-      }
-    } catch (e) {
-      console.error('[markt-classify] Make.com forward error:', e.message);
-      // Non-fatal: classification still succeeded
-    }
+    // P0-004 GATE-FN-02: bounded outbound call, exactly one attempt, no retry.
+    const out = await bgFetch(MAKE_WEBHOOK, {
+      method:    'POST',
+      headers:   { 'Content-Type': 'application/json' },
+      body:      JSON.stringify(enriched),
+      keepalive: true,
+    }, BG_TIMEOUT_MS.make_webhook);
+    delivered = out.ok;
+    // P0-004 GATE-FN-03: status CLASS and duration only. The upstream response
+    // body is never read into a log, and the webhook URL is never printed.
+    console.log(JSON.stringify({
+      fn: 'markt-classify', cid, sink: 'make_webhook', delivered,
+      status_class: bgStatusClass(out.status),
+      error_category: out.errorCategory, duration_ms: out.durationMs,
+    }));
   }
 
-  return cors(200, JSON.stringify({ ok: true, level: classification.level }));
+  if (!delivered && !configured) {
+    return cors(503, JSON.stringify({ ok: false, delivered: false, error: 'not_configured', level: classification.level }));
+  }
+  if (!delivered) {
+    return cors(502, JSON.stringify({ ok: false, delivered: false, error: 'upstream_unavailable', level: classification.level }));
+  }
+
+  return cors(200, JSON.stringify({ ok: true, delivered: true, level: classification.level }));
 };
 
 // ── OpenAI classification (GPT-4o-mini) ──────────────────────────────
 async function classify(data) {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
-    console.warn('[markt-classify] No OPENAI_API_KEY — using rule-based fallback');
+    console.log(JSON.stringify({ fn: 'markt-classify', sink: 'openai', classified_by: 'rule_fallback', error_category: 'not_configured' }));
     return ruleBasedClassify(data);
   }
 
   const prompt = buildPrompt(data);
 
   try {
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+    // P0-004 GATE-FN-02: bounded outbound call. On timeout the rule-based
+    // fallback runs, so classification degrades but delivery is unaffected.
+    const out = await bgFetch('https://api.openai.com/v1/chat/completions', {
       method:  'POST',
       headers: {
         'Content-Type':  'application/json',
@@ -217,13 +348,19 @@ async function classify(data) {
           { role: 'user', content: prompt },
         ],
       }),
-    });
+    }, BG_TIMEOUT_MS.openai);
 
-    if (!res.ok) {
-      throw new Error(`OpenAI HTTP ${res.status}`);
+    if (!out.res || !out.ok) {
+      // Timeout, network error or non-2xx — degrade to the rule-based path.
+      console.log(JSON.stringify({
+        fn: 'markt-classify', sink: 'openai', classified_by: 'rule_fallback',
+        status_class: bgStatusClass(out.status), error_category: out.errorCategory,
+        duration_ms: out.durationMs,
+      }));
+      return ruleBasedClassify(data);
     }
 
-    const json    = await res.json();
+    const json    = await out.res.json();
     const content = json.choices?.[0]?.message?.content?.trim() || '';
     const parsed  = JSON.parse(content);
 
@@ -239,7 +376,12 @@ async function classify(data) {
       next_step: sanitizeNextStep(parsed.next_step),
     };
   } catch (e) {
-    console.error('[markt-classify] OpenAI error:', e.message, '— falling back to rules');
+    // P0-004 GATE-FN-03: error CATEGORY only — never the message, which can
+    // echo prompt content or endpoint detail.
+    console.log(JSON.stringify({
+      fn: 'markt-classify', sink: 'openai', classified_by: 'rule_fallback',
+      error_category: 'parse_or_shape_error',
+    }));
     return ruleBasedClassify(data);
   }
 }

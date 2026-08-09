@@ -125,3 +125,20 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:14px 0}
 .menu a.nav-cta{background:var(--gold);color:#000;font-weight:700;padding:5px 12px;border-radius:8px;font-size:13px;}
 .menu a.nav-cta:hover{background:#c9a227;}
 
+
+
+/* ══════════════════════════════════════════════════════════════
+   MARKT MOBILE CONTAINMENT — TASK 017
+   Scope: System B header nav (.header > .container.nav) plus the
+   .mc-contain utility class. Corrects page-level horizontal
+   overflow at <=834px caused by non-wrapping inline flex rows.
+   No global flex/grid override. No overflow-x on html/body.
+   No content clipping. No font-size reduction.
+   Desktop (1440px) rendering is unchanged: the wrap engages only
+   when a row no longer fits, and min-height restores the 58px bar
+   height on pages that load tokens.css (var undefined elsewhere).
+   Rollback: delete this block.
+══════════════════════════════════════════════════════════════ */
+.header .container.nav{flex-wrap:wrap;height:auto;min-height:var(--mc-nav-height)}
+.header .container.nav>.menu{flex-wrap:wrap}
+.mc-contain{max-width:100%}

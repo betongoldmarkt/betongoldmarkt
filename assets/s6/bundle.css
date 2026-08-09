@@ -1,0 +1,332 @@
+/* ============================================================
+ * SHARED FOUNDATION — DUAL-SITE-ISOLATED-BUILD-006 · S4
+ * Brand-neutral scales only. NO brand color, NO brand font.
+ * Scope: :where(.markt-root, .kapital-root) — never :root, so the
+ * foundation cannot collide with live page CSS (--bg/--gold/--p1-*…)
+ * and cannot leak across brands. This file is DUPLICATED into each
+ * bundle at build time (no shared runtime file).
+ * Prefix: --bgf- (Beton Gold Foundation).
+ * ============================================================ */
+:where(.markt-root, .kapital-root) {
+  /* --- containers & grid --- */
+  --bgf-container-max:   1200px;
+  --bgf-container-wide:  1400px;
+  --bgf-container-text:  760px;
+  --bgf-grid-columns:    12;
+  --bgf-grid-gutter:     24px;          /* spec: 12-col grid, 24px gutter */
+  --bgf-grid-margin:     24px;
+  --bgf-grid-margin-sm:  16px;
+
+  /* --- spacing scale (4px base) --- */
+  --bgf-space-0:  0;
+  --bgf-space-1:  4px;
+  --bgf-space-2:  8px;
+  --bgf-space-3:  12px;
+  --bgf-space-4:  16px;
+  --bgf-space-5:  24px;
+  --bgf-space-6:  32px;
+  --bgf-space-7:  48px;
+  --bgf-space-8:  64px;
+  --bgf-space-9:  96px;
+  --bgf-space-10: 128px;
+  --bgf-section-y:      var(--bgf-space-9);
+  --bgf-section-y-sm:   var(--bgf-space-7);
+
+  /* --- radii --- */
+  --bgf-radius-0:  0;
+  --bgf-radius-1:  2px;
+  --bgf-radius-2:  4px;
+  --bgf-radius-3:  8px;
+  --bgf-radius-4:  12px;
+  --bgf-radius-pill: 999px;
+
+  /* --- elevation / shadows (neutral, tinted per brand via color-mix in bundles) --- */
+  --bgf-shadow-1: 0 1px 2px rgba(0,0,0,0.35);
+  --bgf-shadow-2: 0 4px 12px rgba(0,0,0,0.35);
+  --bgf-shadow-3: 0 12px 32px rgba(0,0,0,0.45);
+
+  /* --- opacity steps --- */
+  --bgf-opacity-disabled-none: 1;   /* spec finding 3: NO disabled state is introduced */
+  --bgf-opacity-muted:   0.55;
+  --bgf-opacity-faint:   0.30;
+  --bgf-opacity-overlay: 0.80;
+  --bgf-opacity-glass:   0.88;
+
+  /* --- z-index ladder --- */
+  --bgf-z-base:     0;
+  --bgf-z-raised:   10;
+  --bgf-z-sticky:   100;
+  --bgf-z-header:   200;
+  --bgf-z-overlay:  300;
+  --bgf-z-modal:    400;
+  --bgf-z-toast:    500;
+
+  /* --- breakpoints (documentation values; used in media queries verbatim) --- */
+  --bgf-bp-sm:  480px;
+  --bgf-bp-md:  780px;   /* spec: map module switches at 780px */
+  --bgf-bp-lg:  1024px;
+  --bgf-bp-xl:  1280px;
+
+  /* --- motion --- */
+  --bgf-motion-fast:     120ms;
+  --bgf-motion-base:     200ms;
+  --bgf-motion-slow:     320ms;
+  --bgf-motion-hairline: 700ms;  /* single approved wordmark hairline draw */
+  --bgf-ease-standard:   cubic-bezier(0.2, 0, 0, 1);
+  --bgf-ease-out:        cubic-bezier(0, 0, 0.2, 1);
+  --bgf-ease-in-out:     cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- focus (visible, non-color-dependent) --- */
+  --bgf-focus-width:  2px;
+  --bgf-focus-offset: 2px;
+  --bgf-focus-style:  solid;
+}
+/* ============================================================
+ * MARKT TOKENS — betongoldmarkt.de · DUAL-SITE-ISOLATED-BUILD-006 · S4
+ * Values carried from the design-system tokens.css (Batch 5.1) —
+ * rescoped from :root to .markt-root (collision-proof vs live
+ * --bg/--gold/--p1-* page CSS and vs the Kapital bundle).
+ * Separation gate: contains neither the Kapital gold hex nor the Kapital display serif.
+ * ============================================================ */
+.markt-root {
+  /* --- backgrounds --- */
+  --mc-bg:              #09090b;
+  --mc-surface-1:       #0f0f12;
+  --mc-surface-2:       #141418;
+  --mc-surface-3:       #1a1a1f;
+  --mc-glass-bg:        rgba(9,9,11,0.88);
+  --mc-glass-blur:      blur(16px);
+  --mc-overlay:         rgba(9,9,11,0.80);
+
+  /* --- foregrounds --- */
+  --mc-text:            #f0ede6;
+  /* DEFECT RESOLUTION (spec finding 1, REVIEW C9):
+     --mc-text-secondary is read by .mc-lead in the design bundle but was
+     defined nowhere. Defined HERE, isolated-bundle only. The live Markt
+     source does not use the variable and stays untouched. */
+  --mc-text-secondary:  rgba(240,237,230,0.80);
+  --mc-text-muted:      rgba(240,237,230,0.55);
+  --mc-text-faint:      rgba(240,237,230,0.30);
+
+  /* --- borders / lines --- */
+  --mc-line:            rgba(255,255,255,0.07);
+  --mc-line-strong:     rgba(255,255,255,0.12);
+  --mc-gold-border:     rgba(201,168,76,0.25);
+  --mc-gold-border-hv:  rgba(201,168,76,0.55);
+  --mc-gold-line:       rgba(201,168,76,0.18);
+
+  /* --- accent (Markt gold — NEVER the Kapital gold) --- */
+  --mc-gold:            #C9A84C;
+  --mc-gold-bright:     #D9BB6A;
+  --mc-gold-dim:        rgba(201,168,76,0.10);
+  --mc-gold-glow:       rgba(201,168,76,0.15);
+
+  /* --- states --- */
+  --mc-success:         #10b981;
+  --mc-info:            #3b82f6;
+  --mc-warning:         #f59e0b;
+  --mc-danger:          #ef4444;
+  --mc-state-hover-bg:  rgba(255,255,255,0.04);
+  --mc-state-active-bg: rgba(255,255,255,0.07);
+  /* no disabled state by design (spec finding 3) */
+
+  /* --- typography (Inter primary per Founder instruction; see
+         FONT-POLICY.md for the Georgia discrepancy note) --- */
+  --mc-font-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+                     Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mc-font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+                     Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mc-font-mono:    "SF Mono", "Fira Code", "Consolas", monospace;
+  --mc-fs-display:   clamp(2.2rem, 5vw, 3.4rem);
+  --mc-fs-h1:        clamp(1.9rem, 4vw, 2.6rem);
+  --mc-fs-h2:        clamp(1.4rem, 3vw, 1.9rem);
+  --mc-fs-h3:        1.15rem;
+  --mc-fs-lead:      1.125rem;
+  --mc-fs-body:      1rem;
+  --mc-fs-small:     0.875rem;
+  --mc-fs-caption:   0.75rem;
+  --mc-lh-tight:     1.15;
+  --mc-lh-base:      1.55;
+  --mc-lh-loose:     1.7;
+  --mc-ls-caps:      0.08em;
+
+  /* --- focus --- */
+  --mc-focus-ring:   var(--bgf-focus-width) var(--bgf-focus-style) var(--mc-gold-bright);
+}
+/* SHARED TYPOGRAPHY FOUNDATION — brand-neutral rules only (S4).
+ * Font families come from the brand token files; this file sets
+ * structure: scale application, measure, rhythm, caps treatment. */
+:where(.markt-root, .kapital-root) {
+  --bgf-measure-text: 70ch;
+  --bgf-measure-lead: 58ch;
+}
+:where(.markt-root, .kapital-root) body,
+:where(.markt-root, .kapital-root) {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+:where(.markt-root, .kapital-root) h1,
+:where(.markt-root, .kapital-root) h2,
+:where(.markt-root, .kapital-root) h3 {
+  margin: 0 0 var(--bgf-space-4);
+  font-weight: 600;
+}
+:where(.markt-root, .kapital-root) p {
+  margin: 0 0 var(--bgf-space-4);
+  max-width: var(--bgf-measure-text);
+}
+:where(.markt-root, .kapital-root) .bgf-caps {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+/* Lead paragraph hook — the Markt bundle maps .mc-lead onto
+ * var(--mc-text-secondary) (defect resolution target class). */
+/* SHARED SPACING FOUNDATION (S4) — utilities on the --bgf- scale only. */
+:where(.markt-root, .kapital-root) .bgf-container {
+  max-width: var(--bgf-container-max);
+  margin-inline: auto;
+  padding-inline: var(--bgf-grid-margin);
+}
+:where(.markt-root, .kapital-root) .bgf-container-text {
+  max-width: var(--bgf-container-text);
+  margin-inline: auto;
+  padding-inline: var(--bgf-grid-margin);
+}
+:where(.markt-root, .kapital-root) .bgf-section {
+  padding-block: var(--bgf-section-y);
+}
+:where(.markt-root, .kapital-root) .bgf-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--bgf-grid-columns), minmax(0, 1fr));
+  gap: var(--bgf-grid-gutter);
+}
+/* spec finding 6: empty grid cells must not read as content —
+ * borders live on the CELL, never a colored wrapper background. */
+:where(.markt-root, .kapital-root) .bgf-grid > * { background: transparent; }
+:where(.markt-root, .kapital-root) .bgf-cell-frame {
+  border: 1px solid var(--mc-line, var(--kap-line));
+}
+@media (max-width: 780px) {
+  :where(.markt-root, .kapital-root) .bgf-section { padding-block: var(--bgf-section-y-sm); }
+  :where(.markt-root, .kapital-root) .bgf-container,
+  :where(.markt-root, .kapital-root) .bgf-container-text { padding-inline: var(--bgf-grid-margin-sm); }
+}
+
+/* S6 mobile collapse fix: below the md breakpoint every grid cell spans full
+ * width (inline span utilities collapse), and long headings wrap safely. */
+@media (max-width: 780px) {
+  :where(.markt-root, .kapital-root) .bgf-grid { grid-template-columns: 1fr !important; }
+  :where(.markt-root, .kapital-root) .bgf-grid > * { grid-column: 1 / -1 !important; }
+}
+:where(.markt-root, .kapital-root) h1,
+:where(.markt-root, .kapital-root) h2 { overflow-wrap: break-word; }
+/* SHARED MOTION FOUNDATION (S4).
+ * Motion policy (spec): exactly ONE brand animation — the hairline under
+ * the wordmark draws once in 700ms on first load. No loops, no letter
+ * build, no preloader, no autoplay audio, no animation on legal pages,
+ * no hover scale on image bands (Unsplash-band hover is REMOVED). */
+:where(.markt-root, .kapital-root) .bgf-transition {
+  transition-duration: var(--bgf-motion-base);
+  transition-timing-function: var(--bgf-ease-standard);
+}
+:where(.markt-root, .kapital-root) .bgf-hairline-draw {
+  transform-origin: left center;
+  animation: bgf-hairline var(--bgf-motion-hairline) var(--bgf-ease-out) 1 both;
+}
+@keyframes bgf-hairline {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+/* Legal pages: motion off */
+:where(.markt-root, .kapital-root) .bgf-legal .bgf-hairline-draw { animation: none; transform: none; }
+/* Reduced motion: line stands immediately, all transitions collapse */
+@media (prefers-reduced-motion: reduce) {
+  :where(.markt-root, .kapital-root) * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  :where(.markt-root, .kapital-root) .bgf-hairline-draw { animation: none; transform: none; }
+}
+/* SHARED ACCESSIBILITY FOUNDATION (S4). */
+:where(.markt-root, .kapital-root) :focus-visible {
+  outline: var(--mc-focus-ring, var(--kap-focus-ring));
+  outline-offset: var(--bgf-focus-offset);
+}
+:where(.markt-root, .kapital-root) .bgf-skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: var(--bgf-z-toast);
+}
+:where(.markt-root, .kapital-root) .bgf-skip-link:focus {
+  left: var(--bgf-space-4);
+  top: var(--bgf-space-4);
+  padding: var(--bgf-space-2) var(--bgf-space-4);
+}
+/* Form status region: present in DOM at load, polite announcements
+ * (spec sheet: aria-live="polite", no focus theft). Styling hook only —
+ * form markup itself is carried byte-identically from source. */
+:where(.markt-root, .kapital-root) .bgf-form-status[aria-live="polite"] {
+  min-height: 1.5em;
+}
+:where(.markt-root, .kapital-root) .bgf-visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+/* No :disabled styles by design (spec finding 3) — none defined anywhere. */
+/* BASE — markt bundle (S5). Applied under .markt-root only. */
+.markt-root {
+  background: var(--mc-bg);
+  color: var(--mc-text);
+  font-family: var(--mc-font-body);
+  font-size: var(--mc-fs-body);
+  line-height: var(--mc-lh-base);
+  margin: 0;
+}
+.markt-root *, .markt-root *::before, .markt-root *::after { box-sizing: border-box; }
+.markt-root a { color: var(--mc-gold); text-decoration: none; }
+.markt-root a:hover { color: var(--mc-gold-bright); text-decoration: underline; }
+.markt-root img { max-width: 100%; height: auto; display: block; }
+.markt-root hr { border: 0; border-top: 1px solid var(--mc-line); }
+/* LAYOUT FOUNDATION — Markt (S5). Image-led surfaces. */
+.markt-root .mc-surface { background: var(--mc-surface-1); border: 1px solid var(--mc-line); border-radius: var(--bgf-radius-3); }
+.markt-root .mc-card { background: var(--mc-surface-2); border: 1px solid var(--mc-line); border-radius: var(--bgf-radius-3); padding: var(--bgf-space-5); }
+.markt-root .mc-card:hover { border-color: var(--mc-gold-border-hv); background: var(--mc-state-hover-bg); }
+.markt-root .mc-lead { color: var(--mc-text-secondary); font-size: var(--mc-fs-lead); line-height: var(--mc-lh-loose); }
+.markt-root .mc-divider { height: 1px; background: var(--mc-gold-line); border: 0; }
+/* NAVIGATION FOUNDATION — Markt (S5): header bar, 5 positions (spec).
+ * Layout only. NO route targets here — navigation wiring is S6 and is
+ * blocked by the route-decision packet. */
+.markt-root .mc-header {
+  position: sticky; top: 0; z-index: var(--bgf-z-header);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--bgf-space-5);
+  padding: var(--bgf-space-4) var(--bgf-grid-margin);
+  background: var(--mc-glass-bg); backdrop-filter: var(--mc-glass-blur);
+  border-bottom: 1px solid var(--mc-line);
+}
+.markt-root .mc-wordmark { color: var(--mc-gold); font-family: var(--mc-font-display); font-weight: 700; }
+.markt-root .mc-wordmark .mc-strap { display: block; font-size: calc(1em / 3); color: var(--mc-text-muted); }
+.markt-root .mc-nav { display: flex; gap: var(--bgf-space-5); }
+.markt-root .mc-nav > * { max-width: max-content; }        /* 5 positions by content, not hardcoded */
+.markt-root .mc-nav-toggle { display: none; }
+@media (max-width: 780px) {
+  .markt-root .mc-nav { display: none; }
+  .markt-root .mc-nav[data-open="true"] { display: grid; position: fixed; inset: 0; background: var(--mc-overlay); place-content: center; gap: var(--bgf-space-5); }
+  .markt-root .mc-nav-toggle { display: inline-flex; }
+}
+/* TYPOGRAPHY FOUNDATION — markt bundle (S5): applies brand scale. */
+.markt-root h1 { font-family: var(--mc-font-display); font-size: var(--mc-fs-h1); line-height: var(--mc-lh-tight); }
+.markt-root h2 { font-family: var(--mc-font-display); font-size: var(--mc-fs-h2); line-height: var(--mc-lh-tight); }
+.markt-root h3 { font-size: var(--mc-fs-h3); }
+.markt-root small, .markt-root .mc-small { font-size: var(--mc-fs-small); color: var(--mc-text-muted); }
+.markt-root .mc-caption { font-size: var(--mc-fs-caption); color: var(--mc-text-faint); letter-spacing: var(--bgf-focus-offset, 0.04em); }
+/* MOTION FOUNDATION — markt bundle (S5): binds shared motion policy. */
+.markt-root .mc-hairline { background: var(--mc-gold); height: 1px; }
+.markt-root .mc-hairline--draw { composes: none; } /* apply .bgf-hairline-draw in markup */
+/* ACCESSIBILITY FOUNDATION — markt bundle (S5): brand focus binding. */
+.markt-root :focus-visible { outline-color: var(--mc-gold-bright); }

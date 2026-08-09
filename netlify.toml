@@ -1,4 +1,8 @@
 [build]
+  # P0-002: the repository root is no longer the publish directory.
+  # tools/build-public.sh copies only allowlisted files into _public.
+  command = "bash tools/build-public.sh"
+  publish = "_public"
   functions = "netlify/functions"
 
 [functions]
@@ -21,8 +25,12 @@
 [[headers]]
   for = "/assets/*"
   [headers.values]
-    # Immutable assets — hash-named; safe to cache for 1 year
-    Cache-Control = "public, max-age=31536000, immutable"
+    # F-03 (Fable audit 001): assets under /assets/* are NOT content-hashed
+    # (e.g. /assets/markt.js, /assets/lead-capture.js are referenced by stable name).
+    # A one-year immutable cache would strand mutable JS in returning browsers and
+    # would block any future rotation of the lead-transport configuration.
+    # Bounded daily cache with mandatory revalidation instead.
+    Cache-Control = "public, max-age=86400, must-revalidate"
 
 # ── Netlify Function endpoints — no cache ────────────────────────────────────
 [[headers]]
