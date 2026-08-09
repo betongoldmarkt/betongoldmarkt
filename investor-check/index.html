@@ -18,8 +18,8 @@
 <link rel="stylesheet" href="/assets/markt.css"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"RealEstateAgent","@id":"https://betongoldmarkt.de/#org"},{"@type":"WebPage","@id":"https://betongoldmarkt.de/investor-check/","url":"https://betongoldmarkt.de/investor-check/","name":"Investor Check – Zugang zu geprüften Immobilien | BGM","isPartOf":{"@id":"https://betongoldmarkt.de/#website"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Start","item":"https://betongoldmarkt.de/"},{"@type":"ListItem","position":2,"name":"Investor Check","item":"https://betongoldmarkt.de/investor-check/"}]}]}</script>
 <style>
-#step-system{position:fixed;inset:0;z-index:1000;background:var(--bg,#0a0c10);display:flex;align-items:center;justify-content:center;padding:24px 20px;}
-.ic-step{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;max-width:520px;width:100%;animation:icFade .22s ease;}
+#step-system{position:fixed;inset:0;z-index:1000;background:var(--bg,#0a0c10);display:flex;align-items:flex-start;justify-content:center;padding:24px 20px;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
+.ic-step{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;max-width:520px;width:100%;margin:auto 0;animation:icFade .22s ease;}
 .ic-step.active{display:flex;}
 @keyframes icFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .ic-label{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold,#d6b25e);margin-bottom:10px;font-weight:700;}
@@ -41,6 +41,23 @@
 .ic-back{background:none;border:none;color:rgba(255,255,255,.3);font-size:.78rem;cursor:pointer;margin-top:14px;padding:6px 10px;transition:color .2s;}
 .ic-back:hover{color:rgba(255,255,255,.6);}
 .ic-sys{font-size:.62rem;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-top:26px;}
+/* 066C — compact variant for the 13-option WHAT step */
+.ic-opt.ic-opt-sm{padding:12px 15px;font-size:.88rem;gap:10px;}
+.ic-opt.ic-opt-sm .ic-opt-icon{width:28px;height:28px;font-size:.85rem;}
+.ic-grp{font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.26);text-align:left;margin:14px 2px 2px;font-weight:700;}
+/* 066C — optional refinement block (HOW / WHERE / free text) */
+.ic-ref{width:100%;text-align:left;margin-bottom:14px;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(255,255,255,.03);}
+.ic-ref>summary{cursor:pointer;list-style:none;padding:13px 16px;font-size:.82rem;font-weight:600;color:rgba(255,255,255,.62);}
+.ic-ref>summary::-webkit-details-marker{display:none;}
+.ic-ref>summary::after{content:'+';float:right;color:var(--gold,#d6b25e);font-weight:700;}
+.ic-ref[open]>summary::after{content:'\2212';}
+.ic-ref[open]>summary{color:var(--text,#fff);border-bottom:1px solid rgba(255,255,255,.08);}
+.ic-ref-body{display:flex;flex-direction:column;gap:10px;padding:13px 16px 16px;}
+.ic-ref-lb{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.34);font-weight:700;margin-bottom:-4px;}
+.ic-inp select,select.ic-inp{appearance:none;-webkit-appearance:none;}
+select.ic-inp option{background:#12151b;color:#fff;}
+textarea.ic-inp{resize:vertical;min-height:74px;font-family:inherit;}
+@media(max-width:400px){#step-system{padding:18px 14px;}.ic-opt.ic-opt-sm{padding:11px 13px;font-size:.85rem;}}
 </style>
 <!-- core-hex-favicons --><link rel="icon" type="image/x-icon" href="/favicon.ico"/><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/><link rel="manifest" href="/site.webmanifest"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["Organization","Corporation"],"@id":"https://betongoldkapital.de/#bg-real-assets-eood","name":"BG Real Assets EOOD","legalName":"BG Real Assets EOOD","alternateName":["БГ Риъл Асетс ЕООД","BG Real Assets"],"identifier":[{"@type":"PropertyValue","name":"UIC/EIK","value":"208893096"}],"address":{"@type":"PostalAddress","streetAddress":"5 Verila Street, Etage 2","addressLocality":"Sofia","addressRegion":"Triaditsa","postalCode":"1463","addressCountry":"BG"},"founder":{"@id":"https://betongoldkapital.de/dietrich-architekt-des-kapitals/#person"},"employee":{"@id":"https://betongoldkapital.de/dietrich-architekt-des-kapitals/#person"},"areaServed":[{"@type":"Country","name":"Bulgarien"}],"brand":[{"@id":"https://betongoldmarkt.de/#brand"},{"@id":"https://betongoldkapital.de/#brand"}],"description":"BG Real Assets EOOD ist der rechtliche und operative Betreiber der Marken Beton Gold Markt und Beton Gold Kapital. Eingetragen im Handelsregister der Republik Bulgarien, UIC/EIK 208893096, Sitz Sofia."},{"@type":"Brand","@id":"https://betongoldmarkt.de/#brand","name":"Beton Gold Markt","url":"https://betongoldmarkt.de/","logo":"https://betongoldmarkt.de/assets/logo/core-hex-gold.png","owner":{"@id":"https://betongoldkapital.de/#bg-real-assets-eood"},"description":"Beton Gold Markt ist die Transaktionsseite des Oekosystems: veroeffentlichte Immobilienangebote, Projekte, Erwerbsmodelle und die Abwicklung des Kaufs in Bulgarien fuer Kaeufer aus Deutschland, Oesterreich und der Schweiz.","slogan":"Objektzugang, Erwerb und Transaktion"}]}</script>
@@ -92,11 +109,21 @@
     <div class="ic-label">Schritt 3 von 4</div>
     <p class="ic-q">Was suchen Sie?</p>
     <div class="ic-options">
-      <button class="ic-opt" onclick="icSet('level_raw','Apartment');icSet('asset_type','Apartment');icSet('suchtyp','Apartment');icGo(4)"><span class="ic-opt-icon">▣</span><span>Apartment</span></button>
-      <button class="ic-opt" onclick="icSet('level_raw','Haus');icSet('asset_type','Haus');icSet('suchtyp','Haus');icGo(4)"><span class="ic-opt-icon">⌂</span><span>Haus</span></button>
-      <button class="ic-opt" onclick="icSet('level_raw','Investment-Paket');icSet('asset_type','Investment-Paket');icSet('suchtyp','Investment-Paket');icGo(4)"><span class="ic-opt-icon">◆</span><span>Investment-Paket</span></button>
-      <button class="ic-opt" onclick="icSet('level_raw','Objekt mit Ratenzahlung');icSet('asset_type','Objekt mit Ratenzahlung');icSet('suchtyp','Objekt mit Ratenzahlung');icGo(4)"><span class="ic-opt-icon">%</span><span>Objekt mit Ratenzahlung</span></button>
-      <button class="ic-opt" onclick="icSet('level_raw','Noch offen');icSet('asset_type','Noch offen');icSet('suchtyp','Noch offen');icGo(4)"><span class="ic-opt-icon">○</span><span>Noch offen</span></button>
+      <button class="ic-opt ic-opt-sm" onclick="icPick('Apartment')"><span class="ic-opt-icon">▣</span><span>Apartment</span></button>
+      <button class="ic-opt ic-opt-sm" onclick="icPick('Haus')"><span class="ic-opt-icon">⌂</span><span>Haus</span></button>
+      <button class="ic-opt ic-opt-sm" onclick="icPick('Projekt / Neubau')"><span class="ic-opt-icon">◱</span><span>Projekt / Neubau</span></button>
+      <button class="ic-opt ic-opt-sm" onclick="icPick('Investment-Paket')"><span class="ic-opt-icon">◆</span><span>Investment-Paket</span></button>
+      <button class="ic-opt ic-opt-sm" onclick="icPick('Objekt mit Ratenzahlung')"><span class="ic-opt-icon">%</span><span>Objekt mit Ratenzahlung</span></button>
+      <p class="ic-grp">Gewerbe · Industrie · Land</p>
+      <button class="ic-opt ic-opt-sm" onclick="icPick('Hotel')"><span class="ic-opt-icon">⌸</span><span>Hotel</span></button>
+      <button class="ic-opt ic-opt-sm" onclick="icPick('Gewerbeimmobilie')"><span class="ic-opt-icon">▤</span><span>Gewerbeimmobilie</span></button>
+      <button class="ic-opt ic-opt-sm" onclick="icPick('Industrie & Produktion')"><span class="ic-opt-icon">⚙</span><span>Industrie &amp; Produktion</span></button>
+      <button class="ic-opt ic-opt-sm" onclick="icPick('Lager & Logistik')"><span class="ic-opt-icon">▦</span><span>Lager &amp; Logistik</span></button>
+      <button class="ic-opt ic-opt-sm" onclick="icPick('Grundstück')"><span class="ic-opt-icon">▱</span><span>Grundstück</span></button>
+      <button class="ic-opt ic-opt-sm" onclick="icPick('Standort & Relocation')"><span class="ic-opt-icon">➔</span><span>Standort &amp; Relocation</span></button>
+      <button class="ic-opt ic-opt-sm" onclick="icPick('Bankimmobilie')"><span class="ic-opt-icon">▥</span><span>Bankimmobilie</span></button>
+      <p class="ic-grp">Noch unklar</p>
+      <button class="ic-opt ic-opt-sm" onclick="icPick('Noch offen')"><span class="ic-opt-icon">○</span><span>Noch offen</span></button>
     </div>
     <button class="ic-back" onclick="icGo(2)">← Zurück</button>
   </div>
@@ -106,6 +133,36 @@
     <div class="ic-prog"><div class="ic-prog-d done"></div><div class="ic-prog-d done"></div><div class="ic-prog-d done"></div><div class="ic-prog-d active"></div></div>
     <div class="ic-label">Schritt 4 von 4</div>
     <p class="ic-q">Wohin senden wir Ihre Auswahl?</p>
+    <details class="ic-ref" id="ic-ref">
+      <summary>Suche verfeinern <span style="opacity:.55;font-weight:400">(optional)</span></summary>
+      <div class="ic-ref-body">
+        <p class="ic-ref-lb">Zugangsart</p>
+        <select class="ic-inp" id="ic-access-ui" aria-label="Zugangsart">
+        <option value="Noch offen">Noch offen</option>
+        <option value="Öffentlicher Bestand">Öffentlicher Bestand</option>
+        <option value="Bankbestand">Bankbestand</option>
+        <option value="Bauträger direkt">Bauträger direkt</option>
+        <option value="Auktion">Auktion</option>
+        <option value="Off-Market">Off-Market</option>
+        <option value="Individuelle Suche">Individuelle Suche</option>
+        </select>
+        <p class="ic-ref-lb">Region</p>
+        <select class="ic-inp" id="ic-region-ui" aria-label="Region">
+        <option value="Landesweit / noch offen">Landesweit / noch offen</option>
+        <option value="Sofia">Sofia</option>
+        <option value="Schwarzmeerküste">Schwarzmeerküste</option>
+        <option value="Varna">Varna</option>
+        <option value="Burgas">Burgas</option>
+        <option value="Plovdiv">Plovdiv</option>
+        <option value="Ruse">Ruse</option>
+        <option value="Stara Zagora">Stara Zagora</option>
+        <option value="Bansko">Bansko</option>
+        <option value="Binnenland">Binnenland</option>
+        </select>
+        <p class="ic-ref-lb">Weitere Angaben</p>
+        <textarea class="ic-inp" id="ic-note-ui" rows="3" maxlength="500" placeholder="z. B. Produktionsfläche ab 2.000 m², Hotelbetrieb, Industriegrundstück mit Gleisanschluss" aria-label="Weitere Angaben"></textarea>
+      </div>
+    </details>
     <div class="ic-fields">
       <input class="ic-inp" type="text" id="ic-name-ui" placeholder="Ihr Name" autocomplete="given-name"/>
       <input class="ic-inp" type="email" id="ic-email-ui" placeholder="E-Mail Adresse" autocomplete="email"/>
@@ -156,10 +213,21 @@
     <option value="Haus">Haus</option>
     <option value="Investment-Paket">Investment-Paket</option>
     <option value="Objekt mit Ratenzahlung">Objekt mit Ratenzahlung</option>
+    <option value="Projekt / Neubau">Projekt / Neubau</option>
+    <option value="Hotel">Hotel</option>
+    <option value="Gewerbeimmobilie">Gewerbeimmobilie</option>
+    <option value="Industrie &amp; Produktion">Industrie &amp; Produktion</option>
+    <option value="Lager &amp; Logistik">Lager &amp; Logistik</option>
+    <option value="Grundst&#252;ck">Grundst&#252;ck</option>
+    <option value="Standort &amp; Relocation">Standort &amp; Relocation</option>
+    <option value="Bankimmobilie">Bankimmobilie</option>
     <option value="Noch offen">Noch offen</option>
   </select>
   <input type="hidden" name="asset_type" id="ic-asset_type" value="">
   <input type="hidden" name="suchtyp" id="ic-suchtyp" value="">
+  <input type="hidden" name="access_type" id="ic-access_type" value="Noch offen">
+  <input type="hidden" name="region_wunsch" id="ic-region_wunsch" value="Landesweit / noch offen">
+  <input type="hidden" name="nachricht" id="ic-nachricht" value="">
   <button type="submit">Submit</button>
 </form>
 </main>
@@ -199,6 +267,22 @@ function icSet(field,value){
   if(!el) el=document.querySelector('[name="'+field+'"]');
   if(el) el.value=value;
 }
+// 066C — one WHAT selection writes all three legacy carriers, exactly as before,
+// then advances. suchtyp keeps mirroring asset_type for backward compatibility;
+// it is NOT promoted into the canonical model.
+var IC_COMMERCIAL=['Hotel','Gewerbeimmobilie','Industrie & Produktion','Lager & Logistik','Grundstück','Standort & Relocation','Projekt / Neubau'];
+function icPick(value){
+  icSet('level_raw',value);
+  icSet('asset_type',value);
+  icSet('suchtyp',value);
+  // Open the optional refinement block only where it actually helps. A residential
+  // buyer never sees it expand; a Gewerbe/Industrie/Land buyer always does.
+  try{
+    var r=document.getElementById('ic-ref');
+    if(r) r.open = IC_COMMERCIAL.indexOf(value)!==-1;
+  }catch(e){}
+  icGo(4);
+}
 function icSubmit(){
   // Rate limit: block resubmission within 30 s (bot deterrent)
   var now=Date.now();
@@ -222,6 +306,14 @@ function icSubmit(){
   document.getElementById('ic-email').value=e;
   var t=document.getElementById('ic-telefon-ui').value.trim();
   document.querySelector('[name="telefon"]').value=t;
+  // 066C — mirror the optional refinement UI into the hidden carriers inside #ic-form.
+  // Defaults are already set in the HTML, so an untouched block still submits a value.
+  var ac=document.getElementById('ic-access-ui');
+  if(ac&&ac.value) document.getElementById('ic-access_type').value=ac.value;
+  var rg=document.getElementById('ic-region-ui');
+  if(rg&&rg.value) document.getElementById('ic-region_wunsch').value=rg.value;
+  var nt=document.getElementById('ic-note-ui');
+  if(nt) document.getElementById('ic-nachricht').value=nt.value.trim().slice(0,500);
   var ev=new Event('submit',{bubbles:true,cancelable:true});document.getElementById('ic-form').dispatchEvent(ev);
 }
 document.addEventListener('DOMContentLoaded',function(){
