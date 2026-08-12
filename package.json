@@ -1,0 +1,10 @@
+{
+  "name": "betongoldmarkt",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Runtime dependencies for this site's Netlify Functions.",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@netlify/blobs": "10.7.9"
+  }
+}
