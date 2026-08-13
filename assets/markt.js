@@ -321,9 +321,24 @@ document.addEventListener('click', (e)=>{
   }
 });
 
-// ── Objekt-Anfrage → DIETRICH_OS Webhook (direct) ─────────────────
+// ── Objekt-Anfrage → Netlify Forms → trusted server transport (P0-T2) ─────
+//
+// RETIRED AT T2: this block used to POST the lead straight to the Make hook
+// from the browser, before form.submit(). That made an unauthenticated client
+// the first writer into the pipeline and produced a Make execution BEFORE the
+// Netlify ingress existed, with no idempotency and no server-authored brand.
+// The hook URL was shipped in this file and is therefore permanently public.
+//
+// Now: the form submits to Netlify only. netlify/functions/submission-created
+// is the sole path to Make. Nothing here talks to Make, and no Make webhook
+// URL is present in this file any more.
+//
+// buildPayload is KEPT — not to send anywhere, but because it is where the
+// registry-driven attribution (first-touch cid/cluster, utm, landing) is
+// computed. That attribution used to reach Make only inside the webhook body;
+// it is now written into the already-registered hidden form fields instead, so
+// it survives the cutover.
 (function(){
-  var DIETRICH_WEBHOOK = 'https://hook.eu1.make.com/yrlkosxvvxr6x1aea0curpychul1pr5e';
 
   function buildPayload(form) {
     var fd = new FormData(form);
@@ -364,6 +379,58 @@ document.addEventListener('click', (e)=>{
     return payload;
   }
 
+  // ── P0-T2 · registered-field attribution writer ─────────────────────────
+  // The client no longer talks to Make, so everything Make needs must travel
+  // inside the Netlify submission — which means it must land in a field that is
+  // ALREADY REGISTERED in the Netlify schema (33 / 30 / 31).
+  //
+  // setField refuses to create an input. If the field is not in the markup it
+  // writes nothing, so this code cannot open a second schema window.
+  //
+  // DEFERRED — bounded attribution debt, accepted by the founder at T2:
+  // first_touch_content_id and first_touch_cluster_id have no registered field.
+  // They are NOT written and NOT smuggled into another field.
+  //   FIRST_TOUCH_CONTENT_CLUSTER_PARITY = DEFERRED
+  function setField(form, name, value, force) {
+    if (value === undefined || value === null) return false;
+    var v = String(value).trim();
+    if (!v) return false;                                       // never fabricate
+    var el = form.elements ? form.elements[name] : null;
+    if (!el) return false;                                      // not registered
+    if (el.length !== undefined && el.tagName === undefined) el = el[0];
+    if (!el || el.tagName === undefined) return false;
+    if (!force && String(el.value || '').trim()) return false;  // don't clobber
+    el.value = v;
+    return true;
+  }
+
+  function writeRegisteredAttribution(form, p) {
+    var wrote = [];
+    // page_url / page carries the cid-injected landing URL — byte-identical to
+    // what the retired browser payload put in page_url, so Make [57]'s
+    // ifempty(1.cid; ifempty(1.content_id; parse(1.page_url))) chain still
+    // resolves exactly as it does today. Only one of the two names exists per
+    // form; the other is silently skipped.
+    if (setField(form, 'page_url', p['page_url'], true)) wrote.push('page_url');
+    if (setField(form, 'page',     p['page_url'], true)) wrote.push('page');
+
+    var fill = {
+      cid:          p['cid'] || p['content_id'],
+      cluster:      p['cluster_id'] || p['cluster'],
+      campaign:     p['campaign'],
+      utm_source:   p['utm_source'],
+      utm_medium:   p['utm_medium'],
+      utm_campaign: p['utm_campaign'],
+      utm_content:  p['utm_content'],
+      utm_term:     p['utm_term'],
+      landing:      p['first_touch_url'] || p['landing_page'],
+      referrer:     p['referrer'],
+      region:       p['region']
+    };
+    for (var k in fill) { if (setField(form, k, fill[k], false)) wrote.push(k); }
+    return wrote;
+  }
+
   document.addEventListener('submit', function(e){
     var form = e.target.closest('form.objekt-anfrage-form');
     if (!form) return;
@@ -380,19 +447,13 @@ document.addEventListener('click', (e)=>{
       if (nm) { window.sessionStorage.setItem('bgm_lead_name', nm.slice(0, 60)); }
     } catch (e) {}
 
-    // Fire directly to DIETRICH_OS Make webhook, then Netlify submit
-    var sent = fetch(DIETRICH_WEBHOOK, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      keepalive: true
-    }).catch(function(err){ console.error('[DIETRICH_OS] webhook error', err); });
+    // P0-T2: no webhook. Move the computed attribution into the registered
+    // hidden fields, then hand off to the native Netlify submit (which performs
+    // the /danke/ redirect exactly as before). The old 2s webhook race is gone,
+    // so the redirect is now immediate.
+    try { writeRegisteredAttribution(form, payload); } catch (e) {}
 
-    var timeout = new Promise(function(resolve){ setTimeout(resolve, 2000); });
-
-    Promise.race([sent, timeout])
-      .then(function(){ form.submit(); })
-      .catch(function(){ form.submit(); });
+    form.submit();
 
   }, true);
 })();

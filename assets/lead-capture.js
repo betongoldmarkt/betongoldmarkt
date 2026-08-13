@@ -308,10 +308,26 @@ window.BGM = window.BGM || (function(){
 // AIR-009 — capture first-touch if the Investor Check page is the entry page.
 try { window.BGM.captureFirstTouch(); } catch (e) {}
 
+// ── Investor Check / Markt-Anfrage → Netlify Forms → server transport (P0-T2)
+//
+// RETIRED AT T2: this block used to POST to /.netlify/functions/markt-classify,
+// which classified the lead and forwarded it to Make BEFORE form.submit() — so
+// Make saw the lead before the Netlify ingress existed, from untrusted client
+// input, with no idempotency and no server-authored brand.
+//
+// Now: the form submits to Netlify only. netlify/functions/submission-created
+// is the sole path to Make.
+//
+// markt-classify stays deployed but is ORPHANED — nothing calls it. Retiring it
+// loses no classification: Make [24] maps Level / Priority / Segment / Next Step
+// from {{46.*}} (its own [44] MARKT_AI_AGENT → [46] ParseJSON) and
+// {{57.normalized_*}}, and references {{1.level}} nowhere. Verified against the
+// live blueprint before this change.
+//
+// toPayload is KEPT because it computes the registry-driven attribution, which
+// is now written into the already-registered hidden fields instead of being
+// sent in a webhook body.
 (function(){
-  // Routed via Netlify Function for AI classification (Level/Priority/Segment/Next Step)
-  // Function enriches payload → forwards to Make.com webhook
-  var WEBHOOK = '/.netlify/functions/markt-classify';
 
   function toPayload(form){
     var fd = new FormData(form);
@@ -376,19 +392,56 @@ try { window.BGM.captureFirstTouch(); } catch (e) {}
     return payload;
   }
 
-  async function sendWebhook(payload){
-    try {
-      var res = await fetch(WEBHOOK, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload),
-        keepalive: true
-      });
-      return res.ok;
-    } catch (e) {
-      console.error('[BGM webhook error]', e);
-      return false;
-    }
+  // ── P0-T2 · registered-field attribution writer ─────────────────────────
+  // The client no longer talks to Make, so everything Make needs must travel
+  // inside the Netlify submission — which means it must land in a field that is
+  // ALREADY REGISTERED in the Netlify schema (33 / 30 / 31).
+  //
+  // setField refuses to create an input. If the field is not in the markup it
+  // writes nothing, so this code cannot open a second schema window.
+  //
+  // DEFERRED — bounded attribution debt, accepted by the founder at T2:
+  // first_touch_content_id and first_touch_cluster_id have no registered field.
+  // They are NOT written and NOT smuggled into another field.
+  //   FIRST_TOUCH_CONTENT_CLUSTER_PARITY = DEFERRED
+  function setField(form, name, value, force) {
+    if (value === undefined || value === null) return false;
+    var v = String(value).trim();
+    if (!v) return false;                                       // never fabricate
+    var el = form.elements ? form.elements[name] : null;
+    if (!el) return false;                                      // not registered
+    if (el.length !== undefined && el.tagName === undefined) el = el[0];
+    if (!el || el.tagName === undefined) return false;
+    if (!force && String(el.value || '').trim()) return false;  // don't clobber
+    el.value = v;
+    return true;
+  }
+
+  function writeRegisteredAttribution(form, p) {
+    var wrote = [];
+    // page / page_url carries the cid-injected landing URL — byte-identical to
+    // what the retired markt-classify payload put in page_url, so Make [57]'s
+    // ifempty(1.cid; ifempty(1.content_id; parse(1.page_url))) chain still
+    // resolves exactly as it does today. Only one of the two names exists per
+    // form; the other is silently skipped.
+    if (setField(form, 'page_url', p['page_url'], true)) wrote.push('page_url');
+    if (setField(form, 'page',     p['page_url'], true)) wrote.push('page');
+
+    var fill = {
+      cid:          p['cid'] || p['content_id'],
+      cluster:      p['cluster_id'] || p['cluster'],
+      campaign:     p['campaign'],
+      utm_source:   p['utm_source'],
+      utm_medium:   p['utm_medium'],
+      utm_campaign: p['utm_campaign'],
+      utm_content:  p['utm_content'],
+      utm_term:     p['utm_term'],
+      landing:      p['first_touch_url'] || p['landing_page'],
+      referrer:     p['referrer'],
+      region:       p['region']
+    };
+    for (var k in fill) { if (setField(form, k, fill[k], false)) wrote.push(k); }
+    return wrote;
   }
 
   document.addEventListener('submit', function(e){
@@ -407,15 +460,13 @@ try { window.BGM.captureFirstTouch(); } catch (e) {}
       if (nm) { window.sessionStorage.setItem('bgm_lead_name', nm.slice(0, 60)); }
     } catch (e) {}
 
-    // Fire webhook FIRST (max 2s), then submit to Netlify
-    var webhookDone = sendWebhook(payload);
-    var timeout = new Promise(function(resolve){ setTimeout(resolve, 2000); });
+    // P0-T2: no webhook, no markt-classify call. Move the computed attribution
+    // into the registered hidden fields, then hand off to the native Netlify
+    // submit (which performs the /danke/ redirect exactly as before). The old
+    // 2s webhook race is gone, so the redirect is now immediate.
+    try { writeRegisteredAttribution(form, payload); } catch (e) {}
 
-    Promise.race([webhookDone, timeout]).then(function(){
-      form.submit();
-    }).catch(function(){
-      form.submit();
-    });
+    form.submit();
 
   }, true);
 })();

@@ -6,25 +6,40 @@
  * Netlify Forms `submission-created` event handler. Fires server-side on every
  * stored submission; the browser cannot skip it.
  *
- * ─── SHADOW MODE — READ THIS FIRST ───────────────────────────────────────
- * This Function DOES NOT FORWARD ANYTHING TO MAKE.
- *
- * The live Markt transport is still the browser path:
- *   objekt-anfrage              markt.js      → browser → Make hook
+ * ─── T2 — THIS IS NOW THE OPERATIONAL TRANSPORT ──────────────────────────
+ * Until T2 this file was shadow: it captured and logged, and nothing else.
+ * The live path was the browser:
+ *   objekt-anfrage               markt.js        → browser → Make hook
  *   investor-check/markt-anfrage lead-capture.js → markt-classify → Make
- * Both run BEFORE form.submit(), so one user action already produces one Make
- * execution AND one Netlify Forms submission. Adding a second send here would
- * duplicate every Markt lead. There is therefore NO webhook call anywhere in
- * this file — shadow mode is enforced by absence of send code, not by a flag.
- * FORWARD_TO_MAKE below is documentation of that state, not a switch.
+ * Both fired BEFORE form.submit(), so Make saw the lead before Netlify did,
+ * from an untrusted client, with no idempotency.
  *
- * Activating forwarding is P0-T2 (transport cutover) and requires retiring the
- * browser path in the same change.
+ * As of T2 that is retired. Both client transports now populate the already
+ * registered hidden attribution fields and hand off to the native Netlify
+ * submit; nothing in shipped client JS posts to Make any more. This Function
+ * is the ONLY path from a Markt lead to Make:
  *
- * This Function also writes NOTHING to Airtable and sends NO Telegram.
- * Its only outputs are a structured log line (PII-free) proving it ran, and —
- * as of C2.1 — an idempotency claim in Netlify Blobs holding nothing but a
- * one-way hash, a correlation id and a timestamp.
+ *   one user action → one Netlify ingress → one trusted server decision
+ *                   → at most one Make send
+ *
+ * It still writes NOTHING to Airtable and sends NO Telegram — Make owns both,
+ * exactly as before. Its outputs are: one structured log line (PII-free), one
+ * idempotency claim in Netlify Blobs (a one-way hash, a correlation id and a
+ * timestamp — no submission content), and at most one POST to Make.
+ *
+ * ─── SEND POLICY — FAIL OPEN (founder decision, T2) ──────────────────────
+ *   PRIMARY             → send exactly once
+ *   RETRY               → NO send   (same trusted ingress already processed)
+ *   DUPLICATE           → NO send   (same content inside the window)
+ *   ungoverned form     → NO send   (and no claim, no log beyond the ignore)
+ *   STORE_UNAVAILABLE   → SEND, marked dedup_unverified = true
+ *   INDETERMINATE       → SEND, marked dedup_unverified = true
+ *
+ * Lead preservation outranks duplicate suppression: an idempotency-store
+ * outage must never silently drop a lead. Such a lead is NEVER relabelled
+ * PRIMARY — it travels with its real state and an explicit dedup_unverified
+ * flag, and Make [61] MARKT_DEDUP_SEARCH remains a secondary, non-authoritative
+ * fallback behind it.
  *
  * ─── WHY THIS FILE IS .mjs AND USES THE REQUEST/RESPONSE FORM ────────────
  * C2 shipped as `exports.handler` (Lambda-compatibility form). That form does
@@ -71,9 +86,23 @@ import { getStore } from "@netlify/blobs";
 // after normalisation. C1 deliberately left `brand` out of every form schema.
 const BRAND = "MARKT";
 
-// Shadow-mode marker. There is no send implementation in this file; flipping
-// this constant alone cannot cause a forward.
-const FORWARD_TO_MAKE = false;
+// ─── T2 TRANSPORT ─────────────────────────────────────────────────────────
+// The shared Make hook, read from the Netlify environment variable that
+// markt-classify has used since 2026-05-18. NOT hardcoded here, and never
+// logged: the hook is an unauthenticated ingress and must not be reprinted.
+const MAKE_WEBHOOK = process.env.MAKE_WEBHOOK_URL || "";
+const MAKE_TIMEOUT_MS = 8000;   // Netlify's function ceiling is 10s
+const MAKE_ATTEMPTS = 2;        // one immediate retry for a transient failure
+
+// States that forward. STORE_UNAVAILABLE / INDETERMINATE are here by explicit
+// founder decision (fail open) and always carry dedup_unverified = true.
+const SEND_STATES = new Set(["PRIMARY", "STORE_UNAVAILABLE", "INDETERMINATE"]);
+const UNVERIFIED_STATES = new Set(["STORE_UNAVAILABLE", "INDETERMINATE"]);
+
+// Never forwarded: the honeypot, Netlify's own request metadata, and the
+// duplicated form identifier. Everything else the user actually filled in is
+// passed through unchanged so Make's existing mappings keep working.
+const OUTBOUND_EXCLUDE = new Set(["website", "bot-field", "ip", "user_agent", "form-name"]);
 
 // Only these three governed Markt form definitions are processed.
 const GOVERNED_FORMS = {
@@ -396,6 +425,93 @@ async function resolveIdempotency({ correlationId, formName, fields, ingressId, 
   }
 }
 
+// ─── T2 · SERVER → MAKE TRANSPORT ─────────────────────────────────────────
+
+/**
+ * The payload Make receives.
+ *
+ * Shape parity is deliberate: Make scenario 5743159 is NOT changed by T2, so
+ * every mapping it already uses must resolve exactly as it did when the browser
+ * posted. Raw form values pass through untouched; the server-authored fields
+ * are then applied ON TOP so no client value can overwrite an identity.
+ *
+ * Router [23] still keys on `source` — `brand` rides along but nothing in Make
+ * reads it yet. Switching routing authority to `brand` is C3, not T2.
+ */
+function buildOutbound(fields, canonical, dedup) {
+  const outbound = {};
+  for (const k of Object.keys(fields)) {
+    if (OUTBOUND_EXCLUDE.has(k)) continue;
+    outbound[k] = s(fields[k]);
+  }
+
+  // Server-authored values win, unconditionally.
+  Object.assign(outbound, canonical);
+
+  // Aliases the browser payload also carried. Make [24] reads {{1.telefon}};
+  // the mirrors exist so any mapping on {{1.phone}} / {{1.whatsapp}} that was
+  // satisfied before T2 stays satisfied. Not fabrication — same value, same
+  // meaning, under the names the previous payload already used.
+  const phone = trim(outbound.telefon);
+  if (phone) { outbound.phone = phone; outbound.whatsapp = phone; }
+
+  // Make [57] resolves CID as ifempty(1.cid; ifempty(1.content_id; <parse
+  // ?cid= out of 1.page_url>)). The clients now populate the registered `cid`
+  // field, so the first branch hits; the alias keeps the second branch intact.
+  if (trim(outbound.cid)) outbound.content_id = trim(outbound.cid);
+
+  // Idempotency verdict travels with the lead so it is auditable downstream.
+  outbound.dedup_status = dedup.dedup_status;
+  outbound.dedup_unverified = UNVERIFIED_STATES.has(dedup.dedup_status);
+  if (dedup.duplicate_of_correlation_id) {
+    outbound.duplicate_of_correlation_id = dedup.duplicate_of_correlation_id;
+  }
+  return outbound;
+}
+
+/**
+ * One POST to Make, bounded and non-throwing.
+ *
+ * Returns { make_sends, make_send_status, make_send_ms, make_http_status }.
+ * `make_sends` counts POSTs actually issued, so a delivered lead reads 1 and a
+ * suppressed one reads 0 — the number is about the wire, not about intent.
+ */
+async function forwardToMake(outbound) {
+  if (!MAKE_WEBHOOK) {
+    // Cannot fail open with nowhere to send. Loud, not silent.
+    return { make_sends: 0, make_send_status: "not_configured", make_send_ms: 0 };
+  }
+
+  const started = Date.now();
+  let last = "";
+  for (let attempt = 1; attempt <= MAKE_ATTEMPTS; attempt++) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), MAKE_TIMEOUT_MS);
+    try {
+      const res = await fetch(MAKE_WEBHOOK, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(outbound),
+        signal: controller.signal,
+      });
+      clearTimeout(timer);
+      if (res && res.ok) {
+        return {
+          make_sends: attempt, make_send_status: "delivered",
+          make_http_status: res.status, make_send_ms: Date.now() - started,
+        };
+      }
+      last = "http_" + (res ? res.status : "no_response");
+    } catch (e) {
+      clearTimeout(timer);
+      last = "error:" + String((e && e.message) || e);
+    }
+  }
+  // Exhausted. The ingress claim is already taken, so a replay would classify
+  // as RETRY and would not resend — this line is the alert condition.
+  return { make_sends: MAKE_ATTEMPTS, make_send_status: "failed:" + last, make_send_ms: Date.now() - started };
+}
+
 // ─── HANDLER ──────────────────────────────────────────────────────────────
 
 const json = (status, obj) =>
@@ -418,7 +534,9 @@ export default async (req) => {
       console.log(JSON.stringify({
         fn: "markt-submission-created", result: "ignored_ungoverned_form",
         form_name: formName || "(none)", ingress_id: trim(p.id) || "(none)",
-        shadow_forward: false,
+        transport: "server_to_make", make_sends: 0,
+        make_send_status: "suppressed:ungoverned_form",
+        airtable_writes: 0, telegram_sends: 0,
       }));
       return new Response("ignored", { status: 200 });
     }
@@ -439,7 +557,7 @@ export default async (req) => {
       correlation_id,
       correlation_source,
       is_test:       t.is_test,
-      capture_path:  "netlify_forms_shadow",
+      capture_path:  "netlify_forms_server",
       created_at:    trim(p.created_at) || new Date().toISOString(),
     });
     // Trusted identity assigned LAST and unconditionally: a hard overwrite, not
@@ -456,10 +574,23 @@ export default async (req) => {
       nowMs: Date.now(),
     });
 
+    // ─── T2 FORWARD DECISION ──────────────────────────────────────────────
+    // The decision is a pure lookup on the idempotency verdict. There is no
+    // branch anywhere in this file that can turn a RETRY or a DUPLICATE into a
+    // send, and none that relabels an unverified lead as PRIMARY.
+    const dedupUnverified = UNVERIFIED_STATES.has(dedup.dedup_status);
+    const shouldSend = SEND_STATES.has(dedup.dedup_status);
+    const send = shouldSend
+      ? await forwardToMake(buildOutbound(f, canonical, dedup))
+      : { make_sends: 0, make_send_status: "suppressed:" + dedup.dedup_status, make_send_ms: 0 };
+
     // Observability. Operational metadata only — no email, phone or message.
     console.log(JSON.stringify({
       fn: "markt-submission-created",
-      result: "shadow_captured",
+      result: send.make_sends > 0
+        ? (send.make_send_status === "delivered" ? "forwarded" : "forward_failed")
+        : (shouldSend ? "forward_unconfigured" : "suppressed"),
+      transport: "server_to_make",
       form_name: canonical.form_name,
       form_version: canonical.form_version,
       scoring_model: canonical.scoring_model,
@@ -486,28 +617,36 @@ export default async (req) => {
       dedup_previous_age_ms: dedup.dedup_previous_age_ms,
       dedup_anomaly: dedup.dedup_anomaly,
       dedup_error: dedup.dedup_error,
+      dedup_unverified: dedupUnverified,
       duplicate_of_correlation_id: dedup.duplicate_of_correlation_id,
       idempotency_primitive: "netlify_blobs:set:onlyIfNew|onlyIfMatch",
       idempotency_consistency: "strong",
-      // Shadow invariants — unchanged by C2.1
-      shadow_forward: FORWARD_TO_MAKE,   // always false: no send code exists
-      make_sends: 0,
+      // T2 transport outcome
+      make_sends: send.make_sends,
+      make_send_status: send.make_send_status,
+      make_send_ms: send.make_send_ms,
+      make_http_status: send.make_http_status,
+      // This Function still touches neither directly — Make owns both.
       airtable_writes: 0,
       telegram_sends: 0,
     }));
 
     return json(200, {
-      ok: true, mode: "shadow", brand: canonical.brand,
+      ok: true, mode: "server_transport", brand: canonical.brand,
       correlation_id: canonical.correlation_id, is_test: canonical.is_test,
       dedup_status: dedup.dedup_status,
+      dedup_unverified: dedupUnverified,
       duplicate_of_correlation_id: dedup.duplicate_of_correlation_id,
-      forwarded: false,
+      forwarded: send.make_sends > 0 && send.make_send_status === "delivered",
+      make_sends: send.make_sends,
     });
   } catch (err) {
     // Never throw uncontrolled: a failure here must not affect form processing.
     console.error(JSON.stringify({
       fn: "markt-submission-created", result: "error_handled",
-      error: String((err && err.message) || err), shadow_forward: false,
+      error: String((err && err.message) || err),
+      transport: "server_to_make", make_sends: 0, make_send_status: "not_reached",
+      airtable_writes: 0, telegram_sends: 0,
     }));
     return new Response("error_handled", { status: 200 });
   }
