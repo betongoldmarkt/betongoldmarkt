@@ -2,7 +2,24 @@
  * DIETRICH OS — Markt Intelligence Layer
  * Netlify Function: markt-classify
  *
- * Flow: lead-capture.js → /.netlify/functions/markt-classify → OpenAI classify → Make.com webhook
+ * ─── RETIRED AT P0-T2 (hotfix) — THIS ENDPOINT NO LONGER FORWARDS ─────────
+ * Former flow: lead-capture.js → this Function → OpenAI classify → Make webhook.
+ *
+ * T2 moved the Markt transport to netlify/functions/submission-created, and the
+ * current assets/lead-capture.js no longer calls this endpoint at all. But
+ * /assets/* was served with max-age=86400 on a stable filename, so browsers that
+ * cached the pre-T2 script keep calling here for up to 24h — and on 2026-08-13
+ * that produced a second Make execution 371 ms BEFORE the Netlify ingress, a
+ * duplicate MARKT_LEADS record, and proof that Make [61] search-then-create does
+ * not suppress a 2s-apart race.
+ *
+ * The endpoint therefore stays REACHABLE (so a stale browser's fetch resolves and
+ * form.submit() still runs — the Netlify submission is the path we want) but is
+ * INERT: no OpenAI call, no Make forward, no Airtable write, no Telegram.
+ *
+ * The classification code below is intentionally left in place, unreachable, as
+ * the record of what this Function did. Deleting the Function outright would 404
+ * stale clients; that is a UX regression for no benefit.
  *
  * Adds fields to payload:
  *   level     : A | B | C | D
@@ -243,6 +260,21 @@ exports.handler = async function (event) {
   if (event.httpMethod !== 'POST') {
     return cors(405, JSON.stringify({ error: 'Method Not Allowed' }));
   }
+
+  // ── T2-RETIRED SHORT-CIRCUIT ────────────────────────────────────────────
+  // Everything below this block is unreachable. Placed before the payload read
+  // so a stale caller costs nothing: no parse, no OpenAI spend, no egress.
+  // The response keeps the old success shape so the pre-T2 client's `res.ok`
+  // check passes and it proceeds to form.submit() exactly as before.
+  console.log(JSON.stringify({
+    fn: 'markt-classify', result: 'retired_no_forward',
+    reason: 'P0-T2 cutover: transport moved to submission-created',
+    stale_client: true, make_sends: 0, airtable_writes: 0, telegram_sends: 0,
+    openai_calls: 0,
+  }));
+  return cors(200, JSON.stringify({
+    ok: true, delivered: false, retired: true, transport: 'submission-created',
+  }));
 
   // Reject oversized payloads before parse (IC-003)
   if ((event.body || '').length > MAX_PAYLOAD_BYTES) {

@@ -30,7 +30,12 @@
     # A one-year immutable cache would strand mutable JS in returning browsers and
     # would block any future rotation of the lead-transport configuration.
     # Bounded daily cache with mandatory revalidation instead.
-    Cache-Control = "public, max-age=86400, must-revalidate"
+    # P0-T2 hotfix (2026-08-13): max-age was 86400. `must-revalidate` only forces
+    # revalidation once an entry is STALE, so inside those 24h a browser never
+    # asked — and kept running the pre-T2 lead-capture.js, which still posted
+    # straight to Make. max-age=0 makes every subsequent use revalidate; a 304
+    # keeps it cheap. Stable filenames must never get a long fresh window.
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 # ── Netlify Function endpoints — no cache ────────────────────────────────────
 [[headers]]
