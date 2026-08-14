@@ -270,6 +270,19 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["Organization","Corporation"],"@id":"https://betongoldkapital.de/#bg-real-assets-eood","name":"BG Real Assets EOOD","legalName":"BG Real Assets EOOD","alternateName":["БГ Риъл Асетс ЕООД","BG Real Assets"],"identifier":[{"@type":"PropertyValue","name":"UIC/EIK","value":"208893096"}],"address":{"@type":"PostalAddress","streetAddress":"5 Verila Street, Etage 2","addressLocality":"Sofia","addressRegion":"Triaditsa","postalCode":"1463","addressCountry":"BG"},"founder":{"@id":"https://betongoldkapital.de/dietrich-architekt-des-kapitals/#person"},"employee":{"@id":"https://betongoldkapital.de/dietrich-architekt-des-kapitals/#person"},"areaServed":[{"@type":"Country","name":"Bulgarien"}],"brand":[{"@id":"https://betongoldmarkt.de/#brand"},{"@id":"https://betongoldkapital.de/#brand"}],"description":"BG Real Assets EOOD ist der rechtliche und operative Betreiber der Marken Beton Gold Markt und Beton Gold Kapital. Eingetragen im Handelsregister der Republik Bulgarien, UIC/EIK 208893096, Sitz Sofia."},{"@type":"Brand","@id":"https://betongoldmarkt.de/#brand","name":"Beton Gold Markt","url":"https://betongoldmarkt.de/","logo":"https://betongoldmarkt.de/assets/logo/core-hex-gold.png","owner":{"@id":"https://betongoldkapital.de/#bg-real-assets-eood"},"description":"Beton Gold Markt ist die Transaktionsseite des Oekosystems: veroeffentlichte Immobilienangebote, Projekte, Erwerbsmodelle und die Abwicklung des Kaufs in Bulgarien fuer Kaeufer aus Deutschland, Oesterreich und der Schweiz.","slogan":"Objektzugang, Erwerb und Transaktion"}]}</script>
 <link href="/assets/mc-consent.css" rel="stylesheet"/>
 <link rel="stylesheet" href="/assets/s6/bundle.css"/>
+<style>
+.p2-pkg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.p2-pkg-card{display:block;padding:18px;border:1px solid var(--p2-line,#26262b);border-radius:10px;text-decoration:none;background:rgba(255,255,255,.02);transition:border-color .2s ease}
+.p2-pkg-card:hover{border-color:var(--p2-gold,#c8a24a)}
+.p2-pkg-card__size{font-size:19px;font-weight:800;color:var(--p2-text,#e4e4e7);margin-bottom:4px}
+.p2-pkg-card__comp{font-size:12px;color:var(--p2-muted,#a1a1aa);margin-bottom:10px}
+.p2-pkg-card__price{font-size:15px;font-weight:700;color:var(--p2-gold,#c8a24a)}
+.p2-pkg-card__pay{font-size:11px;color:var(--p2-muted,#a1a1aa);margin-top:6px}
+.p2-pkg-card__link{font-size:12px;color:var(--p2-gold,#c8a24a);margin-top:12px}
+.pkg-switch{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.pkg-switch a{padding:7px 13px;border:1px solid var(--line,#26262b);border-radius:999px;font-size:13px;text-decoration:none;color:var(--muted,#a1a1aa)}
+.pkg-switch a.is-active{border-color:var(--gold,#c8a24a);color:var(--gold,#c8a24a);font-weight:700}
+</style>
 </head>
 <body class="markt-root">
 <a class="bgf-skip-link" href="#main-content">Zum Inhalt springen</a>
@@ -368,7 +381,7 @@
 </div>
 
 <!-- TYPE NAV + UNIT GRID -->
-<section class="p2-section" id="p2-unit-grid-section">
+<section id="einzelkauf" class="p2-section" id="p2-unit-grid-section">
   <div class="p2-container">
     <div class="p2-section-label">Verfügbare Einheiten</div>
     <h2 style="font-size:20px;font-weight:700;color:var(--p2-text);margin:0 0 6px;">Alle 7 Einheiten – drei Typen</h2>
@@ -483,60 +496,77 @@
       <a class="btn" href="/projekte/gardenia-hills/studios/" style="color:var(--p2-gold);">Studios ansehen</a>
       <a class="btn" href="/projekte/gardenia-hills/2-zimmer/">2-Zimmer Wohnungen</a>
       <a class="btn" href="/projekte/gardenia-hills/3-zimmer/">3-Zimmer Wohnungen</a>
-      <a class="btn" href="/investoren-lots/gardenia-hills-3-studios/">Investor-Pakete</a>
+      <a class="btn" href="#pakete">Einheitenpakete</a>
     </div>
   </div>
 </section>
 
 <!-- INVESTMENT STRUCTURE -->
-<section class="p2-section reveal" style="padding-top:0;">
-  <div class="p2-container">
-    <div class="p2-section-label">Investment Struktur</div>
-    <h2 style="font-size:20px;font-weight:700;color:var(--p2-text);margin:0 0 20px;">Erwerb &amp; Finanzierung</h2>
-
+<section id="kaufmodus" class="p2-section p2-section--tight">
+  <div class="container">
+    <div class="p2-eyebrow">Erwerbsform</div>
+    <h2 class="p2-h2">Wie möchten Sie kaufen?</h2>
+    <p class="p2-lead">Zwei Wege im selben Projekt. Verfügbarkeit, Zusammensetzung und
+    Preis werden objektbezogen bestätigt.</p>
     <div class="p2-invest-grid">
-      <a href="/angebote/" class="p2-invest-card" style="border-color:rgba(201,168,76,0.35);">
+      <a href="#einzelkauf" class="p2-invest-card">
         <div class="p2-invest-card__label">Einzelkauf</div>
-        <p class="p2-invest-card__text">Studios und Apartments einzeln erwerben. Eigene Nutzung oder Vermietung ab Anzahlung möglich.</p>
-        <div class="p2-invest-card__link">Studios ab 52.500 € →</div>
+        <p class="p2-invest-card__text">Eine Einheit erwerben — Studio, 2-Zimmer oder
+        3-Zimmer. Eigene Nutzung oder Vermietung.</p>
+        <div class="p2-invest-card__link">Einheitstypen ansehen →</div>
       </a>
-      <a href="/investoren-lots/gardenia-hills-3-studios/" class="p2-invest-card">
-        <div class="p2-invest-card__label">Paketkauf</div>
-        <p class="p2-invest-card__text">Mehrere Einheiten als strukturiertes Paket. Günstigere Konditionen und gebündelte Verwaltung.</p>
-        <div class="p2-invest-card__link">Pakete ansehen →</div>
-      </a>
-      <a href="/investoren-lots/gardenia-hills-20-units/" class="p2-invest-card">
-        <div class="p2-invest-card__label">Investor-Lots</div>
-        <p class="p2-invest-card__text">3 / 5 / 10 / 20 Einheiten. Nur nach Qualifikation. Portfolio-Investment mit strukturiertem Ratenmodell.</p>
-        <div class="p2-invest-card__link">Investor-Pakete →</div>
+      <a href="#pakete" class="p2-invest-card">
+        <div class="p2-invest-card__label">Einheitenpaket</div>
+        <p class="p2-invest-card__text">Mehrere Einheiten als strukturiertes Paket —
+        3, 5, 10 oder 20 Einheiten mit gebündelter Verwaltung.</p>
+        <div class="p2-invest-card__link">Pakete vergleichen →</div>
       </a>
     </div>
-
-    <div class="p2-facts-grid" style="margin-top:16px;">
-      <div class="p2-facts-card">
-        <h3>Zahlungsmodell des Bankbestands</h3>
-        <div class="p2-facts-row"><span>40 % Anzahlung</span><strong>bei Unterzeichnung des Vorvertrags</strong></div>
-        <div class="p2-facts-row"><span>60 % Restbetrag</span><strong>in gleichmäßigen Raten alle 6 Monate</strong></div>
-        <div class="p2-facts-row"><span>Zinssatz</span><strong>7 % p. a.</strong></div>
-        <div class="p2-facts-row"><span>Laufzeit</span><strong>bis zu 10 Jahre</strong></div>
-        <div class="p2-facts-row"><span>Eigentumsübertragung</span><strong>Notarielle Beurkundung nach vollständiger Kaufpreiszahlung</strong></div>
-        <div class="p2-facts-row"><span>Projektstatus</span><strong>fertige, möblierte Wohnungen mit ACT 16</strong></div>
-        <div class="p2-facts-row"><span>Bankkredit</span><strong class="gold">nicht erforderlich</strong></div>
-        <p class="p2-facts-note" style="margin:10px 0 0;font-size:12px;line-height:1.6;color:var(--p2-muted);">Konditionen gelten für diesen Bestand und werden vor Vertragsabschluss aktuell bestätigt.</p>
-      </div>
-      <div class="p2-facts-card">
-        <h3>Objektfakten</h3>
-        <div class="p2-facts-row"><span>Baujahr</span><strong>2014 · ACT 16</strong></div>
-        <div class="p2-facts-row"><span>Strand</span><strong>ca. 1 km Fußweg</strong></div>
-        <div class="p2-facts-row"><span>Flughafen Burgas</span><strong>35 km · ca. 30 Min.</strong></div>
-        <div class="p2-facts-row"><span>Nessebar UNESCO</span><strong>5 km</strong></div>
-        <div class="p2-facts-row"><span>Wartungsgebühr</span><strong>ca. 7 €/m² jährlich</strong></div>
-      </div>
+  </div>
+</section>
+<section id="pakete" class="p2-section">
+  <div class="container">
+    <div class="p2-eyebrow">Einheitenpakete</div>
+    <h2 class="p2-h2">Einheitenpakete für Investoren</h2>
+    <p class="p2-lead">Vier veröffentlichte Paketgrößen im Projekt Gardenia Hills.
+    Stand der Angaben: 04/2025 — Zusammensetzung, Verfügbarkeit und Gesamtpreis werden
+    nach Anfrage beim Entwickler bestätigt.</p>
+    <div class="p2-pkg-grid">
+      <a href="/investoren-lots/gardenia-hills-3-studios/" class="p2-pkg-card">
+        <div class="p2-pkg-card__size">3 Studios</div>
+        <div class="p2-pkg-card__comp">3 Studios</div>
+        <div class="p2-pkg-card__price">172.300 €</div>
+        <div class="p2-pkg-card__pay">40&nbsp;% Anzahlung · Rest über 10 Jahre</div>
+        <div class="p2-pkg-card__link">Paket ansehen →</div>
+      </a>
+      <a href="/investoren-lots/gardenia-hills-5-units/" class="p2-pkg-card">
+        <div class="p2-pkg-card__size">5 Einheiten</div>
+        <div class="p2-pkg-card__comp">5 Einheiten (Mix)</div>
+        <div class="p2-pkg-card__price">305.000 €</div>
+        <div class="p2-pkg-card__pay">40&nbsp;% Anzahlung · Rest über 10 Jahre</div>
+        <div class="p2-pkg-card__link">Paket ansehen →</div>
+      </a>
+      <a href="/investoren-lots/gardenia-hills-10-units/" class="p2-pkg-card">
+        <div class="p2-pkg-card__size">10 Einheiten</div>
+        <div class="p2-pkg-card__comp">10 Einheiten (Mix)</div>
+        <div class="p2-pkg-card__price">550.000 €</div>
+        <div class="p2-pkg-card__pay">40&nbsp;% Anzahlung · Rest über 10 Jahre</div>
+        <div class="p2-pkg-card__link">Paket ansehen →</div>
+      </a>
+      <a href="/investoren-lots/gardenia-hills-20-units/" class="p2-pkg-card">
+        <div class="p2-pkg-card__size">20 Einheiten</div>
+        <div class="p2-pkg-card__comp">20 Einheiten (Portfolio)</div>
+        <div class="p2-pkg-card__price">Preis auf Anfrage</div>
+        <div class="p2-pkg-card__pay">40&nbsp;% Anzahlung · Rest über 10 Jahre</div>
+        <div class="p2-pkg-card__link">Paket ansehen →</div>
+      </a>
     </div>
-
-    <div style="margin-top:16px;padding:16px 20px;border:1px solid var(--p2-gold-border);border-radius:var(--p2-radius);background:var(--p2-gold-dim);">
-      <div style="font-size:10px;font-weight:800;color:var(--p2-gold);letter-spacing:.12em;margin-bottom:8px;">STRUKTURIERTER BESTAND · NICHT KLASSISCHER BAUTRÄGERVERKAUF</div>
-      <p style="font-size:13px;color:var(--p2-muted);margin:0;line-height:1.75;">Ein strukturierter Immobilienbestand an der Schwarzmeerküste mit direktem Zugang zu ausgewählten Bankobjekten. Der Komplex umfasst ca. 80 Einheiten. Ein Teil stammt aus Bankbeständen und strukturierten Verkäufen – teilweise unter Marktpreis. Verfügbarkeit, Konditionen und Ratenmodelle variieren je nach Einheit. Zugang zu vollständigen Informationen erfolgt nach kurzer Qualifikation.</p>
+    <p class="p2-note">Preis und Verfügbarkeit entsprechen dem zuletzt vorliegenden Stand
+    und werden vor Besichtigung, Reservierung oder Vertragsabschluss beim Eigentümer
+    beziehungsweise Entwickler bestätigt. Zwischenverkauf, Reservierung und
+    Preisänderungen bleiben vorbehalten.</p>
+    <div style="margin-top:18px;">
+      <a class="btn btn--gold" href="/investor-check/?objekt=Gardenia%20Hills%20Einheitenpaket">Käufer-Check starten</a>
     </div>
   </div>
 </section>
