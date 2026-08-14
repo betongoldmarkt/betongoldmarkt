@@ -925,6 +925,37 @@ body::before {
   .why-card, .step, .split-card { transition:none !important; transform:none !important; }
   .why-card:hover, .step:hover  { transform:none !important; }
 }
+
+/* ── UX SIMPLIFICATION · intent grid + payment strip ──────
+   Page-local. Introduced by the pilot UX package; id-scoped so
+   no other page and no shared component is affected.
+   ───────────────────────────────────────────────────────── */
+#f18-intent .f18-eyebrow,
+#f18-pay .f18-eyebrow{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--f18-gold);font-weight:600;margin:0 0 6px}
+#f18-intent h2{margin:0;font-size:clamp(1.5rem,2.6vw,2rem);line-height:1.2}
+#f18-intent .f18-lead{margin:10px 0 0;max-width:72ch;color:var(--f18-mut);
+  font-size:.92rem;line-height:1.7}
+#f18-intent .f18-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(224px,1fr));
+  gap:18px;margin-top:26px}
+#f18-intent .f18-card{padding:20px;gap:8px;text-decoration:none}
+#f18-intent .f18-card h3{margin:0;font-size:1rem;font-weight:600;color:var(--f18-txt,#f2f2f4)}
+#f18-intent .f18-card p{margin:0;color:var(--f18-mut);font-size:.86rem;line-height:1.65}
+#f18-intent .f18-go{display:block;margin-top:auto;padding-top:12px;color:var(--f18-gold);
+  font-size:.8rem;font-weight:600;letter-spacing:.02em}
+#f18-intent .f18-note{margin:20px 0 0;color:var(--f18-mut);font-size:.82rem;line-height:1.7}
+#f18-intent .f18-note a{color:var(--f18-gold)}
+#f18-pay.f18-strip{border-block:1px solid var(--f18-line);background:rgba(201,168,76,.04);
+  padding-block:26px}
+#f18-pay .f18-strip__text{margin:0;max-width:92ch;color:var(--f18-mut);
+  font-size:.86rem;line-height:1.75}
+#f18-pay .f18-strip__text strong{color:var(--f18-txt,#f2f2f4);font-weight:600}
+#f18-pay .f18-strip__text a{color:var(--f18-gold);white-space:nowrap}
+@media (max-width:780px){
+  #f18-intent .f18-grid{grid-template-columns:1fr;gap:14px}
+  #f18-intent .f18-card{padding:18px}
+  #f18-pay.f18-strip{padding-block:22px}
+}
 </style>
 <!-- core-hex-favicons --><link rel="icon" type="image/x-icon" href="/favicon.ico"/><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/><link rel="manifest" href="/site.webmanifest"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["Organization","Corporation"],"@id":"https://betongoldkapital.de/#bg-real-assets-eood","name":"BG Real Assets EOOD","legalName":"BG Real Assets EOOD","alternateName":["БГ Риъл Асетс ЕООД","BG Real Assets"],"identifier":[{"@type":"PropertyValue","name":"UIC/EIK","value":"208893096"}],"address":{"@type":"PostalAddress","streetAddress":"5 Verila Street, Etage 2","addressLocality":"Sofia","addressRegion":"Triaditsa","postalCode":"1463","addressCountry":"BG"},"founder":{"@id":"https://betongoldkapital.de/dietrich-architekt-des-kapitals/#person"},"employee":{"@id":"https://betongoldkapital.de/dietrich-architekt-des-kapitals/#person"},"areaServed":[{"@type":"Country","name":"Bulgarien"}],"brand":[{"@id":"https://betongoldmarkt.de/#brand"},{"@id":"https://betongoldkapital.de/#brand"}],"description":"BG Real Assets EOOD ist der rechtliche und operative Betreiber der Marken Beton Gold Markt und Beton Gold Kapital. Eingetragen im Handelsregister der Republik Bulgarien, UIC/EIK 208893096, Sitz Sofia."},{"@type":"Brand","@id":"https://betongoldmarkt.de/#brand","name":"Beton Gold Markt","url":"https://betongoldmarkt.de/","logo":"https://betongoldmarkt.de/assets/logo/core-hex-gold.png","owner":{"@id":"https://betongoldkapital.de/#bg-real-assets-eood"},"description":"Beton Gold Markt ist die Transaktionsseite des Oekosystems: veroeffentlichte Immobilienangebote, Projekte, Erwerbsmodelle und die Abwicklung des Kaufs in Bulgarien fuer Kaeufer aus Deutschland, Oesterreich und der Schweiz.","slogan":"Objektzugang, Erwerb und Transaktion"}]}</script>

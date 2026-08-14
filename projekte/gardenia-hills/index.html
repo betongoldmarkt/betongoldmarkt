@@ -282,6 +282,13 @@
 .pkg-switch{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
 .pkg-switch a{padding:7px 13px;border:1px solid var(--line,#26262b);border-radius:999px;font-size:13px;text-decoration:none;color:var(--muted,#a1a1aa)}
 .pkg-switch a.is-active{border-color:var(--gold,#c8a24a);color:var(--gold,#c8a24a);font-weight:700}
+
+/* ── UX SIMPLIFICATION · Erwerbsform + Einheitenpakete ────
+   Page-local, matches the existing p2-* type scale.
+   ───────────────────────────────────────────────────────── */
+.p2-h2{font-size:20px;font-weight:700;color:var(--p2-text);margin:0 0 6px}
+.p2-lead{font-size:13px;color:var(--p2-muted);line-height:1.8;margin:0 0 4px;max-width:68ch}
+.p2-note{font-size:11px;color:var(--p2-muted);line-height:1.7;margin:16px 0 0}
 </style>
 </head>
 <body class="markt-root">
@@ -504,7 +511,7 @@
 <!-- INVESTMENT STRUCTURE -->
 <section id="kaufmodus" class="p2-section p2-section--tight">
   <div class="container">
-    <div class="p2-eyebrow">Erwerbsform</div>
+    <div class="p2-section-label">Erwerbsform</div>
     <h2 class="p2-h2">Wie möchten Sie kaufen?</h2>
     <p class="p2-lead">Zwei Wege im selben Projekt. Verfügbarkeit, Zusammensetzung und
     Preis werden objektbezogen bestätigt.</p>
@@ -526,7 +533,7 @@
 </section>
 <section id="pakete" class="p2-section">
   <div class="container">
-    <div class="p2-eyebrow">Einheitenpakete</div>
+    <div class="p2-section-label">Einheitenpakete</div>
     <h2 class="p2-h2">Einheitenpakete für Investoren</h2>
     <p class="p2-lead">Vier veröffentlichte Paketgrößen im Projekt Gardenia Hills.
     Stand der Angaben: 04/2025 — Zusammensetzung, Verfügbarkeit und Gesamtpreis werden
@@ -566,7 +573,7 @@
     beziehungsweise Entwickler bestätigt. Zwischenverkauf, Reservierung und
     Preisänderungen bleiben vorbehalten.</p>
     <div style="margin-top:18px;">
-      <a class="btn btn--gold" href="/investor-check/?objekt=Gardenia%20Hills%20Einheitenpaket">Käufer-Check starten</a>
+      <a class="btn primary" href="/investor-check/?objekt=Gardenia%20Hills%20Einheitenpaket">Käufer-Check starten</a>
     </div>
   </div>
 </section>
