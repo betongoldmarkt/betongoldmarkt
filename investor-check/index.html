@@ -27,6 +27,14 @@
 .ic-step.active{display:flex;}
 @keyframes icFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .ic-label{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold,#d6b25e);margin-bottom:10px;font-weight:700;}
+/* CONV-MK-PERC-2 — visible object context. Presentation only: reads the
+   existing ?objekt= parameter and restates the selected object above the
+   first question. Text is inserted via textContent, never as HTML. Hidden
+   unless a valid non-empty value is present, so the generic experience is
+   byte-for-byte unchanged without the parameter. */
+.ic-ctx{max-width:520px;width:100%;margin:0 auto 18px;padding:10px 14px;border:1px solid rgba(214,178,94,.28);border-radius:10px;background:rgba(214,178,94,.05);}
+.ic-ctx-k{display:block;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.42);font-weight:700;margin-bottom:3px;}
+.ic-ctx-v{display:block;font-size:.86rem;font-weight:600;color:var(--text,#fff);line-height:1.35;overflow-wrap:anywhere;}
 .ic-q{font-size:clamp(1.25rem,4vw,1.7rem);font-weight:700;color:var(--text,#fff);margin:0 0 26px;line-height:1.3;}
 .ic-options{display:flex;flex-direction:column;gap:10px;width:100%;}
 .ic-opt{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.11);border-radius:14px;padding:16px 20px;font-size:.95rem;font-weight:600;color:var(--text,#fff);cursor:pointer;text-align:left;transition:background .15s,border-color .15s,transform .1s;display:flex;align-items:center;gap:12px;}
@@ -85,6 +93,7 @@ textarea.ic-inp{resize:vertical;min-height:74px;font-family:inherit;}
   <!-- S1: ZIEL -->
   <div class="ic-step active" id="s1">
     <div class="ic-prog"><div class="ic-prog-d active"></div><div class="ic-prog-d"></div><div class="ic-prog-d"></div><div class="ic-prog-d"></div></div>
+    <div class="ic-ctx" id="ic-ctx" hidden><span class="ic-ctx-k">Ihre Anfrage</span><span class="ic-ctx-v" id="ic-ctx-v"></span></div>
     <div class="ic-label">Schritt 1 von 4</div>
     <p class="ic-q">Was ist Ihr Ziel?</p>
     <div class="ic-options">
@@ -92,7 +101,6 @@ textarea.ic-inp{resize:vertical;min-height:74px;font-family:inherit;}
       <button class="ic-opt" onclick="icSet('ziel','Eigennutzung');icGo(2)"><span class="ic-opt-icon">⌂</span><span>Eigennutzung</span></button>
       <button class="ic-opt" onclick="icSet('ziel','Noch unsicher');icGo(2)"><span class="ic-opt-icon">○</span><span>Noch unsicher</span></button>
     </div>
-    <div class="ic-sys">MARKT · INVESTOR CHECK · DIETRICH OS</div>
   </div>
 
   <!-- S2: KAPITAL -->
@@ -298,6 +306,21 @@ textarea.ic-inp{resize:vertical;min-height:74px;font-family:inherit;}
 </div></div></footer>
 
 <script>
+/* CONV-MK-PERC-2 — restate the selected object. Presentation only:
+   no hidden field, no form-schema change, no scoring or attribution effect. */
+(function(){
+  try{
+    var raw = new URLSearchParams(window.location.search).get('objekt');
+    if(!raw) return;
+    var v = raw.replace(/[\u0000-\u001F\u007F]/g,'').trim();
+    if(!v) return;
+    if(v.length > 90) v = v.slice(0,90) + '…';
+    var box = document.getElementById('ic-ctx'), val = document.getElementById('ic-ctx-v');
+    if(!box || !val) return;
+    val.textContent = v;              /* textContent: query string can never become markup */
+    box.removeAttribute('hidden');
+  }catch(e){}
+})();
 function icGo(step){
   document.querySelectorAll('.ic-step').forEach(function(el){el.classList.remove('active');});
   var s=document.getElementById('s'+step);

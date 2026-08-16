@@ -47,16 +47,21 @@
 .f18 .f18-hero { position: relative; min-height: 92vh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; padding-block: 0; }
 .f18 .f18-hero picture, .f18 .f18-hero picture img { position: absolute; inset: 0; width: 100%; height: 100%; }
 .f18 .f18-hero picture img { object-fit: cover; object-position: 72% center; }
+/* CONV-MK-PERC-1 — desktop first-screen rhythm.
+   Measured at 1294x645: USP labels ended exactly on the fold (631-645) and the
+   primary CTA sat at 756, 111px below it. Only vertical spacing and the h1
+   line-height were tightened; no element was moved, resized in font-size,
+   removed or rewritten. Mobile (<=780px) rules are untouched. */
 .f18 .f18-hero-scrim { position: absolute; inset: 0; background:
   linear-gradient(105deg, rgba(9,9,11,0.82) 0%, rgba(9,9,11,0.35) 46%, rgba(9,9,11,0.55) 100%),
   linear-gradient(180deg, rgba(9,9,11,0.15) 0%, rgba(9,9,11,0.0) 45%, rgba(9,9,11,0.9) 92%); }
-.f18 .f18-hero-inner { position: relative; z-index: 1; padding: 140px 24px 32px; max-width: 1200px; margin-inline: auto; width: 100%; }
-.f18 .f18-hero h1 { font-size: clamp(2.2rem, 5vw, 3.9rem); color: #fff; margin: 14px 0 16px; max-width: 17ch; line-height: 1.06; }
+.f18 .f18-hero-inner { position: relative; z-index: 1; padding: 48px 24px 32px; max-width: 1200px; margin-inline: auto; width: 100%; }
+.f18 .f18-hero h1 { font-size: clamp(2.2rem, 5vw, 3.9rem); color: #fff; margin: 8px 0 8px; max-width: 17ch; line-height: 0.98; }
 .f18 .f18-hero-sub { color: var(--f18-text2); max-width: 52ch; font-size: 1.06rem; }
-.f18 .f18-anchors { display: flex; gap: 40px; margin: 30px 0 6px; flex-wrap: wrap; }
+.f18 .f18-anchors { display: flex; gap: 40px; margin: 10px 0 6px; flex-wrap: wrap; }
 .f18 .f18-anchor .f18-num { font-size: clamp(1.6rem, 3vw, 2.3rem); color: var(--f18-gold); font-weight: 700; display: block; }
 .f18 .f18-anchor small { color: var(--f18-mut); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; }
-.f18 .f18-qual { font-size: 0.82rem; color: var(--f18-mut); max-width: 62ch; margin: 4px 0 22px; }
+.f18 .f18-qual { font-size: 0.82rem; color: var(--f18-mut); max-width: 84ch; margin: 2px 0 6px; }
 .f18 .f18-hero-cta { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
 .f18 .f18-btn { display: inline-block; padding: 14px 26px; border-radius: 4px; font-weight: 600; font-size: 0.92rem; }
 .f18 .f18-btn--gold { background: var(--f18-gold); color: #131313; }
