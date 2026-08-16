@@ -289,6 +289,21 @@
 }
 .markt-root *, .markt-root *::before, .markt-root *::after { box-sizing: border-box; }
 .markt-root a { color: var(--mc-gold); text-decoration: none; }
+
+/* CONV-MK-P0-1 — object-page CTA label.
+   The generic rule above is (0,1,1) and outranks the object pages' own
+   .btn-p1-gold { color:#09090b } at (0,1,0), so the label was painted in
+   --mc-gold (#C9A84C) on the button's --p1-gold (#C9A84C) background:
+   contrast 1:1, label invisible. Restored at (0,2,1). The generic Markt
+   link colour above is deliberately left untouched. The :hover variant is
+   required because .markt-root a:hover (0,2,1) would otherwise repaint the
+   label in --mc-gold-bright on the lighter hover background (contrast 1.08)
+   and add an underline. Ours is (0,3,1). */
+.markt-root a.btn-p1-gold,
+.markt-root a.btn-p1-gold:hover {
+  color: #09090b;
+  text-decoration: none;
+}
 .markt-root a:hover { color: var(--mc-gold-bright); text-decoration: underline; }
 .markt-root img { max-width: 100%; height: auto; display: block; }
 .markt-root hr { border: 0; border-top: 1px solid var(--mc-line); }
