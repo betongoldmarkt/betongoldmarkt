@@ -17,8 +17,8 @@
 
 ## Rollen im Ökosystem
 
-- **Beton Gold Markt** (diese Website): Objekte, Projekte, Erwerbsmodelle und Transaktionsroute. Antwort auf die Frage „Was kann ich erwerben und auf welchem Weg?“
-- **Beton Gold Kapital**: Kapitalarchitektur, individuelles Suchmandat, strategischer Zugang und Investorenvertretung. Antwort auf die Frage „Wie strukturiere ich Kapital und wer vertritt mich?“
+- **Beton Gold Markt** (diese Website): Objekte, Projekte, individuelle Objektsuche, Objektprüfung, Erwerbsmodelle, Käufervertretung vor Ort und Transaktionsroute. Antwort auf die Frage „Was kann ich erwerben, wer vertritt mich beim Kauf und auf welchem Weg?“
+- **Beton Gold Kapital**: Kapitalarchitektur, Investorenmandat, Kapitalallokation, Investor Access und Investorenvertretung. Antwort auf die Frage „Wie strukturiere ich Kapital und wer vertritt mich als Investor?“ Off-Market-, Bank-, Auktions-, Hospitality- und Industriethemen werden dort innerhalb von Strategie und Mandat interpretiert; das konkrete Angebot liegt bei Beton Gold Markt.
 
 ## Geografie
 
@@ -30,9 +30,9 @@
 
 ## Einstiegspunkte
 
-- Konkreter Erwerb, veröffentlichtes Objekt, projekt- oder objektbezogenes Zahlungsmodell → Beton Gold Markt
-- Mandat, Kapitalstruktur, individuelle Suche, Investorenvertretung → Beton Gold Kapital
-- Route unklar → Investor Check (https://betongoldmarkt.de/investor-check/)
+- Konkreter Erwerb, veröffentlichtes Objekt, individuelle Objektsuche, Objektprüfung, Käufervertretung, projekt- oder objektbezogenes Zahlungsmodell → Beton Gold Markt (Käufer-Check: https://betongoldmarkt.de/investor-check/)
+- Investorenmandat, Kapitalstruktur, Kapitalallokation, Investorenvertretung → Beton Gold Kapital (Investor Check: https://betongoldkapital.de/investor-check/)
+- Route unklar: dominantes Problem entscheidet — Objektfrage → Käufer-Check (https://betongoldmarkt.de/investor-check/); Kapitalfrage → Investor Check (https://betongoldkapital.de/investor-check/)
 
 ## Kernseiten
 
@@ -48,8 +48,8 @@
 - [Dokumente beim Immobilienkauf](https://betongoldmarkt.de/dokumente-immobilienkauf-bulgarien/): Erforderliche Unterlagen.
 - [Grundbuch Bulgarien](https://betongoldmarkt.de/grundbuch-bulgarien/): Eigentumseintragung und Grundbuch.
 - [Notar beim Immobilienkauf](https://betongoldmarkt.de/notar-immobilienkauf-bulgarien/): Rolle und Ablauf beim Notar.
-- [Betreuung Bulgarien](https://betongoldmarkt.de/betreuung-bulgarien/): Begleitung und Orientierung nach dem Kauf.
-- [Investor Check](https://betongoldmarkt.de/investor-check/): Strukturierte Käuferanfrage.
+- [Käufervertretung & Betreuung Bulgarien](https://betongoldmarkt.de/betreuung-bulgarien/): Käufervertretung, deutschsprachiger Ansprechpartner vor Ort, Unterschied zum Makler, Betreuung nach dem Kauf.
+- [Käufer-Check](https://betongoldmarkt.de/investor-check/): Strukturierte Käuferanfrage (Produktname Käufer-Check; URL bleibt /investor-check/).
 - [Impressum](https://betongoldmarkt.de/impressum/): Betreiberangaben zum Diensteanbieter.
 
 ## Regionale Hubs
