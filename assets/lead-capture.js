@@ -54,8 +54,8 @@
     return out;
   }
 
-  function ssGet(k) { try { return w.sessionStorage.getItem(k) || ''; } catch (e) { return ''; } }
-  function ssSet(k, v) { try { w.sessionStorage.setItem(k, v); } catch (e) {} }
+  function ssGet(k) { try { var c = w.localStorage; if (c.getItem('bgk_analytics_consent') !== 'granted' && c.getItem('bgm_analytics_consent') !== 'granted') { return ''; } return w.sessionStorage.getItem(k) || ''; } catch (e) { return ''; } }  // STAGE2-FINAL: stored attribution is used only with analytics consent
+  function ssSet(k, v) { try { var c = w.localStorage; if (c.getItem('bgk_analytics_consent') !== 'granted' && c.getItem('bgm_analytics_consent') !== 'granted') { return; } w.sessionStorage.setItem(k, v); } catch (e) {} }  // STAGE2: attribution storage only with analytics consent
 
   function firstTouch() {
     var raw = ssGet(FT_KEY);
@@ -196,7 +196,7 @@ window.BGM = window.BGM || (function(){
         .then(function(r){ return r.json(); })
         .then(function(j){
           window.__BGM_MAP = j;
-          try { window.sessionStorage.setItem(MAP_CACHE_KEY, JSON.stringify(j)); } catch (e) {}
+          try { if (window.localStorage.getItem('bgm_analytics_consent') === 'granted') { window.sessionStorage.setItem(MAP_CACHE_KEY, JSON.stringify(j)); } } catch (e) {}  // STAGE2: cache only with analytics consent
           if (cb) cb(j);
         })
         .catch(function(){ if (cb) cb(null); });
@@ -233,6 +233,7 @@ window.BGM = window.BGM || (function(){
   function captureFirstTouch(){
     loadMap(function(){
       try {
+        if (window.localStorage.getItem('bgm_analytics_consent') !== 'granted') return; // STAGE2: first-touch storage only with analytics consent
         if (window.sessionStorage.getItem(FIRST_TOUCH_KEY)) return;
         var sig = resolveSignal(window.location.href, true);
         if (!sig || !sig.content_id) return;
@@ -251,8 +252,10 @@ window.BGM = window.BGM || (function(){
       } catch (e) {}
     });
   }
+  // STAGE2-FINAL: without analytics consent, earlier stored Markt attribution keys are removed.
+  try { if (window.localStorage.getItem('bgm_analytics_consent') !== 'granted') { ['bgm_first_touch','bgm_landing_search','bgm_landing_url','bgm_content_map'].forEach(function(k){ window.sessionStorage.removeItem(k); }); } } catch (e) {}
   function getFirstTouch(){
-    try { var s = window.sessionStorage.getItem(FIRST_TOUCH_KEY); return s ? JSON.parse(s) : null; } catch (e) { return null; }
+    try { if (window.localStorage.getItem('bgm_analytics_consent') !== 'granted') { return null; } var s = window.sessionStorage.getItem(FIRST_TOUCH_KEY); return s ? JSON.parse(s) : null; } catch (e) { return null; }
   }
   function attribution(payload, landingUrl){
     var ft = getFirstTouch();
@@ -364,7 +367,7 @@ try { window.BGM.captureFirstTouch(); } catch (e) {}
     // (before trackers can strip utm/pub via history.replaceState); fall back to
     // the current URL. Make maps {{1.page_url}} → MARKT_LEADS.Page URL.
     var bgmLanding = '';
-    try { bgmLanding = window.sessionStorage.getItem('bgm_landing_url') || ''; } catch (e) {}
+    try { if (window.localStorage.getItem('bgm_analytics_consent') === 'granted') { bgmLanding = window.sessionStorage.getItem('bgm_landing_url') || ''; } } catch (e) {}  // STAGE2-FINAL: stored landing only with consent
     var landingUrl = bgmLanding || window.location.href;
 
     // AIR-009 — registry-driven attribution (first-touch preferred). Injects cid

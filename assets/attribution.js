@@ -53,8 +53,8 @@
     return out;
   }
 
-  function ssGet(k) { try { return w.sessionStorage.getItem(k) || ''; } catch (e) { return ''; } }
-  function ssSet(k, v) { try { w.sessionStorage.setItem(k, v); } catch (e) {} }
+  function ssGet(k) { try { var c = w.localStorage; if (c.getItem('bgk_analytics_consent') !== 'granted' && c.getItem('bgm_analytics_consent') !== 'granted') { return ''; } return w.sessionStorage.getItem(k) || ''; } catch (e) { return ''; } }  // STAGE2-FINAL: stored attribution is used only with analytics consent
+  function ssSet(k, v) { try { var c = w.localStorage; if (c.getItem('bgk_analytics_consent') !== 'granted' && c.getItem('bgm_analytics_consent') !== 'granted') { return; } w.sessionStorage.setItem(k, v); } catch (e) {} }  // STAGE2: attribution storage only with analytics consent
 
   function firstTouch() {
     var raw = ssGet(FT_KEY);
@@ -151,6 +151,9 @@
     }
     return payload;
   }
+
+  // STAGE2-FINAL: without analytics consent previously stored attribution is removed, not reused.
+  try { var cc = w.localStorage; if (cc.getItem('bgk_analytics_consent') !== 'granted' && cc.getItem('bgm_analytics_consent') !== 'granted') { w.sessionStorage.removeItem(FT_KEY); w.sessionStorage.removeItem(LEGACY_LANDING_KEY); } } catch (e) {}
 
   w.BGAttribution = {
     VERSION: 'P0-002',

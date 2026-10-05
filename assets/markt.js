@@ -54,8 +54,8 @@
     return out;
   }
 
-  function ssGet(k) { try { return w.sessionStorage.getItem(k) || ''; } catch (e) { return ''; } }
-  function ssSet(k, v) { try { w.sessionStorage.setItem(k, v); } catch (e) {} }
+  function ssGet(k) { try { var c = w.localStorage; if (c.getItem('bgk_analytics_consent') !== 'granted' && c.getItem('bgm_analytics_consent') !== 'granted') { return ''; } return w.sessionStorage.getItem(k) || ''; } catch (e) { return ''; } }  // STAGE2-FINAL: stored attribution is used only with analytics consent
+  function ssSet(k, v) { try { var c = w.localStorage; if (c.getItem('bgk_analytics_consent') !== 'granted' && c.getItem('bgm_analytics_consent') !== 'granted') { return; } w.sessionStorage.setItem(k, v); } catch (e) {} }  // STAGE2: attribution storage only with analytics consent
 
   function firstTouch() {
     var raw = ssGet(FT_KEY);
@@ -196,7 +196,7 @@ window.BGM = window.BGM || (function(){
         .then(function(r){ return r.json(); })
         .then(function(j){
           window.__BGM_MAP = j;
-          try { window.sessionStorage.setItem(MAP_CACHE_KEY, JSON.stringify(j)); } catch (e) {}
+          try { if (window.localStorage.getItem('bgm_analytics_consent') === 'granted') { window.sessionStorage.setItem(MAP_CACHE_KEY, JSON.stringify(j)); } } catch (e) {}  // STAGE2: cache only with analytics consent
           if (cb) cb(j);
         })
         .catch(function(){ if (cb) cb(null); });
@@ -234,6 +234,7 @@ window.BGM = window.BGM || (function(){
   function captureFirstTouch(){
     loadMap(function(){
       try {
+        if (window.localStorage.getItem('bgm_analytics_consent') !== 'granted') return; // STAGE2: first-touch storage only with analytics consent
         if (window.sessionStorage.getItem(FIRST_TOUCH_KEY)) return; // never overwrite
         var sig = resolveSignal(window.location.href, true);
         if (!sig || !sig.content_id) return; // excluded/unknown → no first-touch
@@ -252,8 +253,10 @@ window.BGM = window.BGM || (function(){
       } catch (e) {}
     });
   }
+  // STAGE2-FINAL: without analytics consent, earlier stored Markt attribution keys are removed.
+  try { if (window.localStorage.getItem('bgm_analytics_consent') !== 'granted') { ['bgm_first_touch','bgm_landing_search','bgm_landing_url','bgm_content_map'].forEach(function(k){ window.sessionStorage.removeItem(k); }); } } catch (e) {}
   function getFirstTouch(){
-    try { var s = window.sessionStorage.getItem(FIRST_TOUCH_KEY); return s ? JSON.parse(s) : null; } catch (e) { return null; }
+    try { if (window.localStorage.getItem('bgm_analytics_consent') !== 'granted') { return null; } var s = window.sessionStorage.getItem(FIRST_TOUCH_KEY); return s ? JSON.parse(s) : null; } catch (e) { return null; }
   }
   // Build the attribution fields for a lead payload (first-touch preferred).
   function attribution(payload, landingUrl){
@@ -353,7 +356,7 @@ document.addEventListener('click', (e)=>{
     // strip utm/pub via history.replaceState); fall back to the current URL.
     // The static hidden page_url field holds only the canonical URL w/o query.
     var bgmLanding = '';
-    try { bgmLanding = window.sessionStorage.getItem('bgm_landing_url') || ''; } catch (e) {}
+    try { if (window.localStorage.getItem('bgm_analytics_consent') === 'granted') { bgmLanding = window.sessionStorage.getItem('bgm_landing_url') || ''; } } catch (e) {}  // STAGE2-FINAL: stored landing only with consent
     payload['page_url']  = bgmLanding || window.location.href;
     // Normalize phone
     var phone = payload['telefon'] || payload['phone'] || '';

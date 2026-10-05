@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="de"><head>
-<script>(function(){try{var R=/[?&](utm_source|utm_medium|utm_campaign|utm_content|fbclid|gclid|pub)=/,s=window.location.search||"",k="bgm_landing_url",e=sessionStorage.getItem(k);if((R.test(s)&&!(e&&R.test(e)))||!e){sessionStorage.setItem(k,window.location.href);sessionStorage.setItem("bgm_landing_search",s);}}catch(x){}})();</script>
+<script>(function(){try{if(localStorage.getItem("bgm_analytics_consent")!=="granted")return;var R=/[?&](utm_source|utm_medium|utm_campaign|utm_content|fbclid|gclid|pub)=/,s=window.location.search||"",k="bgm_landing_url",e=sessionStorage.getItem(k);if((R.test(s)&&!(e&&R.test(e)))||!e){sessionStorage.setItem(k,window.location.href);sessionStorage.setItem("bgm_landing_search",s);}}catch(x){}})();</script>
 
 
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
