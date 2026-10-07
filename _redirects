@@ -2,6 +2,9 @@
 /de/*  /:splat  301
 
 # Thin pages → canonical
+# CONSOLIDATION BATCH A (revised 2026-10-07) — PREVIEW BRANCH ONLY, not merged to main
+/grundstuecke-investment                      /grundstuecke-bulgarien/         301!
+/grundstuecke-investment/                     /grundstuecke-bulgarien/         301!
 /immobilien-bulgarien-2026/  /immobilien-bulgarien/  301!
 /immobilien-bulgarien-eu-vorteile/  /immobilien-bulgarien/  301!
 /immobilien-deutschland/  /angebote/  301!
